@@ -207,6 +207,27 @@ ul {
   flex-shrink: 0;
 }
 
+.lang-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  line-height: 1;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* Burger */
 .nav__burger {
   display: none;
@@ -540,7 +561,8 @@ ul {
 
 @media (max-width: 767px) {
   .nav__links,
-  .nav__cta {
+  .nav__cta,
+  .lang-toggle {
     display: none;
   }
 
@@ -573,11 +595,19 @@ ul {
     border-bottom: none;
   }
 
-  .nav--open .nav__cta {
+  .nav--open .nav__cta,
+  .nav--open .lang-toggle {
     display: inline-flex;
     position: absolute;
-    top: calc(64px + 3 * 3.25rem + 2rem);
     left: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .nav--open .nav__cta {
+    top: calc(64px + 3 * 3.25rem + 2rem);
+  }
+
+  .nav--open .lang-toggle {
+    top: calc(64px + 3 * 3.25rem + 5rem);
   }
 }
 

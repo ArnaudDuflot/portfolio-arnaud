@@ -28,11 +28,12 @@
     <div class="nav__inner container">
       <a href="#home" class="nav__logo">Arnaud Duflot</a>
       <nav class="nav__links" aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#about">About</a>
+        <a href="#home" data-i18n="nav-home">Home</a>
+        <a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a>
+        <a href="#about" data-i18n="nav-about">About</a>
       </nav>
-      <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--primary nav__cta" download aria-label="Download Arnaud Duflot's resume as PDF">
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+      <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--primary nav__cta" download aria-label="Download Arnaud Duflot's resume as PDF" data-i18n="nav-download">
         Download Resume
       </a>
       <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false">
@@ -58,32 +59,32 @@
           >
         </div>
         <div class="hero__content">
-          <h1 class="hero__title">
+          <h1 class="hero__title" data-i18n="hero-title">
             Hi, I'm Arnaud Duflot, a <span class="text--accent">Product Operations Specialist</span> building AI-powered workflows.
           </h1>
 
           <p class="hero__status">
-            <span class="hero__status-label">STATUS:</span>
-            <span class="hero__status-value">Open to opportunities</span>
+            <span class="hero__status-label" data-i18n="hero-status-label">STATUS:</span>
+            <span class="hero__status-value" data-i18n="hero-status-value">Open to opportunities</span>
           </p>
 
-          <p class="hero__subtitle">
+          <p class="hero__subtitle" data-i18n="hero-subtitle">
             Currently scaling product operations at HelloBible (15k → 140k users in 14 months).
           </p>
 
           <div class="hero__actions">
             <div class="hero__actions-row">
-              <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--primary" download aria-label="Download Arnaud Duflot's resume as PDF">
+              <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--primary" download aria-label="Download Arnaud Duflot's resume as PDF" data-i18n="hero-download">
                 Download Resume
               </a>
-              <a href="#portfolio" class="btn btn--outline">
+              <a href="#portfolio" class="btn btn--outline" data-i18n="hero-see-work">
                 See My Work
               </a>
             </div>
-          <button class="btn btn--copy" id="copyEmailBtn" aria-label="Copy email address to clipboard">
+          <button class="btn btn--copy" id="copyEmailBtn" aria-label="Copy email address to clipboard" data-i18n="hero-copy-email">
               Copy Email
             </button>
-            <div class="copy-toast" id="copyToast" role="status" aria-live="polite">Copied!</div>
+            <div class="copy-toast" id="copyToast" role="status" aria-live="polite" data-i18n="hero-copied">Copied!</div>
           </div>
           </div>
         </div>
@@ -93,18 +94,18 @@
     <!-- About -->
     <section id="about" class="section about">
       <div class="container">
-        <h2 class="section__title">About</h2>
+        <h2 class="section__title" data-i18n="about-title">About</h2>
 
         <div class="about__content">
-          <p>
+          <p data-i18n="about-p1">
             I'm a Product Operations Specialist with hands-on AI workflow expertise. I identify operational frictions and build the systems that resolve them - from automation scripts to QA frameworks to cross-functional process design.
           </p>
 
-          <p>
+          <p data-i18n="about-p2">
             Currently right hand to the founder at <strong>HelloBible</strong>, where I scale product operations across QA, support, KPIs, and AI tooling. Before that, I was Chief of Staff at <strong>Broke And Abroad</strong> (travel-tech) and built ML churn models at <strong>Gozem</strong> (African superapp).
           </p>
 
-          <p>
+          <p data-i18n="about-p3">
             Background in Financial Data Intelligence (Rennes School of Business, MSc + Grande École program). Based in Paris, fluent in English.
           </p>
         </div>
@@ -114,8 +115,8 @@
     <!-- Contact -->
     <section id="contact" class="section contact">
       <div class="container">
-        <h2 class="section__title">Let's talk</h2>
-        <p class="contact__text">
+        <h2 class="section__title" data-i18n="contact-title">Let's talk</h2>
+        <p class="contact__text" data-i18n="contact-text">
           Open to Product Ops, Chief of Staff, and adjacent operations roles. Based in Paris, open to remote.
         </p>
 
@@ -123,13 +124,13 @@
           <button class="btn btn--outline btn--copy-contact" id="copyEmailContact" aria-label="Copy email address to clipboard">
             duflot.arnaud@gmail.com
           </button>
-          <a href="https://www.linkedin.com/in/arnaud-duflot-383192119/" class="btn btn--outline" target="_blank" rel="noopener noreferrer" aria-label="Visit Arnaud Duflot's LinkedIn profile">
+          <a href="https://www.linkedin.com/in/arnaud-duflot-383192119/" class="btn btn--outline" target="_blank" rel="noopener noreferrer" aria-label="Visit Arnaud Duflot's LinkedIn profile" data-i18n="contact-linkedin">
             LinkedIn
           </a>
-          <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--outline" download aria-label="Download Arnaud Duflot's resume as PDF">
+          <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--outline" download aria-label="Download Arnaud Duflot's resume as PDF" data-i18n="contact-download">
             Download Resume
           </a>
-          <div class="copy-toast" id="copyToastContact" role="status" aria-live="polite">Copied!</div>
+          <div class="copy-toast" id="copyToastContact" role="status" aria-live="polite" data-i18n="contact-copied">Copied!</div>
         </div>
       </div>
     </section>
@@ -137,19 +138,19 @@
     <!-- Portfolio -->
     <section id="portfolio" class="section portfolio">
       <div class="container">
-        <h2 class="section__title">Portfolio</h2>
-        <p class="section__subtitle">Selected work - operations systems I've built</p>
+        <h2 class="section__title" data-i18n="portfolio-title">Portfolio</h2>
+        <p class="section__subtitle" data-i18n="portfolio-subtitle">Selected work - operations systems I've built</p>
 
         <div class="portfolio__grid">
 
           <!-- Case Study 1 -->
           <article class="card">
-            <span class="card__tag">AI WORKFLOW AUTOMATION</span>
-            <h3 class="card__title">YouVersion Reading Plans Translation Pipeline</h3>
-            <p class="card__context">
+            <span class="card__tag" data-i18n="cs1-tag">AI WORKFLOW AUTOMATION</span>
+            <h3 class="card__title" data-i18n="cs1-title">YouVersion Reading Plans Translation Pipeline</h3>
+            <p class="card__context" data-i18n="cs1-context">
               HelloBible needed to localize YouVersion reading plans across 50+ languages - a process taking ~110 hours per language manually.
             </p>
-            <p class="card__result">
+            <p class="card__result" data-i18n="cs1-result">
               <strong>110 hours → 10 minutes per language.</strong> Scalable to 50+ languages. Now production-ready infrastructure.
             </p>
             <div class="card__stack">
@@ -162,12 +163,12 @@
 
           <!-- Case Study 2 -->
           <article class="card">
-            <span class="card__tag">USER INSIGHT SYSTEM</span>
-            <h3 class="card__title">Cross-Channel Voice of Customer Pipeline</h3>
-            <p class="card__context">
+            <span class="card__tag" data-i18n="cs2-tag">USER INSIGHT SYSTEM</span>
+            <h3 class="card__title" data-i18n="cs2-title">Cross-Channel Voice of Customer Pipeline</h3>
+            <p class="card__context" data-i18n="cs2-context">
               Bug reports and feature requests scattered across 5 channels (email, Zendesk, WhatsApp beta, App Store, Play Store) with no unified view for the product team.
             </p>
-            <p class="card__result">
+            <p class="card__result" data-i18n="cs2-result">
               <strong>Single source of truth</strong> for user feedback. Directly informs sprint priorities. Reduced backlog grooming time significantly.
             </p>
             <div class="card__stack">
@@ -180,12 +181,12 @@
 
           <!-- Case Study 3 -->
           <article class="card">
-            <span class="card__tag">PERSONAL TOOLING</span>
-            <h3 class="card__title">Two Telegram Bots Used Daily on the Job</h3>
-            <p class="card__context">
+            <span class="card__tag" data-i18n="cs3-tag">PERSONAL TOOLING</span>
+            <h3 class="card__title" data-i18n="cs3-title">Two Telegram Bots Used Daily on the Job</h3>
+            <p class="card__context" data-i18n="cs3-context">
               Needed instant recall of work context and a low-friction way to stay ahead on AI/tech trends without doom-scrolling.
             </p>
-            <p class="card__result">
+            <p class="card__result" data-i18n="cs3-result">
               <strong>Daily-driver tools</strong> I actively use on the job. Demonstrates ability to identify a personal friction and ship a working solution end-to-end.
             </p>
             <div class="card__stack">
@@ -199,12 +200,12 @@
 
           <!-- Case Study 4 -->
           <article class="card">
-            <span class="card__tag">SUPPORT OPS</span>
-            <h3 class="card__title">Instant Premium User Identification in Support</h3>
-            <p class="card__context">
+            <span class="card__tag" data-i18n="cs4-tag">SUPPORT OPS</span>
+            <h3 class="card__title" data-i18n="cs4-title">Instant Premium User Identification in Support</h3>
+            <p class="card__context" data-i18n="cs4-context">
               Support agents (myself, solo) couldn't quickly identify premium users when triaging tickets, causing slower response on high-priority cases.
             </p>
-            <p class="card__result">
+            <p class="card__result" data-i18n="cs4-result">
               <strong>3,200+ tickets resolved.</strong> 80% macro coverage. Premium users identified in real-time. Foundation for future support scaling.
             </p>
             <div class="card__stack">
@@ -222,11 +223,11 @@
     <!-- Skills -->
     <section id="skills" class="section skills">
       <div class="container">
-        <h2 class="section__title">Skills &amp; Tools</h2>
+        <h2 class="section__title" data-i18n="skills-title">Skills &amp; Tools</h2>
 
         <div class="skills__grid">
           <div class="skills__group">
-            <h3 class="skills__label">AI &amp; Automation</h3>
+            <h3 class="skills__label" data-i18n="skills-ai">AI &amp; Automation</h3>
             <ul class="skills__list">
               <li>Claude Code</li>
               <li>OpenRouter</li>
@@ -237,7 +238,7 @@
           </div>
 
           <div class="skills__group">
-            <h3 class="skills__label">Product Operations</h3>
+            <h3 class="skills__label" data-i18n="skills-product-ops">Product Operations</h3>
             <ul class="skills__list">
               <li>QA frameworks</li>
               <li>Release management</li>
@@ -249,7 +250,7 @@
           </div>
 
           <div class="skills__group">
-            <h3 class="skills__label">Data &amp; Analytics</h3>
+            <h3 class="skills__label" data-i18n="skills-data">Data &amp; Analytics</h3>
             <ul class="skills__list">
               <li>SQL</li>
               <li>BigQuery</li>
@@ -260,7 +261,7 @@
           </div>
 
           <div class="skills__group">
-            <h3 class="skills__label">Support &amp; CRM</h3>
+            <h3 class="skills__label" data-i18n="skills-support">Support &amp; CRM</h3>
             <ul class="skills__list">
               <li>Zendesk</li>
               <li>RevenueCat</li>
