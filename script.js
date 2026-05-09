@@ -141,7 +141,7 @@
 
     var toggle = document.getElementById("langToggle");
     if (toggle) {
-      toggle.textContent = lang === "fr" ? "EN" : "FR";
+      toggle.textContent = lang === "fr" ? "🇬🇧 English" : "🇫🇷 Français";
     }
   }
 
