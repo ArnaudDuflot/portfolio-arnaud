@@ -83,10 +83,41 @@ const data = project.data;
       <div class="project__content reveal">
         <Content />
       </div>
+
+      <!-- Contact / CTA -->
+      <div class="project__contact reveal">
+        <h3 class="project__contact-title">Want to talk about something like this?</h3>
+        <p class="project__contact-lede">
+          Email me, send a LinkedIn message, or download the CV. Conversations are what this site is built for.
+        </p>
+        <div class="project__contact-actions">
+          <button class="btn btn--primary" id="copyEmailBtnProject" type="button" aria-label="Copy email">
+            duflot.arnaud@gmail.com
+          </button>
+          <a href="https://www.linkedin.com/in/arnaud-duflot-383192119/" class="btn btn--ghost" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--ghost" download>Download CV</a>
+        </div>
+        <div class="project__contact-toast" id="copyToastProject" role="status" aria-live="polite">Email copied to clipboard</div>
+      </div>
     </div>
   </article>
 
   <Footer slot="footer" />
+
+  <script>
+    const btn = document.getElementById('copyEmailBtnProject');
+    const toast = document.getElementById('copyToastProject');
+    const email = 'duflot.arnaud@gmail.com';
+    btn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        toast?.classList.add('visible');
+        setTimeout(() => toast?.classList.remove('visible'), 2000);
+      } catch (e) {
+        console.error('Copy failed', e);
+      }
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -102,6 +133,61 @@ const data = project.data;
     transition: color 0.2s var(--ease-out);
   }
 
+  .project__contact {
+    margin-top: 5rem;
+    padding: 3rem 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .project__contact-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .project__contact-lede {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+  }
+
+  .project__contact-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .project__contact-toast {
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--accent-bright);
+    opacity: 0;
+    transition: opacity 0.25s var(--ease-out);
+  }
+
+  .project__contact-toast.visible {
+    opacity: 1;
+  }
+
+  @media (max-width: 767px) {
+    .project__contact {
+      padding: 2rem 1.5rem;
+    }
+    .project__contact-actions {
+      flex-direction: column;
+    }
+    .project__contact-actions .btn {
+      width: 100%;
+    }
+  }
+
   .project__back:hover {
     color: var(--accent-bright);
   }
@@ -112,7 +198,7 @@ const data = project.data;
 
   .project__meta {
     margin-top: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   .project__title {
