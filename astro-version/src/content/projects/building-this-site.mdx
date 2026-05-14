@@ -1,7 +1,7 @@
 ---
 title: "How I Built This Site (Without Ever Building One Before)"
 tag: "META · PORTFOLIO AS CASE STUDY"
-pitch: "I had never built a website. I decomposed the problem into 11 dimensions, attacked each one, and shipped this site. Here's the whole thinking — every decision, every trade-off, every dimension."
+pitch: "I had never built a website. I decomposed the problem into 11 dimensions, attacked each one, and shipped this site. Here's the whole thinking - every decision, every trade-off, every dimension."
 context: "I needed a portfolio that demonstrates my Product Ops thinking. Having never built a site before, I treated it as the perfect demonstration of my method: decompose a problem into its dimensions, pick the right solution for each, ship, iterate."
 result: "This site. Built in Astro. Direction: Dark Forest. Live at arnaudduflot.com. Every dimension documented below."
 stack: ["Astro", "MDX", "TypeScript", "Netlify", "GitHub", "Fraunces", "Inter"]
@@ -14,7 +14,7 @@ order: 5
 
 When I sat down to build my portfolio, I had two realities to face:
 1. I had **never built a website**. Not one. Not even a Wordpress.
-2. I wanted the site to be one of the strongest entries in the portfolio itself — because if I can't demonstrate my Product Ops method on my own personal infrastructure, why would anyone trust me to do it on theirs?
+2. I wanted the site to be one of the strongest entries in the portfolio itself - because if I can't demonstrate my Product Ops method on my own personal infrastructure, why would anyone trust me to do it on theirs?
 
 So I treated this site as a case study in real-time. The same way I'd attack any operational problem: **decompose into dimensions, pick the right answer for each, document the trade-offs, ship.**
 
@@ -34,7 +34,7 @@ Here are the 11 dimensions I attacked, and how I thought about each.
 
 **Decision**: Static site generation. No backend, no database, no auth.
 
-**The trade-off**: A static site can't go down because of a server crash — it's just files on a CDN. The fragility is moved entirely to my deployment pipeline (Netlify) and my Git history. Both have 99.99%+ uptime tracks.
+**The trade-off**: A static site can't go down because of a server crash - it's just files on a CDN. The fragility is moved entirely to my deployment pipeline (Netlify) and my Git history. Both have 99.99%+ uptime tracks.
 
 *To be expanded with my reliability reasoning.*
 
@@ -42,7 +42,7 @@ Here are the 11 dimensions I attacked, and how I thought about each.
 
 **Decision**: CDN-served static site (Netlify).
 
-**The trade-off**: I could serve this site to 1M visitors a month at zero marginal cost. If I ever needed dynamic features (auth, comments, etc.), I'd add them as serverless functions — but I won't pay for capacity I don't use.
+**The trade-off**: I could serve this site to 1M visitors a month at zero marginal cost. If I ever needed dynamic features (auth, comments, etc.), I'd add them as serverless functions - but I won't pay for capacity I don't use.
 
 *To be expanded with capacity planning notes.*
 
@@ -74,7 +74,7 @@ Here are the 11 dimensions I attacked, and how I thought about each.
 
 **Decision**: Dark Forest direction. Forest green accent on near-black background, with gold/ochre for warmth.
 
-**Reasoning**: My positioning is "grounded, thoughtful, builder." The visual language needed to reinforce that — not contradict it with corporate LinkedIn blue. Dark Forest signals premium without arrogance.
+**Reasoning**: My positioning is "grounded, thoughtful, builder." The visual language needed to reinforce that - not contradict it with corporate LinkedIn blue. Dark Forest signals premium without arrogance.
 
 **Identity**: Wordmark "Arnaud Duflot" in Fraunces serif, with a small green dot as signature.
 
@@ -116,6 +116,6 @@ Here are the 11 dimensions I attacked, and how I thought about each.
 
 ## What this case study is meant to demonstrate
 
-Look at the structure of this page. Eleven dimensions, each with a decision, a trade-off, and a path for expansion. That structure is exactly how I approach any operational problem — whether it's a portfolio website, a translation pipeline, or a support flow.
+Look at the structure of this page. Eleven dimensions, each with a decision, a trade-off, and a path for expansion. That structure is exactly how I approach any operational problem - whether it's a portfolio website, a translation pipeline, or a support flow.
 
 The site you're reading is itself the proof.

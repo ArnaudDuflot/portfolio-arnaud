@@ -20,12 +20,32 @@ const data = project.data;
 <BaseLayout title={`${data.title} · Arnaud Duflot`} description={data.pitch}>
   <Nav slot="nav" />
 
+  <!-- Filament SVG overlay - animates on page enter -->
+  <svg class="filaments" aria-hidden="true" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+    <g class="filaments__group">
+      <path class="filament f1" d="M-20,400 Q150,200 400,300 T800,250 T1100,180 T1300,100"/>
+      <path class="filament f2" d="M-20,550 Q200,400 450,480 T750,350 T1050,400 T1300,320"/>
+      <path class="filament f3" d="M600,820 Q580,600 650,400 T700,150 T750,0"/>
+      <path class="filament f4" d="M200,820 Q250,650 200,500 T300,300 T350,100"/>
+      <path class="filament f5" d="M900,820 Q880,620 950,450 T980,200 T1000,0"/>
+      <!-- Nodes at intersections -->
+      <circle class="node" cx="400" cy="300" r="3"/>
+      <circle class="node" cx="450" cy="480" r="2"/>
+      <circle class="node" cx="650" cy="400" r="2.5"/>
+      <circle class="node" cx="250" cy="500" r="2"/>
+      <circle class="node" cx="700" cy="250" r="3"/>
+      <circle class="node" cx="950" cy="450" r="2"/>
+    </g>
+  </svg>
+
   <article class="project">
     <div class="container container--narrow">
       <!-- Header -->
       <header class="project__header reveal">
         <a href="/#work" class="project__back">← Back to work</a>
-        <span class="tag">{data.tag}</span>
+        <div class="project__meta">
+          <span class="tag">{data.tag}</span>
+        </div>
         <h1 class="project__title">{data.title}</h1>
         <p class="project__pitch">{data.pitch}</p>
       </header>
@@ -90,6 +110,11 @@ const data = project.data;
     margin-bottom: 3rem;
   }
 
+  .project__meta {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
   .project__title {
     font-family: var(--font-serif);
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -120,6 +145,8 @@ const data = project.data;
     width: 100%;
     height: auto;
     display: block;
+    object-fit: cover;
+    object-position: top center;
   }
 
   .project__metrics {
@@ -280,5 +307,89 @@ const data = project.data;
     border-radius: var(--radius-md);
     margin: 2rem 0;
     border: 1px solid var(--border);
+  }
+
+  /* Filaments */
+  .filaments {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+
+  .filament {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: drawFilament 2.4s var(--ease-out) forwards;
+  }
+
+  .f1 {
+    stroke: rgba(115, 179, 146, 0.18);
+    stroke-width: 1.5;
+    animation-delay: 0.1s;
+  }
+  .f2 {
+    stroke: rgba(90, 153, 117, 0.12);
+    stroke-width: 1;
+    animation-delay: 0.35s;
+  }
+  .f3 {
+    stroke: rgba(212, 175, 55, 0.1);
+    stroke-width: 1;
+    animation-delay: 0.55s;
+  }
+  .f4 {
+    stroke: rgba(115, 179, 146, 0.1);
+    stroke-width: 0.8;
+    animation-delay: 0.75s;
+  }
+  .f5 {
+    stroke: rgba(45, 95, 63, 0.15);
+    stroke-width: 1.2;
+    animation-delay: 0.2s;
+  }
+
+  .node {
+    fill: rgba(115, 179, 146, 0.5);
+    opacity: 0;
+    animation: fadeNode 0.6s var(--ease-out) forwards;
+    filter: drop-shadow(0 0 4px rgba(115, 179, 146, 0.8));
+  }
+
+  .node:nth-child(1) { animation-delay: 1s; }
+  .node:nth-child(2) { animation-delay: 1.2s; }
+  .node:nth-child(3) { animation-delay: 1.4s; }
+  .node:nth-child(4) { animation-delay: 1.1s; }
+  .node:nth-child(5) { animation-delay: 1.3s; }
+  .node:nth-child(6) { animation-delay: 1.5s; }
+
+  @keyframes drawFilament {
+    0% {
+      stroke-dashoffset: 1200;
+      opacity: 0;
+    }
+    5% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeNode {
+    from { opacity: 0; transform: scale(0); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .filaments { display: none; }
   }
 </style>

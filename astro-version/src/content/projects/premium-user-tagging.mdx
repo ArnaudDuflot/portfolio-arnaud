@@ -1,7 +1,7 @@
 ---
 title: "Instant Premium User Identification in Support"
 tag: "SUPPORT OPS"
-pitch: "I built a Zendesk + RevenueCat integration that flags premium subscribers in real-time — what the official connectors couldn't do. Result: 3,200+ tickets resolved, 80% macro coverage."
+pitch: "I built a Zendesk + RevenueCat integration that flags premium subscribers in real-time - what the official connectors couldn't do. Result: 3,200+ tickets resolved, 80% macro coverage."
 context: "Support agents (me, solo) couldn't quickly identify premium users when triaging tickets, causing slower response on high-priority cases."
 result: "3,200+ tickets resolved. 80% macro coverage. Premium users identified in real-time. Foundation for future support scaling."
 heroVideo: "/assets/n8n-premium-automation.mp4"
@@ -22,18 +22,18 @@ order: 4
 
 ## The friction
 
-I was running support solo for HelloBible — 100% of incoming tickets crossed my desk. The problem: I couldn't tell at a glance whether a ticket came from a free user or a premium subscriber (someone who actually pays us). That meant a premium user with an urgent issue could wait the same amount of time as a free user with a question I could answer with a macro.
+I was running support solo for HelloBible - 100% of incoming tickets crossed my desk. The problem: I couldn't tell at a glance whether a ticket came from a free user or a premium subscriber (someone who actually pays us). That meant a premium user with an urgent issue could wait the same amount of time as a free user with a question I could answer with a macro.
 
 This violated the most basic rule of support: **serve your paying customers first**.
 
-The expected fix is "use the official Zendesk + RevenueCat connector." Except — and I confirmed this with both teams' docs — there is no native connector that exposes subscription status on the ticket view. The official integrations stop at "user has account," not "user has paid."
+The expected fix is "use the official Zendesk + RevenueCat connector." Except - and I confirmed this with both teams' docs - there is no native connector that exposes subscription status on the ticket view. The official integrations stop at "user has account," not "user has paid."
 
 ## My approach
 
 I needed to **enrich every incoming ticket with subscription data** before it landed in my queue. I had two requirements:
 
-1. Real-time (or near-real-time) — I shouldn't have to look up the user manually
-2. Reliable — false negatives mean a premium user gets deprioritized; not acceptable
+1. Real-time (or near-real-time) - I shouldn't have to look up the user manually
+2. Reliable - false negatives mean a premium user gets deprioritized; not acceptable
 
 I built the flow in **n8n**:
 
@@ -41,16 +41,16 @@ I built the flow in **n8n**:
 2. n8n queries the **RevenueCat API** with the user's email
 3. RevenueCat returns subscription status, plan, and renewal date
 4. n8n writes this back to the Zendesk ticket as a custom field, visible at the top of the ticket view
-5. If the user is premium, an internal note auto-flags it: "🟢 PREMIUM — respond first"
+5. If the user is premium, an internal note auto-flags it: "🟢 PREMIUM - respond first"
 
 I paired this with **80% macro coverage** for the most common ticket types (which I identified by tagging 200 historical tickets and clustering). So now: premium users get flagged automatically, common issues get resolved with one click.
 
 ## The result
 
-3,200+ tickets resolved through this system. Average first-response time on premium tickets dropped meaningfully (I'm holding back the exact number for the interview). And critically: I'm no longer the single point of failure for support — the macros and the auto-flagging mean any future hire can pick up where I left off, immediately.
+3,200+ tickets resolved through this system. Average first-response time on premium tickets dropped meaningfully (I'm holding back the exact number for the interview). And critically: I'm no longer the single point of failure for support - the macros and the auto-flagging mean any future hire can pick up where I left off, immediately.
 
 ## The lesson
 
-The official connectors were inadequate. The "right" fix would have been to lobby for a feature request from Zendesk or RevenueCat — which would take 6 months and might never ship. Instead, I built the integration myself with n8n in two evenings.
+The official connectors were inadequate. The "right" fix would have been to lobby for a feature request from Zendesk or RevenueCat - which would take 6 months and might never ship. Instead, I built the integration myself with n8n in two evenings.
 
 This is the bias I bring to operations: **ship the thing today, even if it's duct tape, because duct tape that works beats elegant solutions that don't exist yet**.

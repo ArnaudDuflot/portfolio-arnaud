@@ -76,7 +76,8 @@ const { slug, title, tag, pitch, hero, heroVideo, stack } = Astro.props;
   .card__media {
     width: 100%;
     aspect-ratio: 16 / 10;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     background: var(--bg-deep);
     border-bottom: 1px solid var(--border);
   }
