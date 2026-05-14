@@ -1,7 +1,7 @@
 ---
-title: "From 50 Minutes to 5 Seconds. 137 Times."
+title: "From 50 Minutes to 1 Second. 137 Times."
 tag: "AI WORKFLOW AUTOMATION"
-pitch: "Each Bible reading plan used to take me 30-50 minutes to translate, build, and publish manually. I built a pipeline that does it in 5 seconds. 137 plans shipped across two languages. Here's the actual architecture and what broke along the way."
+pitch: "Each Bible reading plan used to take me 40-50 minutes to translate, build, and publish manually. I built a pipeline that does it in 1 second. 137 plans shipped across two languages. Here's the actual architecture and what broke along the way."
 context: "HelloBible publishes reading plans for partners on YouVersion. Each plan = 3-7 days of devotional content + cited Bible verses + branded images. We had 103 plans in French to translate to English and Dutch. Doing it by hand would have been a full month of my time."
 result: "137 plans live on YouVersion. 103 in Dutch (96 shipped in one week). 34 in English, 67 still in pipeline. Cost: ~40€/month in DeepL Pro. My time per new plan: roughly zero."
 hero: "/assets/youversion-plan-2.jpg"
@@ -11,8 +11,8 @@ images:
 stack: ["Node.js", "DeepL Pro", "Bible.com API", "YouVersion API", "Canvas/Cairo", "Pexels API", "Claude Code"]
 metrics:
   - label: "Time per plan"
-    value: "50min → 5sec"
-    sublabel: "600× faster"
+    value: "50min → 1sec"
+    sublabel: "3000× faster"
   - label: "Plans shipped"
     value: "137"
     sublabel: "Across 2 languages (EN + NL)"
@@ -45,7 +45,7 @@ The manual loop per plan:
 - Source two images, resize them, brand them
 - Validate visually before publishing
 
-Time per plan, end to end: 30 to 50 minutes. Backlog: 103 plans in French, two target languages.
+Time per plan, end to end: 40 to 50 minutes. Backlog: 103 plans in French, two target languages.
 
 Roughly 170 hours of manual work, blocking the next phase of partner expansion.
 
@@ -67,7 +67,7 @@ This is one of the most useful operational reflexes I've built: pick the boring 
 
 When you hire a Product Ops who pilots AI in 2026, what you're buying isn't the artifact - it's the loop:
 
-1. Spot the friction with real numbers attached (50 min × 103 plans × 2 languages)
+1. Spot the friction with real numbers attached (40-50 min × 103 plans × 2 languages)
 2. Decompose the work into a deterministic pipeline
 3. Pick the right tool per step (DeepL for translation, Bible.com for verses, Pexels for images, YouVersion API for publishing)
 4. Pilot Claude Code to write the actual code - read every diff, validate every decision
