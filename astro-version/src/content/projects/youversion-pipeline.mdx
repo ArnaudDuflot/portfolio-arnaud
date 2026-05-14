@@ -1,24 +1,24 @@
 ---
-title: "From 50 Minutes to 1 Second. 137 Times."
+title: "From 50 Minutes to 1 Second. 220 Times."
 tag: "AI WORKFLOW AUTOMATION"
-pitch: "Each Bible reading plan used to take me 40-50 minutes to translate, build, and publish manually. I built a pipeline that does it in 1 second. 137 plans shipped across two languages. Here's the actual architecture and what broke along the way."
-context: "HelloBible publishes reading plans for partners on YouVersion. Each plan = 3-7 days of devotional content + cited Bible verses + branded images. We had 103 plans in French to translate to English and Dutch. Doing it by hand would have been a full month of my time."
-result: "137 plans live on YouVersion. 103 in Dutch (96 shipped in one week). 34 in English, 67 still in pipeline. Cost: ~40€/month in DeepL Pro. My time per new plan: roughly zero."
+pitch: "Each Bible reading plan used to take 40-50 minutes to translate, build, and publish manually. I built a pipeline that does it in 1 second. 220 plans shipped across two languages, plus 110 French source plans audited and improved with the same tooling. Here's the architecture and what broke along the way."
+context: "HelloBible's founder, Eric Célérier, originally wrote 110 reading plans in French and published them on YouVersion by hand. To take HelloBible from a French-speaking African audience to a global one, those 110 plans needed to ship in English, Dutch, and eventually dozens more languages. Doing it manually would have been months of work."
+result: "220 plans live on YouVersion (110 English + 110 Dutch). 110 French source plans audited and cleaned via the same pipeline. Cost: ~40€/month in DeepL Pro API. My time per new plan: roughly zero. The pipeline scales to any language by swapping a Bible version ID."
 hero: "/assets/youversion-plan-2.jpg"
 images:
   - "/assets/youversion-plan-1.jpg"
   - "/assets/youversion-plan-2.jpg"
-stack: ["Node.js", "DeepL Pro", "Bible.com API", "YouVersion API", "Canvas/Cairo", "Pexels API", "Claude Code"]
+stack: ["Node.js", "DeepL Pro API", "Bible.com API", "YouVersion API", "Canvas/Cairo", "Pexels API", "Claude Code"]
 metrics:
   - label: "Time per plan"
     value: "50min → 1sec"
     sublabel: "3000× faster"
   - label: "Plans shipped"
-    value: "137"
-    sublabel: "Across 2 languages (EN + NL)"
+    value: "220"
+    sublabel: "110 English + 110 Dutch"
   - label: "Manual time saved"
-    value: "~100h"
-    sublabel: "Best estimate, full backlog"
+    value: "~180h"
+    sublabel: "Across both translated languages"
 publishedAt: 2026-05-14
 featured: true
 order: 2
@@ -36,18 +36,17 @@ If you're a founder or CPO and your team has recurring manual loops eating your 
 
 ## The friction I found
 
-HelloBible runs reading plans on YouVersion for partners like Eric Célérier (one of the biggest Christian content creators in French-speaking Africa). Each plan is 3-7 days of devotional content, cited Bible verses in context, two branded images per plan.
+Eric Célérier - HelloBible's founder, one of the biggest Christian content creators in French-speaking Africa - had written 110 reading plans in French over the years and published them on YouVersion himself, by hand. Each plan is 3-7 days of devotional content, cited Bible verses in context, two branded images per plan.
 
-The manual loop per plan:
-- Translate the devotional text from French
-- Find the **official** Bible version for each cited verse (NIV for English, HSV for Dutch - you can't translate the Bible itself)
-- Build the plan structure in the YouVersion Partner Portal
-- Source two images, resize them, brand them
-- Validate visually before publishing
+To take HelloBible global, those 110 plans had to ship in every language we expand into. English and Dutch first, then dozens more. The catch is that each language requires:
 
-Time per plan, end to end: 40 to 50 minutes. Backlog: 103 plans in French, two target languages.
+- Translating the devotional text
+- Finding the **official** Bible version for every cited verse (NIV for English, HSV for Dutch - you can't translate the Bible itself, only the surrounding content)
+- Rebuilding the plan structure in the YouVersion Partner Portal
+- Sourcing and resizing two images per plan
+- Validating everything visually before publishing
 
-Roughly 170 hours of manual work, blocking the next phase of partner expansion.
+Time per plan, end to end: 40 to 50 minutes. Across 110 plans × 2 languages, that's roughly 180 hours of manual work. And that's just to start - the whole point is global expansion across dozens more languages.
 
 ---
 
@@ -67,7 +66,7 @@ This is one of the most useful operational reflexes I've built: pick the boring 
 
 When you hire a Product Ops who pilots AI in 2026, what you're buying isn't the artifact - it's the loop:
 
-1. Spot the friction with real numbers attached (40-50 min × 103 plans × 2 languages)
+1. Spot the friction with real numbers attached (40-50 min × 110 plans × 2 languages, then dozens more)
 2. Decompose the work into a deterministic pipeline
 3. Pick the right tool per step (DeepL for translation, Bible.com for verses, Pexels for images, YouVersion API for publishing)
 4. Pilot Claude Code to write the actual code - read every diff, validate every decision
@@ -76,7 +75,13 @@ When you hire a Product Ops who pilots AI in 2026, what you're buying isn't the 
 
 I don't write code. I make every decision. I see every output. The result is a system that runs without me - which is the whole point.
 
-The other thing this pipeline gives me: pattern replication. The exact same architecture works for Yvan Castanou (another HelloBible partner, sermons converted into plans). One-week port whenever we want to ship it. That's the real asset.
+The replication play is what makes this strategic, not just clever:
+
+- **New language**: swap a Bible version ID, set a Polly voice ID, run the pipeline. HelloBible's ambition is dozens of languages worldwide - the pipeline scales to all of them with the same architecture.
+- **Audit and clean French source plans**: I ran the 110 originals through the same tooling to enforce consistency (Bible verses italicised, founder name bolded everywhere, all images regenerated to a new visual standard).
+- **New partner**: the same pattern works for any creator publishing to YouVersion. One-week port whenever we want to onboard the next one.
+
+That's the actual asset. Not the 220 plans live today - the system that ships every plan after this one.
 
 ---
 
@@ -161,6 +166,6 @@ I'm listing these because the loop *"ship → spot the bug → patch → resume"
 
 ## Where this lives now
 
-Pipeline operational. 137 plans live. Code on GitHub. Maintenance is minimal - mostly running it for new plans as they come in.
+Pipeline operational. 220 translated plans live, plus the 110 French source plans audited and cleaned. Code on GitHub. Maintenance is minimal - mostly running the pipeline for new plans and new languages as they come in.
 
-The pattern is now an asset I can re-deploy in a week for any partner with a similar publishing model. That's the part that matters strategically.
+The next language is one Bible version ID away. The next partner is a one-week port. That's the part that matters strategically.
