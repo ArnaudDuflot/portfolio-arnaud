@@ -1,121 +1,126 @@
 ---
-title: "How I Built This Site (Without Ever Building One Before)"
-tag: "META · PORTFOLIO AS CASE STUDY"
-pitch: "I had never built a website. I decomposed the problem into 11 dimensions, attacked each one, and shipped this site. Here's the whole thinking - every decision, every trade-off, every dimension."
-context: "I needed a portfolio that demonstrates my Product Ops thinking. Having never built a site before, I treated it as the perfect demonstration of my method: decompose a problem into its dimensions, pick the right solution for each, ship, iterate."
-result: "This site. Built in Astro. Direction: Dark Forest. Live at arnaudduflot.com. Every dimension documented below."
-stack: ["Astro", "MDX", "TypeScript", "Netlify", "GitHub", "Fraunces", "Inter"]
+title: "I Shipped This Site Without Writing Code"
+tag: "META · AI-ORCHESTRATED EXECUTION"
+pitch: "The strongest demo of my method is the site you're on. I'm not a dev. I orchestrated Claude through every line of code, every visual decision, every trade-off. Here's how, and why it matters."
+hero: "/assets/screen-site.jpeg"
+context: "I needed a portfolio. I had no dev skills. I had Claude. I made the constraint into the point - this site is itself the proof that a Product Ops who knows how to pilot AI can ship far beyond their individual skill ceiling."
+result: "A live Astro portfolio with WebGL particles, mouse-reactive SVG filaments, adaptive performance tiers, and 5 case studies. Built in evening sessions with Claude. Every line of code reviewed and validated by me."
+stack: ["Astro", "MDX", "WebGL", "Canvas 2D", "Netlify", "Claude", "Fraunces", "Inter"]
+metrics:
+  - label: "Lines of code I wrote"
+    value: "~0"
+    sublabel: "All code by Claude, piloted by me"
+  - label: "Decisions I made"
+    value: "Every one"
+    sublabel: "Stack, design, trade-offs, voice"
+  - label: "Time to ship"
+    value: "~3 weeks"
+    sublabel: "Evenings and weekends"
 publishedAt: 2026-05-14
 featured: true
 order: 5
 ---
 
-## The premise
+## Why this case study matters more than the others
 
-When I sat down to build my portfolio, I had two realities to face:
-1. I had **never built a website**. Not one. Not even a Wordpress.
-2. I wanted the site to be one of the strongest entries in the portfolio itself - because if I can't demonstrate my Product Ops method on my own personal infrastructure, why would anyone trust me to do it on theirs?
+Every other case study in this portfolio shows me solving an ops problem at HelloBible with AI - support tickets, voice of customer, premium user tagging, automated pipelines. They prove I do this at work.
 
-So I treated this site as a case study in real-time. The same way I'd attack any operational problem: **decompose into dimensions, pick the right answer for each, document the trade-offs, ship.**
+This one proves something more useful for the person reading: **I can pilot AI to ship things I couldn't ship alone.** Not just connect Zapier nodes. Build a bioluminescent forest in WebGL with adaptive performance tiers. Hire someone like me in 2026 and you don't add headcount - you multiply what your team can execute.
 
-Here are the 11 dimensions I attacked, and how I thought about each.
+The site you're on right now is the proof. I didn't write the code. Claude did. I made every decision.
 
 ---
 
-## 01. Technology
+## The constraint
 
-**Decision**: HTML/CSS/JS vanilla for v1 → Astro + MDX for v2.
+I'm a Product Ops, not a developer. I've never built a website. I can read code well enough to know if it's doing what I asked, but I can't write a React component from scratch.
 
-**The trade-off**: I considered Next.js (industry standard, React-based), Astro (modern static-first, lighter), and pure vanilla (zero dependencies). For a content-driven site with no complex interactivity, **React/Next.js is overkill**. Astro ships ~0 JavaScript by default. That matters for the next dimension.
+I had three options:
+1. Pay an agency (5-10k€, 6 weeks, generic template behind a stripped-down CMS)
+2. Use Webflow (faster but every other portfolio looks the same)
+3. Build something custom with Claude as my dev
 
-*To be expanded with my decision matrix.*
-
-## 02. Robustness
-
-**Decision**: Static site generation. No backend, no database, no auth.
-
-**The trade-off**: A static site can't go down because of a server crash - it's just files on a CDN. The fragility is moved entirely to my deployment pipeline (Netlify) and my Git history. Both have 99.99%+ uptime tracks.
-
-*To be expanded with my reliability reasoning.*
-
-## 03. Scalability
-
-**Decision**: CDN-served static site (Netlify).
-
-**The trade-off**: I could serve this site to 1M visitors a month at zero marginal cost. If I ever needed dynamic features (auth, comments, etc.), I'd add them as serverless functions - but I won't pay for capacity I don't use.
-
-*To be expanded with capacity planning notes.*
-
-## 04. User load (Performance)
-
-**Decision**: Core Web Vitals as a north-star metric.
-
-**Approach**: Astro's island architecture, image optimization, no client-side JavaScript framework, system fonts as fallback, modern image formats.
-
-*Target: 95+ Lighthouse score on all four metrics.*
-
-## 05. Interoperability
-
-**Decision**: Standards-based markup (semantic HTML, ARIA labels, Open Graph metadata, JSON-LD).
-
-**Why it matters**: The site needs to render correctly in every browser, work with screen readers, look right when shared on LinkedIn/Twitter/Slack, and be indexable by Google. None of these are optional.
-
-*To be expanded.*
-
-## 06. SEO
-
-**Decision**: Server-rendered HTML at build time + structured metadata + sitemap.
-
-**Approach**: Each project page has its own URL, its own title, its own meta description. The site has a sitemap auto-generated. Internal linking between projects creates topical authority.
-
-*To be expanded with keyword strategy.*
-
-## 07. Design
-
-**Decision**: Dark Forest direction. Forest green accent on near-black background, with gold/ochre for warmth.
-
-**Reasoning**: My positioning is "grounded, thoughtful, builder." The visual language needed to reinforce that - not contradict it with corporate LinkedIn blue. Dark Forest signals premium without arrogance.
-
-**Identity**: Wordmark "Arnaud Duflot" in Fraunces serif, with a small green dot as signature.
-
-*To be expanded with the full design system.*
-
-## 08. Maintainability
-
-**Decision**: MDX-based content. Each project is a Markdown file with frontmatter.
-
-**Why it matters**: Adding a new project doesn't require touching HTML, CSS, or JavaScript. I write a `.mdx` file, commit, push, and the build pipeline does the rest.
-
-*To be expanded with my content workflow.*
-
-## 09. Observability
-
-**Decision**: Netlify Analytics + (planned) Plausible or Umami for privacy-respecting analytics.
-
-**What I want to know**: Which projects get read all the way through? Where do visitors come from? What's the bounce rate by source? Where does the funnel break?
-
-*To be expanded once I have data.*
-
-## 10. Analytics
-
-**Decision**: Treat the site as a funnel. Top of funnel = visitor lands. Middle = reads a case study. Bottom = copies my email or downloads my CV.
-
-**Goal**: Identify which case studies convert visitors into conversations. Then double down on those.
-
-*To be expanded with conversion tracking setup.*
-
-## 11. Content creation
-
-**Decision**: Five case studies at launch, more added quarterly.
-
-**The friction I'm solving for**: most portfolios are either too thin (no detail) or too thick (TL;DR overload). My target: each case study should be a 5-7 minute read that delivers the *thinking* behind the work, not just the screenshots.
-
-*To be expanded with my writing process.*
+Option 3 wasn't safer. It was harder. But it was the only one that doubled as a case study.
 
 ---
 
-## What this case study is meant to demonstrate
+## What I actually did
 
-Look at the structure of this page. Eleven dimensions, each with a decision, a trade-off, and a path for expansion. That structure is exactly how I approach any operational problem - whether it's a portfolio website, a translation pipeline, or a support flow.
+The method is the same as every operations system I build at HelloBible: decompose, decide, ship, iterate, document.
 
-The site you're reading is itself the proof.
+**Decompose:** I listed every dimension a portfolio site has - stack, hosting, design, performance, SEO, content management, analytics, accessibility, animations, mobile behavior. Eleven dimensions in total.
+
+**Decide:** For each dimension, I had a real conversation with Claude about trade-offs. Astro vs Next.js vs vanilla. Static vs server-rendered. Dark mode vs light. Fraunces vs Söhne. I rejected Claude's suggestions when they didn't fit (he wanted to add a sitemap integration that was incompatible with our Astro version - I caught it, we removed it).
+
+**Ship:** Claude wrote the code. I read every diff before validating. When something looked off, I asked why. When I didn't understand a decision, I made him explain it.
+
+**Iterate:** When the WebGL particles felt too sparse, I said so. When the mouse trail felt redundant after we added hover morphing, I asked Claude what he thought - and we removed it. When the LinkedIn banner he generated wasn't wow enough, I made him explain why, and we redid it three times.
+
+**Document:** This case study is that documentation.
+
+---
+
+## What I'm actually selling
+
+If you read this case study and think *"interesting site,"* you've missed the point.
+
+The point is: when you hire a Product Ops in 2026, the question isn't *"what can this person ship with their hands?"* The question is *"what can this person ship by piloting AI agents?"*
+
+For me, the answer to the second question is roughly 10x the answer to the first. This site is one data point. The other four case studies in the portfolio are four more.
+
+---
+
+<details>
+<summary><strong>The technical details, if you want them</strong></summary>
+
+### The stack
+
+- **Astro 4** - static site generator, zero JavaScript by default, MDX for content
+- **WebGL** - tier 3 particle system using GPU acceleration with additive blending
+- **Canvas 2D** - fallback for mobile and devices without WebGL support
+- **SVG** - animated filaments with mouse-reactive control points
+- **Netlify** - CDN hosting, automatic deploys from GitHub
+
+### The visual system - built in 6 layers
+
+**Layer 1 - Atmosphere:** CSS radial gradients, fixed position, animated drift. Zero JavaScript.
+
+**Layer 2 - SVG filaments:** Five paths that draw themselves on load via stroke-dashoffset animation. Pure CSS.
+
+**Layer 3 - Particle system:** Canvas 2D for mobile, WebGL for desktop. Mycélium connections (lines drawn when particle distance < 160px) on tier 2+.
+
+**Layer 4 - Mouse-reactive filaments:** SVG control points recalculate every frame based on cursor position. Smooth interpolation (0.045 factor).
+
+**Layer 5 - WebGL particles:** 280 particles with additive blending. Fragment shader handles glow. Depth of field via Z dimension.
+
+**Layer 6 - Interactivity:** Scroll reaction (cap at 40px/frame to avoid anchor-jump explosions), hover morphing (particles within 260px of buttons drift toward them).
+
+### Performance tiers
+
+- **Mobile:** Canvas 2D, 50 ambient particles, no mycélium, no hover morphing
+- **Desktop:** WebGL direct, fallback Canvas 2D if WebGL unavailable
+
+### Things that went wrong
+
+- `@astrojs/sitemap` requires Astro 6 - had to remove it entirely
+- MDX parses `<3 seconds` as a JSX tag - broke two case studies until fixed
+- `{variable}` in MDX content is parsed as JSX expression - same problem
+- LinkedIn rejects SVG OG images - had to install `rsvg-convert` for PNG export
+
+</details>
+
+---
+
+## What I'd do differently
+
+If I redo this, I lock the visual direction earlier. I spent the first week trying three different aesthetics (clean Linear-style, editorial Substack-style, current Dark Forest) before committing. That cost me 4-5 sessions with Claude.
+
+The other lesson: I should have set up analytics from day one. Right now I have no idea which case studies convert visitors into conversations. That's the most important question for this site and I'm flying blind until I install Plausible.
+
+---
+
+## Let's talk
+
+This case study exists to generate conversations. If you're a founder or a CPO and you're thinking *"my ops team needs someone who can do this,"* email me at duflot.arnaud@gmail.com.
+
+Even if it's just to ask how I'd approach a specific problem at your company - that's exactly the kind of conversation this site is built for.
