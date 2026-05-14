@@ -1,55 +1,166 @@
 ---
-title: "YouVersion Reading Plans Translation Pipeline"
+title: "From 50 Minutes to 5 Seconds. 137 Times."
 tag: "AI WORKFLOW AUTOMATION"
-pitch: "I turned a 110-hour manual translation process into a 10-minute automated one - scalable to 50+ languages, now production-ready infrastructure at HelloBible."
-context: "HelloBible needed to localize YouVersion reading plans across 50+ languages - a process taking ~110 hours per language manually."
-result: "110 hours → 10 minutes per language. Scalable to 50+ languages. Now production-ready infrastructure."
+pitch: "Each Bible reading plan used to take me 30-50 minutes to translate, build, and publish manually. I built a pipeline that does it in 5 seconds. 137 plans shipped across two languages. Here's the actual architecture and what broke along the way."
+context: "HelloBible publishes reading plans for partners on YouVersion. Each plan = 3-7 days of devotional content + cited Bible verses + branded images. We had 103 plans in French to translate to English and Dutch. Doing it by hand would have been a full month of my time."
+result: "137 plans live on YouVersion. 103 in Dutch (96 shipped in one week). 34 in English, 67 still in pipeline. Cost: ~40€/month in DeepL Pro. My time per new plan: roughly zero."
 hero: "/assets/youversion-plan-2.jpg"
 images:
   - "/assets/youversion-plan-1.jpg"
   - "/assets/youversion-plan-2.jpg"
-stack: ["Claude API", "OpenRouter", "Python", "Custom prompts"]
+stack: ["Node.js", "DeepL Pro", "Bible.com API", "YouVersion API", "Canvas/Cairo", "Pexels API", "Claude Code"]
 metrics:
-  - label: "Time per language"
-    value: "110h → 10min"
-    sublabel: "660× faster"
-  - label: "Languages supported"
-    value: "50+"
-    sublabel: "Scalable"
-  - label: "Status"
-    value: "Production"
-    sublabel: "Live at HelloBible"
-publishedAt: 2026-05-01
+  - label: "Time per plan"
+    value: "50min → 5sec"
+    sublabel: "600× faster"
+  - label: "Plans shipped"
+    value: "137"
+    sublabel: "Across 2 languages (EN + NL)"
+  - label: "Manual time saved"
+    value: "~100h"
+    sublabel: "Best estimate, full backlog"
+publishedAt: 2026-05-14
 featured: true
 order: 2
 ---
 
-## The friction
+## What this project actually proves
 
-HelloBible's mission is to put Bible reading plans into every language. The catch: each plan from YouVersion needed to be manually translated, formatted, and quality-checked - a process that took **roughly 110 hours of human work per language**. With 50+ languages on the roadmap, the math was brutal: 5,500+ hours of work to do once, and again every time a new plan dropped.
+This is the cleanest example of my method at HelloBible. Spot the friction, decompose the problem, design the AI workflow, pilot Claude to write the code, validate every output by hand, ship, iterate, hand it off to itself.
 
-Pastor Eric (HelloBible's founder) was facing a binary choice: hire a small army of translators or accept that "Bible for all languages" would remain aspirational. Neither felt right.
+The site you're on demonstrates I can pilot AI to build something outside my skill set. This pipeline demonstrates the same thing applied to a real ops problem with real money and a real backlog. 137 plans shipped instead of 137 manual translations queued forever.
 
-## My approach
+If you're a founder or CPO and your team has recurring manual loops eating your week, this is the kind of system I show up to build.
 
-I started by **breaking the process down into its atomic steps**. Translation wasn't actually one task - it was seven: source parsing, terminology extraction, theological consistency checks, day-by-day translation, formatting, QA review, and platform import. Most of these steps were either deterministic or pattern-matched - meaning a well-prompted LLM could handle them faster and more consistently than a human.
+---
 
-The hard problem wasn't translation itself (LLMs are good at that now). The hard problems were:
+## The friction I found
 
-1. **Theological consistency** - "saint" doesn't translate the same way in Catholic vs. Protestant contexts. Same for "covenant," "Spirit," "salvation."
-2. **Source-text fidelity** - we can't paraphrase Scripture in a reading plan.
-3. **Tone calibration** - a plan for new believers should sound different from a deep theological study.
+HelloBible runs reading plans on YouVersion for partners like Eric Célérier (one of the biggest Christian content creators in French-speaking Africa). Each plan is 3-7 days of devotional content, cited Bible verses in context, two branded images per plan.
 
-I built the pipeline around **Claude API** (best-in-class for nuanced text + ability to follow custom theological glossaries) with **OpenRouter** as a fallback layer for resilience. The orchestration is plain Python - no fancy framework needed when the logic is clear.
+The manual loop per plan:
+- Translate the devotional text from French
+- Find the **official** Bible version for each cited verse (NIV for English, HSV for Dutch - you can't translate the Bible itself)
+- Build the plan structure in the YouVersion Partner Portal
+- Source two images, resize them, brand them
+- Validate visually before publishing
 
-## The result
+Time per plan, end to end: 30 to 50 minutes. Backlog: 103 plans in French, two target languages.
 
-What used to take a translator 110 hours now takes the pipeline 10 minutes. The output is reviewed by a native speaker (typically 1-2 hours), and we ship.
+Roughly 170 hours of manual work, blocking the next phase of partner expansion.
 
-The **quality is actually higher than the baseline**, because the pipeline applies the theological glossary consistently - something a human translator would have to re-check on every page.
+---
 
-This isn't a science project - it's production infrastructure HelloBible relies on every time we onboard a new language.
+## The pivot that mattered
 
-## What I'd do differently
+My first instinct was N8N. Visual workflow, easy debugging, what every "AI automation" tutorial recommends in 2026.
 
-If I were starting over, I'd invest more upfront in the **theological glossary itself** - that's the highest-leverage asset, and it's the part most resistant to LLM hallucination. The pipeline is the easy part; the prompt-engineering of doctrinal nuance is the hard part.
+I built the workflow. It worked for two test plans. Then it broke because I couldn't get Claude through MCP working reliably - the Safari cookie auth flow needed a tunnel I couldn't stabilize. I spent half a day trying.
+
+I killed it. Switched to terminal-based Node.js scripts running on my Mac. Less observable, less impressive on a slide. But it worked end-to-end in twenty minutes after the pivot.
+
+This is one of the most useful operational reflexes I've built: pick the boring tool that ships over the impressive tool that almost works. Especially when the impressive tool keeps eating your time.
+
+---
+
+## What I'm actually selling
+
+When you hire a Product Ops who pilots AI in 2026, what you're buying isn't the artifact - it's the loop:
+
+1. Spot the friction with real numbers attached (50 min × 103 plans × 2 languages)
+2. Decompose the work into a deterministic pipeline
+3. Pick the right tool per step (DeepL for translation, Bible.com for verses, Pexels for images, YouVersion API for publishing)
+4. Pilot Claude Code to write the actual code - read every diff, validate every decision
+5. Run the pipeline, validate visually, find every bug, patch, resume
+6. Stop touching it once it works
+
+I don't write code. I make every decision. I see every output. The result is a system that runs without me - which is the whole point.
+
+The other thing this pipeline gives me: pattern replication. The exact same architecture works for Yvan Castanou (another HelloBible partner, sermons converted into plans). One-week port whenever we want to ship it. That's the real asset.
+
+---
+
+<details>
+<summary><strong>The technical architecture, if you want it</strong></summary>
+
+### Stack
+
+- **Node.js** ES modules, dotenv config
+- **DeepL Pro** for the translation itself (not Claude - more on this below)
+- **Bible.com webproxy API** for fetching official Bible verses by USFM reference
+- **YouVersion Partner Portal API** (`planportal.youversionapi.com/4.0`) for creating and updating plans
+- **Canvas + Cairo** with embedded Playfair Display TTF for image generation
+- **Pexels API** for sourcing photos by theme
+- **MD5 caches** for DeepL translations, Bible verses, and Pexels photos (cohérence between EN and NL versions of the same source plan)
+- **JSON files** for progress tracking and idempotence
+
+### Why DeepL and not Claude for the translation
+
+DeepL leads on European language quality, supports HTML mode natively (`tag_handling: 'html'` with `ignore_tags: ['x']` to protect verse placeholders), and is significantly cheaper at scale than running translations through an LLM. Quality is also more consistent for this kind of long-form devotional content.
+
+Claude is my **coding assistant** for the project, not a runtime component of the pipeline.
+
+### The non-trivial part: not translating the Bible
+
+You can't translate Bible verses. Each language has officially approved versions (NIV for English, HSV for Dutch since NBV21 was pulled in 2021). Translating them via LLM or DeepL would be theologically and legally wrong.
+
+So the pipeline:
+1. Extracts Bible verses from the source HTML
+2. Replaces each one with a placeholder (`VPHOLDER0`, `VPHOLDER1`...)
+3. Sends the HTML with placeholders through DeepL
+4. Fetches the official target-language version of each verse from Bible.com using its USFM reference
+5. Inserts the official verses back into the translated HTML
+6. Re-syncs the references panel that YouVersion shows separately from the plan body
+
+This step is what makes the pipeline non-trivial. Anyone can call DeepL. The interesting work is keeping the sacred text untouched while everything around it translates.
+
+### Domain knowledge encoded
+
+- USFM mapping for ~50 Bible books across French, Dutch, English (`Genèse → GEN`, `Mattheüs → MAT`, etc.)
+- Bible version IDs (NIV=111, HSV=1990, BGT=3743)
+- Polly voice IDs per language for audio narration
+- YouVersion org ID (823 for Eric Célérier)
+- 30 regex patterns to detect plan themes (lion, shepherd, water, peace, mountain...) for matching Pexels image queries
+- Brand-specific patterns: stripping promotional P.S. blocks, preserving brand hashtags untranslated, gras "Eric Célérier" handling
+
+### Flow end-to-end per plan
+
+1. Load source plan (French) from local JSON
+2. Translate title, description, keywords via DeepL in parallel
+3. POST createPlan to YouVersion → get plan ID back
+4. PATCH plan metadata (CTA link, Polly voice ID, Bible version ID)
+5. For each day:
+   - Concatenate multiple content blocks (one of the bugs I had to fix)
+   - Clean HTML (strip P.S., Conseil, stars)
+   - Protect verses with placeholders
+   - Translate via DeepL
+   - Fetch and restore official verses
+   - Patch the day into YouVersion
+6. Generate 1440×810 hero image and 320×320 thumbnail via Canvas + Pexels (cached per source plan ID for EN/NL consistency)
+7. Upload images, set plan images
+8. Save progress to `data/progress.json`
+9. Re-publish via separate `republish-plans.js` script
+
+</details>
+
+---
+
+## What broke
+
+Every interesting pipeline has a list of bugs that nearly killed it. The honest ones:
+
+- **DeepL Free quota exhausted silently** because an auto-test was running on every script import - draining quota without me knowing. Caught it when plans started coming out empty.
+- **French verses skipping translation** in 10 plans because my `isFrench()` detector missed phrases without accents.
+- **Multi-block days collapsing to the first block** - my `.find()` only captured the first text block, so plans with multiple text blocks per day showed only the title. Affected 4 plans. Had to write a separate fix script.
+- **Long Dutch titles overflowing 320×320 thumbnails** - words like "Ondoorgrondelijke" (19 characters) needed 3 levels of adaptive font sizing.
+- **DeepL "Quota exceeded" with quota actually remaining** - turns out you have to set the spending cap explicitly in DeepL Pro settings. Nowhere obvious in the docs.
+
+I'm listing these because the loop *"ship → spot the bug → patch → resume"* is the whole skill. Every system I've shipped has a list like this.
+
+---
+
+## Where this lives now
+
+Pipeline operational. 137 plans live. Code on GitHub. Maintenance is minimal - mostly running it for new plans as they come in.
+
+The pattern is now an asset I can re-deploy in a week for any partner with a similar publishing model. That's the part that matters strategically.
