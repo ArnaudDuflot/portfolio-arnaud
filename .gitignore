@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Local Claude Code preview config
+.claude/
+
+# Temporary palette comparison tool
+palette-compare.html

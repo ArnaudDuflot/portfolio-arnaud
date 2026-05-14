@@ -9,33 +9,42 @@
       "nav-about": "About",
       "nav-download": "Download Resume",
 
-      "hero-title": 'Hi, I\'m Arnaud Duflot, a <span class="text--accent">Product Operations Specialist</span> building AI-powered workflows.',
-      "hero-status-label": "STATUS:",
-      "hero-status-value": "Open to opportunities",
-      "hero-subtitle": "Currently scaling product operations at HelloBible (15k → 140k users in 14 months).",
+      "hero-title": 'I take <span class="text--accent">110-hour processes</span> and turn them into 10-minute ones.',
+      "hero-status-label": "STATUS",
+      "hero-status-value": "Open to your next ops hire — coffee on me if you’re in Paris",
+      "hero-subtitle": "I’m Arnaud — Product Operations, builder-side. Currently right hand to the founder at HelloBible, scaling from 15k to 140k users in 14 months. I find the friction. I ship the system that removes it.",
       "hero-download": "Download Resume",
-      "hero-see-work": "See My Work",
+      "hero-see-work": "See what I’ve built",
       "hero-copy-email": "Copy Email",
       "hero-copied": "Copied!",
 
       "about-title": "About",
-      "about-p1": "I'm a Product Operations Specialist with hands-on AI workflow expertise. I identify operational frictions and build the systems that resolve them \u2014 from automation scripts to QA frameworks to cross-functional process design.",
-      "about-p2": 'Currently right hand to the founder at <strong>HelloBible</strong>, where I scale product operations across QA, support, KPIs, and AI tooling. Before that, I was Chief of Staff at <strong>Broke And Abroad</strong> (travel-tech) and built ML churn models at <strong>Gozem</strong> (African superapp).',
-      "about-p3": 'Background in Financial Data Intelligence (Rennes School of Business, MSc + Grande \u00c9cole program). Based in Paris, fluent in English.',
+      "about-p1": "I’m a Product Operations Specialist who came up the builder way — from machine learning at <strong>Gozem</strong> (an African superapp) to Chief of Staff at <strong>Broke And Abroad</strong> (travel-tech), to now scaling product ops at <strong>HelloBible</strong> from 15k to 140k users.",
+      "about-p2": "What I actually do day-to-day: I sit next to a founder, I watch what breaks, and I build the system that keeps it from breaking again. Sometimes that’s a Claude pipeline. Sometimes it’s a Zendesk macro. Sometimes it’s a 90-minute conversation that prevents the wrong feature from getting built.",
+      "about-p3": "Background in Financial Data Intelligence (Rennes School of Business, MSc + Grande École). Based in Paris, fluent in English. Working on Bible-reading software is also a quiet mission I care about — I like building things that help people pause.",
 
-      "contact-title": "Let's talk",
-      "contact-text": "Open to Product Ops, Chief of Staff, and adjacent operations roles. Based in Paris, open to remote.",
+      "principles-title": "How I work",
+      "principles-subtitle": "Three principles that shape every system I build.",
+      "principle-1-title": "Start with the friction, not with the tool.",
+      "principle-1-body": "The shiniest stack means nothing if it solves the wrong problem. I watch how people actually work, write down where they curse, then pick the simplest thing that makes the cursing stop.",
+      "principle-2-title": "If I can’t explain it in 90 seconds, it’s not done.",
+      "principle-2-body": "Clarity is a deliverable. Every system I ship comes with a short Loom, a one-pager, or a back-of-envelope diagram — because a tool nobody understands won’t be maintained, and won’t be trusted.",
+      "principle-3-title": "Boring systems that run beat clever systems that don’t.",
+      "principle-3-body": "I’ll pick n8n over custom code when it gets the job done. Google Sheets over a “real” database when the team is three people. Compounding reliability beats showing off — every time.",
+
+      "contact-title": "Let’s talk",
+      "contact-text": "I’m open to Product Ops, Chief of Staff, and adjacent operations roles — especially at startups between Series A and E where one person can still see the whole picture. Paris-based, remote-friendly.",
       "contact-linkedin": "LinkedIn",
       "contact-download": "Download Resume",
       "contact-copied": "Copied!",
 
       "portfolio-title": "Portfolio",
-      "portfolio-subtitle": "Selected work \u2014 operations systems I've built",
+      "portfolio-subtitle": "Selected work — operations systems I’ve built",
 
       "cs1-tag": "AI WORKFLOW AUTOMATION",
       "cs1-title": "YouVersion Reading Plans Translation Pipeline",
-      "cs1-context": "HelloBible needed to localize YouVersion reading plans across 50+ languages \u2014 a process taking ~110 hours per language manually.",
-      "cs1-result": '<strong>110 hours \u2192 10 minutes per language.</strong> Scalable to 50+ languages. Now production-ready infrastructure.',
+      "cs1-context": "HelloBible needed to localize YouVersion reading plans across 50+ languages — a process taking ~110 hours per language manually.",
+      "cs1-result": '<strong>110 hours → 10 minutes per language.</strong> Scalable to 50+ languages. Now production-ready infrastructure.',
 
       "cs2-tag": "USER INSIGHT SYSTEM",
       "cs2-title": "Cross-Channel Voice of Customer Pipeline",
@@ -49,7 +58,7 @@
 
       "cs4-tag": "SUPPORT OPS",
       "cs4-title": "Instant Premium User Identification in Support",
-      "cs4-context": "Support agents (myself, solo) couldn\u2019t quickly identify premium users when triaging tickets, causing slower response on high-priority cases.",
+      "cs4-context": "Support agents (myself, solo) couldn’t quickly identify premium users when triaging tickets, causing slower response on high-priority cases.",
       "cs4-result": '<strong>3,200+ tickets resolved.</strong> 80% macro coverage. Premium users identified in real-time. Foundation for future support scaling.',
 
       "skills-title": "Skills & Tools",
@@ -61,56 +70,65 @@
     fr: {
       "nav-home": "Accueil",
       "nav-portfolio": "Portfolio",
-      "nav-about": "\u00c0 propos",
-      "nav-download": "T\u00e9l\u00e9charger le CV",
+      "nav-about": "À propos",
+      "nav-download": "Télécharger le CV",
 
-      "hero-title": 'Bonjour, je suis Arnaud Duflot, <span class="text--accent">Product Operations Specialist</span> sp\u00e9cialis\u00e9 dans les workflows IA.',
-      "hero-status-label": "STATUT :",
-      "hero-status-value": "Ouvert aux opportunit\u00e9s",
-      "hero-subtitle": "Je scale actuellement les op\u00e9rations produit chez HelloBible (15k \u2192 140k utilisateurs en 14 mois).",
-      "hero-download": "T\u00e9l\u00e9charger le CV",
-      "hero-see-work": "Voir mon travail",
-      "hero-copy-email": "Copier l\u2019email",
-      "hero-copied": "Copi\u00e9 !",
+      "hero-title": 'Je transforme des <span class="text--accent">processus de 110 heures</span> en processus de 10 minutes.',
+      "hero-status-label": "STATUT",
+      "hero-status-value": "Ouvert à votre prochain recrutement ops — café offert si vous êtes à Paris",
+      "hero-subtitle": "Je suis Arnaud — Product Operations, côté builder. Actuellement bras droit du fondateur chez HelloBible, où je scale de 15k à 140k utilisateurs en 14 mois. J’identifie la friction. Je livre le système qui la fait disparaître.",
+      "hero-download": "Télécharger le CV",
+      "hero-see-work": "Voir ce que j’ai construit",
+      "hero-copy-email": "Copier l’email",
+      "hero-copied": "Copié !",
 
-      "about-title": "\u00c0 propos",
-      "about-p1": "Je suis Product Operations Specialist avec une expertise pratique en workflows IA. J\u2019identifie les frictions op\u00e9rationnelles et construis les syst\u00e8mes qui les r\u00e9solvent \u2014 de l\u2019automatisation aux frameworks QA en passant par la conception de processus cross-fonctionnels.",
-      "about-p2": 'Actuellement bras droit du fondateur chez <strong>HelloBible</strong>, o\u00f9 je scale les op\u00e9rations produit \u00e0 travers le QA, le support, les KPIs et les outils IA. Avant cela, j\u2019\u00e9tais Chief of Staff chez <strong>Broke And Abroad</strong> (travel-tech) et j\u2019ai construit des mod\u00e8les ML de churn chez <strong>Gozem</strong> (superapp africaine).',
-      "about-p3": 'Formation en Financial Data Intelligence (Rennes School of Business, MSc + programme Grande \u00c9cole). Bas\u00e9 \u00e0 Paris, courant en anglais.',
+      "about-title": "À propos",
+      "about-p1": "Je suis Product Operations Specialist, builder dans l’âme — du machine learning chez <strong>Gozem</strong> (superapp africaine) au poste de Chief of Staff chez <strong>Broke And Abroad</strong> (travel-tech), et aujourd’hui scaling des opérations produit chez <strong>HelloBible</strong> de 15k à 140k utilisateurs.",
+      "about-p2": "Ce que je fais concrètement : je m’assieds à côté d’un fondateur, j’observe ce qui casse, et je construis le système qui empêche que ça recasse. Parfois c’est un pipeline Claude. Parfois une macro Zendesk. Parfois une conversation de 90 minutes qui évite de construire la mauvaise feature.",
+      "about-p3": "Formation en Financial Data Intelligence (Rennes School of Business, MSc + Grande École). Basé à Paris, courant en anglais. Travailler sur une app de lecture biblique est aussi une mission discrète qui me touche — j’aime construire des choses qui aident les gens à faire une pause.",
+
+      "principles-title": "Comment je travaille",
+      "principles-subtitle": "Trois principes qui guident chaque système que je construis.",
+      "principle-1-title": "Commencer par la friction, pas par l’outil.",
+      "principle-1-body": "La stack la plus brillante ne sert à rien si elle résout le mauvais problème. J’observe comment les gens travaillent vraiment, je note où ils râlent, puis je choisis la chose la plus simple qui fait taire les râlements.",
+      "principle-2-title": "Si je ne peux pas l’expliquer en 90 secondes, ce n’est pas fini.",
+      "principle-2-body": "La clarté est un livrable. Chaque système que je livre vient avec une Loom courte, un one-pager ou un schéma au dos d’enveloppe — parce qu’un outil que personne ne comprend ne sera ni maintenu, ni adopté.",
+      "principle-3-title": "Les systèmes ennuyeux qui tournent battent les systèmes brillants qui plantent.",
+      "principle-3-body": "Je choisirai n8n plutôt que du code custom si ça fait le job. Google Sheets plutôt qu’une « vraie » base de données quand l’équipe fait trois personnes. La fiabilité qui compose bat l’esbroufe — à chaque fois.",
 
       "contact-title": "Parlons-en",
-      "contact-text": "Ouvert aux postes de Product Ops, Chief of Staff et op\u00e9rations connexes. Bas\u00e9 \u00e0 Paris, ouvert au remote.",
+      "contact-text": "Je suis ouvert aux postes de Product Ops, Chief of Staff et opérations connexes — en particulier dans des startups entre Series A et E où une seule personne peut encore voir l’ensemble du tableau. Basé à Paris, ouvert au remote.",
       "contact-linkedin": "LinkedIn",
-      "contact-download": "T\u00e9l\u00e9charger le CV",
-      "contact-copied": "Copi\u00e9 !",
+      "contact-download": "Télécharger le CV",
+      "contact-copied": "Copié !",
 
       "portfolio-title": "Portfolio",
-      "portfolio-subtitle": "Travaux s\u00e9lectionn\u00e9s \u2014 syst\u00e8mes op\u00e9rationnels que j\u2019ai construits",
+      "portfolio-subtitle": "Travaux sélectionnés — systèmes opérationnels que j’ai construits",
 
       "cs1-tag": "AUTOMATISATION DE WORKFLOW IA",
       "cs1-title": "Pipeline de Traduction des Plans de Lecture YouVersion",
-      "cs1-context": "HelloBible devait localiser des plans de lecture YouVersion dans 50+ langues \u2014 un processus prenant ~110 heures par langue manuellement.",
-      "cs1-result": '<strong>110 heures \u2192 10 minutes par langue.</strong> Pass\u00e9 \u00e0 l\u2019\u00e9chelle sur 50+ langues. Infrastructure pr\u00eate pour la production.',
+      "cs1-context": "HelloBible devait localiser des plans de lecture YouVersion dans 50+ langues — un processus prenant ~110 heures par langue manuellement.",
+      "cs1-result": '<strong>110 heures → 10 minutes par langue.</strong> Passé à l’échelle sur 50+ langues. Infrastructure prête pour la production.',
 
-      "cs2-tag": "SYST\u00c8ME D\u2019ANALYSE UTILISATEUR",
-      "cs2-title": "Pipeline Unifi\u00e9 de Feedback Client",
-      "cs2-context": "Rapports de bugs et demandes \u00e9parpill\u00e9s sur 5 canaux (email, Zendesk, WhatsApp beta, App Store, Play Store) sans vue unifi\u00e9e pour l\u2019\u00e9quipe produit.",
-      "cs2-result": '<strong>Source de v\u00e9rit\u00e9 unique</strong> pour le feedback utilisateur. Alimente directement les priorit\u00e9s sprint. Temps de grooming du backlog r\u00e9duit significativement.',
+      "cs2-tag": "SYSTÈME D’ANALYSE UTILISATEUR",
+      "cs2-title": "Pipeline Unifié de Feedback Client",
+      "cs2-context": "Rapports de bugs et demandes éparpillés sur 5 canaux (email, Zendesk, WhatsApp beta, App Store, Play Store) sans vue unifiée pour l’équipe produit.",
+      "cs2-result": '<strong>Source de vérité unique</strong> pour le feedback utilisateur. Alimente directement les priorités sprint. Temps de grooming du backlog réduit significativement.',
 
       "cs3-tag": "OUTILLAGE PERSONNEL",
-      "cs3-title": "Deux Bots Telegram Utilis\u00e9s Quotidiennement",
-      "cs3-context": "Besoin de rappel instantan\u00e9 du contexte de travail et d\u2019un moyen simple de rester \u00e0 jour sur les tendances IA/tech sans doom-scrolling.",
-      "cs3-result": '<strong>Outils quotidiens</strong> que j\u2019utilise activement dans mon travail. D\u00e9montre ma capacit\u00e9 \u00e0 identifier une friction personnelle et \u00e0 livrer une solution fonctionnelle de bout en bout.',
+      "cs3-title": "Deux Bots Telegram Utilisés Quotidiennement",
+      "cs3-context": "Besoin de rappel instantané du contexte de travail et d’un moyen simple de rester à jour sur les tendances IA/tech sans doom-scrolling.",
+      "cs3-result": '<strong>Outils quotidiens</strong> que j’utilise activement dans mon travail. Démontre ma capacité à identifier une friction personnelle et à livrer une solution fonctionnelle de bout en bout.',
 
-      "cs4-tag": "OP\u00c9RATIONS SUPPORT",
-      "cs4-title": "Identification Instantan\u00e9e des Utilisateurs Premium dans le Support",
-      "cs4-context": "Les agents support (moi, seul) ne pouvaient pas identifier rapidement les utilisateurs premium lors du triage, causant des r\u00e9ponses plus lentes sur les cas prioritaires.",
-      "cs4-result": '<strong>3 200+ tickets r\u00e9solus.</strong> 80% de couverture macros. Utilisateurs premium identifi\u00e9s en temps r\u00e9el. Base pour le passage \u00e0 l\u2019\u00e9chelle du support.',
+      "cs4-tag": "OPÉRATIONS SUPPORT",
+      "cs4-title": "Identification Instantanée des Utilisateurs Premium dans le Support",
+      "cs4-context": "Les agents support (moi, seul) ne pouvaient pas identifier rapidement les utilisateurs premium lors du triage, causant des réponses plus lentes sur les cas prioritaires.",
+      "cs4-result": '<strong>3 200+ tickets résolus.</strong> 80% de couverture macros. Utilisateurs premium identifiés en temps réel. Base pour le passage à l’échelle du support.',
 
-      "skills-title": "Comp\u00e9tences & Outils",
+      "skills-title": "Compétences & Outils",
       "skills-ai": "IA & Automatisation",
-      "skills-product-ops": "Op\u00e9rations Produit",
-      "skills-data": "Donn\u00e9es & Analytics",
+      "skills-product-ops": "Opérations Produit",
+      "skills-data": "Données & Analytics",
       "skills-support": "Support & CRM",
     }
   };
@@ -244,4 +262,27 @@
       });
     });
   });
+
+  /* ─── Scroll reveal animations ─── */
+  if ("IntersectionObserver" in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      el.classList.add("is-visible");
+    });
+  }
 })();

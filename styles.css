@@ -3,29 +3,34 @@
    ============================================ */
 
 :root {
-  --bg: #ffffff;
-  --surface: #fafafa;
-  --text: #0a0a0a;
-  --text-muted: #525252;
-  --accent: #0a66c2;
-  --accent-hover: #004182;
-  --border: #e5e5e5;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
-  --status-dot: #16a34a;
+  --bg: #FAF8F3;
+  --surface: #F2EFE8;
+  --text: #2A1F1A;
+  --text-muted: #6B7566;
+  --accent: #2D5F3F;
+  --accent-hover: #1F4629;
+  --accent-soft: rgba(45, 95, 63, 0.08);
+  --border: #E5E0D8;
+  --shadow: 0 1px 3px rgba(42, 31, 26, 0.06);
+  --shadow-hover: 0 10px 30px rgba(42, 31, 26, 0.10);
+  --status-dot: #4A7C59;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0a0a0a;
-    --surface: #171717;
-    --text: #fafafa;
-    --text-muted: #a3a3a3;
-    --accent: #70b5f9;
-    --accent-hover: #93c5fd;
-    --border: #262626;
+    --bg: #0F1410;
+    --surface: #151A16;
+    --text: #F2EFE8;
+    --text-muted: #9BA093;
+    --accent: #5A9975;
+    --accent-hover: #73B392;
+    --accent-soft: rgba(90, 153, 117, 0.12);
+    --border: #2A3230;
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --status-dot: #6FA984;
   }
 }
 
@@ -48,14 +53,20 @@ html {
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--text);
   background-color: var(--bg);
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
+}
+
+h1, h2, h3, .hero__title, .section__title, .card__title {
+  font-family: var(--font-serif);
+  font-feature-settings: "ss01", "ss02";
+  letter-spacing: -0.01em;
 }
 
 img {
@@ -88,11 +99,12 @@ ul {
    ============================================ */
 
 .section__title {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.2;
   margin-bottom: 1rem;
   color: var(--text);
+  letter-spacing: -0.015em;
 }
 
 .section__subtitle {
@@ -135,14 +147,16 @@ ul {
 
 .btn--primary {
   background-color: var(--accent);
-  color: #ffffff;
+  color: #FFFFFF;
   border-color: var(--accent);
+  box-shadow: 0 2px 6px rgba(200, 85, 61, 0.25);
 }
 
 .btn--primary:hover {
   background-color: var(--accent-hover);
   border-color: var(--accent-hover);
   transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(200, 85, 61, 0.35);
 }
 
 .btn--outline {
@@ -291,10 +305,11 @@ ul {
 
 .hero__title {
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 600;
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
   color: var(--text);
+  letter-spacing: -0.02em;
 }
 
 .hero__status {
@@ -420,14 +435,25 @@ ul {
 .card {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.2s ease;
+  border-radius: 14px;
+  padding: 1.75rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-hover);
+  border-color: var(--accent);
+}
+
+.card__image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
 }
 
 .card__tag {
@@ -474,14 +500,84 @@ ul {
 
 .pill {
   display: inline-block;
-  padding: 0.25rem 0.625rem;
+  padding: 0.3rem 0.7rem;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-muted);
   background-color: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 999px;
   white-space: nowrap;
+}
+
+/* ============================================
+   Principles (How I work)
+   ============================================ */
+
+.principles {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.principles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.principle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.principle__number {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--accent);
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+.principle__title {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.principle__body {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ============================================
+   Scroll reveal animations
+   ============================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ============================================
@@ -641,6 +737,11 @@ ul {
 
   .portfolio__grid {
     grid-template-columns: 1fr;
+  }
+
+  .principles__grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
   }
 
   .skills__grid {
