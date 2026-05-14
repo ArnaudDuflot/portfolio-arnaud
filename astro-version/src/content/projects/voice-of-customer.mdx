@@ -1,7 +1,7 @@
 ---
 title: "I Built HelloBible's Voice of Customer Pipeline for $1 a Month."
 tag: "USER INSIGHT SYSTEM"
-pitch: "4 scattered feedback channels (Zendesk, WhatsApp, Play Store, App Store) - 2,020 customer verbatims classified across 27 business-specific themes - and $1 of API calls. Built with Python and Claude Haiku. Production-grade, resumable, runs monthly from a single command."
+pitch: "4 scattered feedback channels (Zendesk, WhatsApp, Play Store, App Store) - 2,020 customer verbatims classified across 27 business-specific themes - for $1 in API calls. Built with Python and Claude Haiku. Runs monthly from a single command, with checkpoints so an interruption doesn't cost a re-run."
 context: "Customer feedback at HelloBible was scattered across four channels with no consolidation, no taxonomy, no shared language for the team to talk about users. Decisions on bugs, features, and churn risk were getting made on vibes. I built the pipeline that fixes it."
 result: "2,020 verbatims classified for 2026. One CSV for the team to explore, one Markdown synthesis for the CEO. ~$1 in API costs. Pipeline runs monthly from a single Python command, resumable, with checkpoints every 100 records."
 stack: ["Python", "Anthropic SDK", "Claude Haiku 4.5", "Zendesk API", "JSONL", "CSV", "Markdown"]
@@ -61,19 +61,11 @@ The whole thing runs from a single command. State is checkpointed every 100 reco
 
 ## What I'm actually selling
 
-Cost engineering applied to AI is the actual skill here, not the AI itself.
+The reflex most teams have when they hear "let's use AI to classify customer feedback": reach for the biggest model on every record. Then get a four-figure monthly bill and quietly stop using it.
 
-Most teams hear "let's use AI to classify customer feedback" and reach for the biggest model on every record. Then they get a four-figure monthly bill and quietly stop using it. The instinct is right. The execution is wasteful.
+The reflex I have instead: deterministic pre-filter first, cheap model second, cache the parts that repeat, checkpoint everything, and only call the expensive model when you need to audit. ~$1 a month, end to end.
 
-What I do instead:
-
-- **Pre-filter deterministically** with regex - removed ~14% of records for free before any LLM call (HTML newsletter footers, "deleted message", texts under 6 useful words)
-- **Pick the cheap model for the right task** - Haiku for batch classification, not Sonnet, not Opus
-- **Cache the system prompt** using Anthropic's ephemeral cache - the 27-theme taxonomy prompt is amortized across thousands of calls instead of paid for each time
-- **Checkpoint every 100 records** so an API rate limit doesn't cost me a re-run
-- **Use a more expensive model only for audit** - Claude Opus was used to spot-check Haiku's outputs and flagged real consistency errors (more on this below)
-
-End result: ~$1 a month for the whole thing. That's the difference between a Product Ops who thinks in budgets and a hype-driven AI deployment.
+The technical details are in the accordion below. The point is the discipline.
 
 ---
 
@@ -121,7 +113,7 @@ I didn't let the LLM "discover" the categories. The taxonomy is the product - it
 - Ephemeral cache amortizes the ~1.5kb taxonomy system prompt across all calls
 - Total cost: ~$1 for 1,703 classified records
 
-### Production-grade safety from v1
+### Safety and idempotence
 
 - Strict JSON validation on Haiku output → unknown theme falls back to `bruit`
 - Exponential retry (5 attempts, 5s → 60s backoff) on rate limits
