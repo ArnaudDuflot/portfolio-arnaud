@@ -1,43 +1,157 @@
 ---
-title: "Cross-Channel Voice of Customer Pipeline"
+title: "I Built HelloBible's Voice of Customer Pipeline for $1 a Month."
 tag: "USER INSIGHT SYSTEM"
-pitch: "I unified user feedback from 5 fragmented channels into a single source of truth that directly informs sprint priorities."
-context: "Bug reports and feature requests scattered across 5 channels (email, Zendesk, WhatsApp beta, App Store, Play Store) with no unified view for the product team."
-result: "Single source of truth for user feedback. Directly informs sprint priorities. Reduced backlog grooming time significantly."
-stack: ["Zendesk", "Claude API", "n8n", "Google Sheets"]
+pitch: "4 scattered feedback channels (Zendesk, WhatsApp, Play Store, App Store) - 2,020 customer verbatims classified across 27 business-specific themes - and $1 of API calls. Built with Python and Claude Haiku. Production-grade, resumable, runs monthly from a single command."
+context: "Customer feedback at HelloBible was scattered across four channels with no consolidation, no taxonomy, no shared language for the team to talk about users. Decisions on bugs, features, and churn risk were getting made on vibes. I built the pipeline that fixes it."
+result: "2,020 verbatims classified for 2026. One CSV for the team to explore, one Markdown synthesis for the CEO. ~$1 in API costs. Pipeline runs monthly from a single Python command, resumable, with checkpoints every 100 records."
+stack: ["Python", "Anthropic SDK", "Claude Haiku 4.5", "Zendesk API", "JSONL", "CSV", "Markdown"]
 metrics:
-  - label: "Channels unified"
-    value: "5 → 1"
-  - label: "Source of truth"
-    value: "Single"
-    sublabel: "Feeds sprint planning"
+  - label: "Verbatims classified"
+    value: "2,020"
+    sublabel: "From 4 sources, unified"
+  - label: "API cost"
+    value: "~$1"
+    sublabel: "For 1,703 LLM classifications"
+  - label: "Custom taxonomy"
+    value: "27 themes"
+    sublabel: "4 sentiments + 7 signals"
 publishedAt: 2026-04-01
 order: 3
 ---
 
-## The friction
+## What this project actually proves
 
-When I joined HelloBible, user feedback lived in five different inboxes: support email, Zendesk tickets, a WhatsApp beta group of 200+ engaged testers, the App Store reviews, and the Play Store reviews. The product team had no unified view - they were getting feedback in fragments, often days late, and the most loyal beta testers (the WhatsApp crew) were essentially shouting into a void.
+This is a case study about cost engineering, not about AI classification.
 
-The result? Sprint planning was driven by whichever feedback channel happened to be loudest that week, not by signal density.
+Customer feedback at HelloBible was scattered across 4 channels with no taxonomy and no consolidation. I built the pipeline that fixes it across a few sessions with Claude. Total operating cost: ~$1 a month for 2,020 verbatims classified across 27 business-specific themes.
 
-## My approach
+The point isn't that AI can classify customer feedback - everyone knows that. The point is that you can build production-grade ops infrastructure on a coffee budget if you treat AI as one component in a system, not the system itself.
 
-I treated each channel as a data source with a different shape, and built a normalization layer that mapped everything to the same schema: `{source, raw_text, category, urgency, user_id, timestamp}`.
+---
 
-The pipeline:
+## The friction I found
 
-1. **Ingestion** - Zendesk hooks for tickets, manual exports for stores, a WhatsApp-to-sheet bridge for the beta group.
-2. **Categorization** - Claude API tags each item (bug / feature request / praise / confusion / churn signal) and extracts the feature area mentioned.
-3. **Deduplication** - variants of the same request get clustered.
-4. **Visualization** - Google Sheets dashboard the product team consults every Monday before sprint planning.
+HelloBible had feedback flowing in from 4 places, none of which talked to each other:
 
-The orchestration is **n8n** - chosen specifically because the team can read it. n8n's visual flow means anyone on the team can debug or extend the pipeline without me being the single point of failure.
+- **Zendesk** support tickets (1,145 in 2026)
+- **WhatsApp** beta group (516 messages, 8 months of scrolling history)
+- **Google Play Store** reviews (326)
+- **App Store iOS** reviews (33 from 2026 out of 118 pasted manually)
 
-## The result
+Tickets got read one by one. Store reviews were checked in each app's interface. The WhatsApp group was scrolled manually when someone remembered to. No taxonomy, no priority signals, no shared way for the team to talk about users.
 
-The product team now opens **one** dashboard before every sprint. Backlog grooming dropped from a 3-hour meeting to a 45-minute one. The WhatsApp beta group went from "shouting into a void" to "directly visible in sprint priorities" - which had a non-trivial impact on beta retention.
+The decisions that depended on this data were getting made on intuition. Which bugs are recurring? What features do users actually want? Who's threatening to churn? Nobody could tell you without spending half a day in raw text.
 
-## What I learned
+---
 
-The most important design decision was **picking n8n over custom code**. A custom Python pipeline would have been "cleaner" - but I'd have been the only person who could maintain it. n8n trades elegance for distributed ownership, and that's almost always the right trade in a small team.
+## What I actually built
+
+A 6-step Python pipeline that runs monthly:
+
+1. **Export** Zendesk via the Incremental API (full tickets + every comment in every conversation)
+2. **Parse** the WhatsApp `_chat.txt` export (with a robust regex that handles names containing colons - my first version broke on something like "~ Jean 3:16")
+3. **Integrate** monthly Google Play Store CSVs (with UTF-16 BOM handling because of course they ship it that way)
+4. **Append** App Store iOS reviews (manually copy-pasted, because there's no public reviews API for iOS)
+5. **Classify** every verbatim via Claude Haiku 4.5 against a 27-theme taxonomy I designed and iterated
+6. **Output** two artifacts: a CSV for the team to explore and filter, a Markdown executive synthesis for the CEO
+
+The whole thing runs from a single command. State is checkpointed every 100 records. If it crashes mid-classification, it resumes from where it stopped.
+
+---
+
+## What I'm actually selling
+
+Cost engineering applied to AI is the actual skill here, not the AI itself.
+
+Most teams hear "let's use AI to classify customer feedback" and reach for the biggest model on every record. Then they get a four-figure monthly bill and quietly stop using it. The instinct is right. The execution is wasteful.
+
+What I do instead:
+
+- **Pre-filter deterministically** with regex - removed ~14% of records for free before any LLM call (HTML newsletter footers, "deleted message", texts under 6 useful words)
+- **Pick the cheap model for the right task** - Haiku for batch classification, not Sonnet, not Opus
+- **Cache the system prompt** using Anthropic's ephemeral cache - the 27-theme taxonomy prompt is amortized across thousands of calls instead of paid for each time
+- **Checkpoint every 100 records** so an API rate limit doesn't cost me a re-run
+- **Use a more expensive model only for audit** - Claude Opus was used to spot-check Haiku's outputs and flagged real consistency errors (more on this below)
+
+End result: ~$1 a month for the whole thing. That's the difference between a Product Ops who thinks in budgets and a hype-driven AI deployment.
+
+---
+
+<details>
+<summary><strong>The technical architecture</strong></summary>
+
+### Stack
+
+- **Python 3** with `anthropic`, `requests`, `csv`, `json`, `re`, `pathlib`
+- **Zendesk Incremental Export API** for tickets + Comments API for full conversations
+- **Anthropic Messages API** with `claude-haiku-4-5-20251001` and `cache_control: {"type": "ephemeral"}` on the system prompt
+- **JSONL** as intermediate format (append-friendly, diffable, debuggable)
+- **CSV UTF-8-sig** for Google Sheets compatibility
+- **Markdown** for the executive synthesis
+- **Local execution** - scripts in iCloud, outputs in `~/Downloads/`
+
+### Flow end-to-end
+
+```
+1. export_zendesk_2026.py     → zendesk_tickets_2026.jsonl     (1,145 tickets)
+2. consolidate_voc_2026.py    → voc_unified_2026.jsonl         (2,020 verbatims)
+3. classify_voc_haiku.py      → voc_classified_2026.jsonl      (theme + sentiment + signal)
+4. [dedup + export CSV]       → voc_classified_2026_final.csv  (Google Sheets)
+5. [executive synthesis]      → VoC_HelloBible_2026.md         (CEO read)
+6. run_monthly_voc.py         → orchestrates 1-5 every month
+```
+
+### The taxonomy
+
+27 themes with hierarchical prefixes for rollups (`bug.*`, `contenu.*`, `abonnement.*`, etc.). Plus 4 sentiments, 7 signals, and a `confidence` field on every classification.
+
+Some entries that show the domain encoding:
+
+- `abonnement.paiement_local` for Wave / Orange Money - African market payment friction that generic taxonomies miss
+- `feature.profil_famille` for marital status, children, kids version of the app
+- `relation.equipe` for messages mentioning a personal connection to the founder
+- `contenu.ia_qualite` (factual AI errors) vs `contenu.theologie` (doctrinal disagreements) - a subtle but important distinction for an app that generates AI Bible content
+- `churn_risk` defined precisely as "the user threatens or announces leaving / unsubscribing"
+- "Mise en garde théologique" flagged separately because "the app replacing God" is a unique ethical churn risk
+
+I didn't let the LLM "discover" the categories. The taxonomy is the product - it's what becomes the team's shared language for talking about users.
+
+### Cost engineering specifics
+
+- Deterministic pre-filter saves ~14% of LLM calls for free
+- Haiku at ~$0.80/M input + $4/M output tokens
+- Ephemeral cache amortizes the ~1.5kb taxonomy system prompt across all calls
+- Total cost: ~$1 for 1,703 classified records
+
+### Production-grade safety from v1
+
+- Strict JSON validation on Haiku output → unknown theme falls back to `bruit`
+- Exponential retry (5 attempts, 5s → 60s backoff) on rate limits
+- Graceful fallback: if all retries fail, the record is saved with `filter_reason: "classification_failed"` - never silent data loss
+- Checkpoints every 100 records (resumable state on disk)
+- Append-mode on all outputs (no data loss after interruption)
+- Self-deduplication post-hoc (a partial-stats bug introduced 51 duplicates on first run)
+
+</details>
+
+---
+
+## What broke
+
+The honest list:
+
+- **Zendesk 404s on every request** because my first subdomain was `helloboxhelp.zendesk` instead of `helloboxhelp`. Half an hour lost before catching it.
+- **WhatsApp regex broken on colons in names** like "~ Jean 3:16". My first split on `:` captured the Bible reference as the message. Fix: split on the first `": "` pattern instead.
+- **Haiku appending text after the JSON object** caused `json.loads` to fail with "Extra data". Fix: regex-extract the first JSON object instead of parsing the whole response.
+- **Hit the monthly Anthropic API limit at record 650/1,703** mid-classification. Bumped the limit, the script resumed from the checkpoint - exactly what the resumable design was for.
+- **Partial stats + 51 duplicates after resume** because the stats dict reset on each run. Caught it because Claude Opus flagged that my numbers didn't add up arithmetically. Regenerated a clean deduplicated CSV.
+
+That last one is the most useful lesson: **you need a second LLM to audit your first LLM's outputs**. I had Claude Opus check Haiku's classifications for arithmetic consistency, and it flagged real errors I would have missed. That's how you build trust in an automated AI system - keep a smarter model in the audit loop.
+
+---
+
+## Where this lives now
+
+Pipeline operational. Scripts in iCloud, outputs in `~/Downloads/`. Monthly routine: download the Play Store CSVs, paste new App Store reviews, run one Python command. Done in 5 minutes.
+
+The taxonomy itself is now an asset - the shared vocabulary the team uses to talk about users. The pipeline keeps feeding it every month, at $1 a run.
