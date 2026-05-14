@@ -1,0 +1,367 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Arnaud Duflot · Product Operations Specialist">
+  <Nav slot="nav" />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="tag reveal">Product Operations · Builder</span>
+      <h1 class="hero__title reveal">
+        I take <span class="text-accent">110-hour processes</span> and turn them into 10-minute ones.
+      </h1>
+      <p class="hero__subtitle reveal">
+        I'm Arnaud — Product Operations, builder-side. Currently right hand to the founder at HelloBible, scaling from 15k to 140k users in 14 months. I find the friction. I ship the system that removes it.
+      </p>
+      <div class="hero__actions reveal">
+        <a href="#work" class="btn btn--primary">See what I've built →</a>
+        <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--ghost" download>Download CV</a>
+      </div>
+      <p class="hero__status reveal">
+        <span class="hero__status-dot"></span>
+        <span>Open to your next ops hire — coffee on me if you're in Paris</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="work">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">Selected work</span>
+        <h2 class="section-title">Operations systems I've built.</h2>
+        <p class="section-lede">
+          Five case studies — each a real friction I found, a real system I shipped, a real outcome I can show you.
+        </p>
+      </div>
+      <div class="work__grid">
+        {projects.map((project) => (
+          <ProjectCard
+            slug={project.slug}
+            title={project.data.title}
+            tag={project.data.tag}
+            pitch={project.data.pitch}
+            hero={project.data.hero}
+            heroVideo={project.data.heroVideo}
+            stack={project.data.stack}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach (3 principles) -->
+  <section id="approach" class="approach">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">How I work</span>
+        <h2 class="section-title">Three principles that shape every system I build.</h2>
+      </div>
+      <div class="principles">
+        <article class="principle reveal">
+          <span class="principle__number">01</span>
+          <h3 class="principle__title">Start with the friction, not with the tool.</h3>
+          <p class="principle__body">
+            The shiniest stack means nothing if it solves the wrong problem. I watch how people actually work, write down where they curse, then pick the simplest thing that makes the cursing stop.
+          </p>
+        </article>
+        <article class="principle reveal">
+          <span class="principle__number">02</span>
+          <h3 class="principle__title">If I can't explain it in 90 seconds, it's not done.</h3>
+          <p class="principle__body">
+            Clarity is a deliverable. Every system I ship comes with a short Loom, a one-pager, or a back-of-envelope diagram — because a tool nobody understands won't be maintained, and won't be trusted.
+          </p>
+        </article>
+        <article class="principle reveal">
+          <span class="principle__number">03</span>
+          <h3 class="principle__title">Boring systems that run beat clever systems that don't.</h3>
+          <p class="principle__body">
+            I'll pick n8n over custom code when it gets the job done. Google Sheets over a "real" database when the team is three people. Compounding reliability beats showing off — every time.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <div class="container container--narrow">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">About</span>
+        <h2 class="section-title">A builder who happens to do ops.</h2>
+      </div>
+      <div class="about__content reveal">
+        <p>
+          I came up the builder way — from machine learning at <strong>Gozem</strong> (an African superapp) to Chief of Staff at <strong>Broke And Abroad</strong> (travel-tech), to now scaling product ops at <strong>HelloBible</strong> from 15k to 140k users.
+        </p>
+        <p>
+          What I actually do day-to-day: I sit next to a founder, I watch what breaks, and I build the system that keeps it from breaking again. Sometimes that's a Claude pipeline. Sometimes it's a Zendesk macro. Sometimes it's a 90-minute conversation that prevents the wrong feature from getting built.
+        </p>
+        <p>
+          Background in Financial Data Intelligence (Rennes School of Business, MSc + Grande École). Based in Paris, fluent in English. Working on Bible-reading software is also a quiet mission I care about — I like building things that help people pause.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container container--narrow">
+      <div class="section-header reveal">
+        <span class="section-eyebrow">Let's talk</span>
+        <h2 class="section-title">Open to your next ops hire.</h2>
+      </div>
+      <p class="contact__lede reveal">
+        Product Ops, Chief of Staff, and adjacent operations roles — especially at startups between Series A and E where one person can still see the whole picture. Paris-based, remote-friendly.
+      </p>
+      <div class="contact__links reveal">
+        <button class="btn btn--primary" id="copyEmailBtn" type="button" aria-label="Copy email">
+          duflot.arnaud@gmail.com
+        </button>
+        <a href="https://www.linkedin.com/in/arnaud-duflot-383192119/" class="btn btn--ghost" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--ghost" download>Download CV</a>
+      </div>
+      <div class="contact__toast" id="copyToast" role="status" aria-live="polite">Email copied to clipboard</div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+
+  <script>
+    // Copy email
+    const btn = document.getElementById('copyEmailBtn');
+    const toast = document.getElementById('copyToast');
+    const email = 'duflot.arnaud@gmail.com';
+
+    btn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        toast?.classList.add('visible');
+        setTimeout(() => toast?.classList.remove('visible'), 2000);
+      } catch (e) {
+        console.error('Copy failed', e);
+      }
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding: clamp(5rem, 12vw, 10rem) 0 clamp(4rem, 10vw, 8rem);
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 900px;
+  }
+
+  .hero__title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 6.5vw, 5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-top: 0.5rem;
+  }
+
+  .hero__subtitle {
+    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+    line-height: 1.65;
+    color: var(--text-muted);
+    max-width: 720px;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(115, 179, 146, 0.06);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-full);
+    width: fit-content;
+  }
+
+  .hero__status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-bright);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(115, 179, 146, 0.6);
+    animation: pulse 2.4s var(--ease-out) infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(115, 179, 146, 0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(115, 179, 146, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(115, 179, 146, 0); }
+  }
+
+  /* Section headers */
+  .section-header {
+    max-width: 700px;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .section-lede {
+    font-size: 1.0625rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Work grid */
+  .work__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+
+  /* Principles */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .principle {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .principle__number {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--accent-bright);
+    font-style: italic;
+    letter-spacing: -0.02em;
+  }
+
+  .principle__title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text);
+    letter-spacing: -0.015em;
+  }
+
+  .principle__body {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  /* About */
+  .about__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    color: var(--text-muted);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .about__content strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Contact */
+  .contact__lede {
+    color: var(--text-muted);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact__links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .contact__toast {
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--accent-bright);
+    opacity: 0;
+    transition: opacity 0.25s var(--ease-out);
+  }
+
+  .contact__toast.visible {
+    opacity: 1;
+  }
+
+  /* Responsive */
+  @media (max-width: 1023px) {
+    .work__grid {
+      grid-template-columns: 1fr;
+    }
+    .principles {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero__actions {
+      flex-direction: column;
+    }
+    .hero__actions .btn {
+      width: 100%;
+    }
+    .contact__links {
+      flex-direction: column;
+    }
+    .contact__links .btn {
+      width: 100%;
+    }
+  }
+</style>

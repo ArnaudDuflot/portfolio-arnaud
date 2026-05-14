@@ -1,0 +1,84 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="footer__name">Arnaud Duflot<span class="footer__dot"></span></span>
+      <p class="footer__tagline">Product Operations · Builder · Paris</p>
+    </div>
+    <div class="footer__meta">
+      <p>&copy; {year} — Built with Astro, in Paris.</p>
+      <p class="footer__signature">Coffee fuel, attention to detail, and a quiet conviction that boring systems beat clever ones.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 4rem 0 3rem;
+    margin-top: 6rem;
+    background: var(--bg-deep);
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer__name {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .footer__dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-bright);
+    border-radius: 50%;
+    margin-left: 3px;
+    vertical-align: middle;
+  }
+
+  .footer__tagline {
+    color: var(--text-faint);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+
+  .footer__meta {
+    text-align: right;
+    color: var(--text-faint);
+    font-size: 0.875rem;
+  }
+
+  .footer__signature {
+    font-style: italic;
+    margin-top: 0.75rem;
+    max-width: 320px;
+    margin-left: auto;
+    line-height: 1.5;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 767px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .footer__meta {
+      text-align: left;
+    }
+    .footer__signature {
+      margin-left: 0;
+    }
+  }
+</style>

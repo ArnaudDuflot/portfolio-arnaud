@@ -1,0 +1,55 @@
+---
+title: "YouVersion Reading Plans Translation Pipeline"
+tag: "AI WORKFLOW AUTOMATION"
+pitch: "I turned a 110-hour manual translation process into a 10-minute automated one — scalable to 50+ languages, now production-ready infrastructure at HelloBible."
+context: "HelloBible needed to localize YouVersion reading plans across 50+ languages — a process taking ~110 hours per language manually."
+result: "110 hours → 10 minutes per language. Scalable to 50+ languages. Now production-ready infrastructure."
+hero: "/assets/youversion-plan-2.jpg"
+images:
+  - "/assets/youversion-plan-1.jpg"
+  - "/assets/youversion-plan-2.jpg"
+stack: ["Claude API", "OpenRouter", "Python", "Custom prompts"]
+metrics:
+  - label: "Time per language"
+    value: "110h → 10min"
+    sublabel: "660× faster"
+  - label: "Languages supported"
+    value: "50+"
+    sublabel: "Scalable"
+  - label: "Status"
+    value: "Production"
+    sublabel: "Live at HelloBible"
+publishedAt: 2026-05-01
+featured: true
+order: 1
+---
+
+## The friction
+
+HelloBible's mission is to put Bible reading plans into every language. The catch: each plan from YouVersion needed to be manually translated, formatted, and quality-checked — a process that took **roughly 110 hours of human work per language**. With 50+ languages on the roadmap, the math was brutal: 5,500+ hours of work to do once, and again every time a new plan dropped.
+
+Pastor Eric (HelloBible's founder) was facing a binary choice: hire a small army of translators or accept that "Bible for all languages" would remain aspirational. Neither felt right.
+
+## My approach
+
+I started by **breaking the process down into its atomic steps**. Translation wasn't actually one task — it was seven: source parsing, terminology extraction, theological consistency checks, day-by-day translation, formatting, QA review, and platform import. Most of these steps were either deterministic or pattern-matched — meaning a well-prompted LLM could handle them faster and more consistently than a human.
+
+The hard problem wasn't translation itself (LLMs are good at that now). The hard problems were:
+
+1. **Theological consistency** — "saint" doesn't translate the same way in Catholic vs. Protestant contexts. Same for "covenant," "Spirit," "salvation."
+2. **Source-text fidelity** — we can't paraphrase Scripture in a reading plan.
+3. **Tone calibration** — a plan for new believers should sound different from a deep theological study.
+
+I built the pipeline around **Claude API** (best-in-class for nuanced text + ability to follow custom theological glossaries) with **OpenRouter** as a fallback layer for resilience. The orchestration is plain Python — no fancy framework needed when the logic is clear.
+
+## The result
+
+What used to take a translator 110 hours now takes the pipeline 10 minutes. The output is reviewed by a native speaker (typically 1-2 hours), and we ship.
+
+The **quality is actually higher than the baseline**, because the pipeline applies the theological glossary consistently — something a human translator would have to re-check on every page.
+
+This isn't a science project — it's production infrastructure HelloBible relies on every time we onboard a new language.
+
+## What I'd do differently
+
+If I were starting over, I'd invest more upfront in the **theological glossary itself** — that's the highest-leverage asset, and it's the part most resistant to LLM hallucination. The pipeline is the easy part; the prompt-engineering of doctrinal nuance is the hard part.

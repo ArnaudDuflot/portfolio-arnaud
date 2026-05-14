@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="404 · Lost in the forest" description="This page doesn't exist — but the work does.">
+  <Nav slot="nav" />
+
+  <section class="notfound">
+    <div class="container container--narrow">
+      <span class="tag reveal is-visible">404 · NOT FOUND</span>
+      <h1 class="reveal is-visible">You've wandered off the trail.</h1>
+      <p class="reveal is-visible">
+        That page doesn't exist — or it never did. No problem. The forest is small, the work is real, and you'll find your way back in two clicks.
+      </p>
+      <div class="actions reveal is-visible">
+        <a href="/" class="btn btn--primary">Back to home →</a>
+        <a href="/#work" class="btn btn--ghost">See the work</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding: clamp(5rem, 14vw, 10rem) 0;
+  }
+
+  .notfound h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin: 1.25rem 0 1.5rem;
+  }
+
+  .notfound p {
+    color: var(--text-muted);
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 600px) {
+    .actions { flex-direction: column; }
+    .actions .btn { width: 100%; justify-content: center; }
+  }
+</style>

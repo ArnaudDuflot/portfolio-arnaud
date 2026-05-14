@@ -6,3 +6,17 @@
 
 # Temporary palette comparison tool
 palette-compare.html
+
+# Node / Astro
+node_modules/
+dist/
+.astro/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
