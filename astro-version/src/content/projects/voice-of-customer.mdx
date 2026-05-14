@@ -21,11 +21,11 @@ order: 3
 
 ## What this project actually proves
 
-This is a case study about cost engineering, not about AI classification.
+The business problem: HelloBible was making roadmap decisions on intuition. Which bugs are recurring? What do users actually want next? Who's threatening to churn? Nobody could tell you without spending half a day in raw text - so people stopped checking.
 
-Customer feedback at HelloBible was scattered across 4 channels with no taxonomy and no consolidation. I built the pipeline that fixes it across a few sessions with Claude. Total operating cost: ~$1 a month for 2,020 verbatims classified across 27 business-specific themes.
+The pipeline I built ends that. 2,020 verbatims classified across 27 business-specific themes, every month, for ~$1 in API costs. The team now has certainty about what bothers users and what they want - which means the roadmap goes in the right direction and the backlog gets fed by what's actually said, not what's loudest in the last standup.
 
-The point isn't that AI can classify customer feedback - everyone knows that. The point is that you can build production-grade ops infrastructure on a coffee budget if you treat AI as one component in a system, not the system itself.
+The point isn't that AI can classify customer feedback. The point is that one Product Ops with a budget mindset can replace a function most companies pay six figures for.
 
 ---
 
@@ -147,8 +147,14 @@ That last one is the most useful lesson: **you need a second LLM to audit your f
 
 ---
 
-## Where this lives now
+## What this changes operationally
 
-Pipeline operational. Scripts in iCloud, outputs in `~/Downloads/`. Monthly routine: download the Play Store CSVs, paste new App Store reviews, run one Python command. Done in 5 minutes.
+Before the pipeline, deciding what to build next at HelloBible meant trusting whoever shouted loudest in the standup. Now the team has the data to answer three concrete questions every month:
 
-The taxonomy itself is now an asset - the shared vocabulary the team uses to talk about users. The pipeline keeps feeding it every month, at $1 a run.
+- **What's bothering users right now?** (filter the CSV by `sentiment: negative` and recurring themes)
+- **What do users actually want next?** (filter by `signal: feature_request` and roll up by theme)
+- **Who's about to leave?** (filter by `signal: churn_risk` and surface in support)
+
+The exec gets a 1-page Markdown synthesis. The product team gets the full CSV to dig into. Same data, two artifacts, $1 a month to keep both fresh.
+
+The taxonomy itself is now an asset - the shared vocabulary the team uses to talk about users. The pipeline keeps feeding it every month from a single Python command.
