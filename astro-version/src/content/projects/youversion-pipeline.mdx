@@ -1,7 +1,7 @@
 ---
 title: "From 50 Minutes to 1 Second. 220 Times."
 tag: "AI WORKFLOW AUTOMATION"
-pitch: "Each Bible reading plan used to take 40-50 minutes to translate, build, and publish manually. I built a pipeline that does it in 1 second. 220 plans shipped across two languages, plus 110 French source plans audited and improved with the same tooling. Here's the architecture and what broke along the way."
+pitch: "I built a pipeline that ships Bible reading plans on YouVersion in 1 second instead of 50 minutes - and turned those plans into a top-of-funnel acquisition channel that feeds HelloBible. 220 plans shipped, an undocumented API reverse-engineered, an entire publishing-to-acquisition loop automated."
 context: "HelloBible's founder, Eric Célérier, originally wrote 110 reading plans in French and published them on YouVersion by hand. To take HelloBible from a French-speaking African audience to a global one, those 110 plans needed to ship in English, Dutch, and eventually dozens more languages. Doing it manually would have been months of work."
 result: "220 plans live on YouVersion (110 English + 110 Dutch). 110 French source plans audited and cleaned via the same pipeline. Cost: ~40€/month in DeepL Pro API. My time per new plan: roughly zero. The pipeline scales to any language by swapping a Bible version ID."
 hero: "/assets/youversion-plan-2.jpg"
@@ -28,9 +28,9 @@ order: 2
 
 This is the cleanest example of my method at HelloBible. Spot the friction, decompose the problem, design the AI workflow, pilot Claude to write the code, validate every output by hand, ship, iterate, hand it off to itself.
 
-The site you're on demonstrates I can pilot AI to build something outside my skill set. This pipeline demonstrates the same thing applied to a real ops problem with real money and a real backlog. 137 plans shipped instead of 137 manual translations queued forever.
+The site you're on demonstrates I can pilot AI to build something outside my skill set. This pipeline demonstrates the same thing applied to a real ops problem with real business stakes - because the output isn't just plans, it's a top-of-funnel acquisition channel. Every published plan ends with a bit.ly link that redirects readers to HelloBible. YouVersion has hundreds of millions of users. We're systematically converting that audience into ours.
 
-If you're a founder or CPO and your team has recurring manual loops eating your week, this is the kind of system I show up to build.
+If you're a founder or CPO and your team has a manual loop blocking a growth lever, this is the kind of system I show up to build.
 
 ---
 
@@ -47,6 +47,8 @@ To take HelloBible global, those 110 plans had to ship in every language we expa
 - Validating everything visually before publishing
 
 Time per plan, end to end: 40 to 50 minutes. Across 110 plans × 2 languages, that's roughly 180 hours of manual work. And that's just to start - the whole point is global expansion across dozens more languages.
+
+There was one more friction nobody told me about until I started building: **the YouVersion Partner Portal API is undocumented**. No public reference, no SDK, no examples. I had to reverse-engineer the endpoints, payload shapes, and validation rules by intercepting network requests from the web UI and watching what worked. That alone took hours of focused work before any "real" code could be written.
 
 ---
 
@@ -118,6 +120,18 @@ So the pipeline:
 6. Re-syncs the references panel that YouVersion shows separately from the plan body
 
 This step is what makes the pipeline non-trivial. Anyone can call DeepL. The interesting work is keeping the sacred text untouched while everything around it translates.
+
+### The reverse-engineered API
+
+YouVersion's Partner Portal has no public API documentation. To build the pipeline I had to:
+
+- Inspect network requests in the web UI to map every endpoint
+- Trial-and-error on payload shapes until validations stopped failing
+- Identify hidden requirements (e.g. references panel must be synced separately from HTML body)
+- Find the right status flow (draft → approved → published)
+- Discover undocumented constants (Polly voice IDs, Bible version IDs, org IDs) by reading actual data on the platform
+
+This is a few hours of work that doesn't show up in any line count - but without it, nothing else ships.
 
 ### Domain knowledge encoded
 
