@@ -108,11 +108,9 @@ End result: ~$1 a month for the whole thing. That's the difference between a Pro
 Some entries that show the domain encoding:
 
 - `abonnement.paiement_local` for Wave / Orange Money - African market payment friction that generic taxonomies miss
-- `feature.profil_famille` for marital status, children, kids version of the app
-- `relation.equipe` for messages mentioning a personal connection to the founder
 - `contenu.ia_qualite` (factual AI errors) vs `contenu.theologie` (doctrinal disagreements) - a subtle but important distinction for an app that generates AI Bible content
 - `churn_risk` defined precisely as "the user threatens or announces leaving / unsubscribing"
-- "Mise en garde théologique" flagged separately because "the app replacing God" is a unique ethical churn risk
+- "Mise en garde théologique" flagged separately because "the app replacing God" is a specific ethical churn risk that generic AI taxonomies miss entirely
 
 I didn't let the LLM "discover" the categories. The taxonomy is the product - it's what becomes the team's shared language for talking about users.
 
@@ -136,17 +134,16 @@ I didn't let the LLM "discover" the categories. The taxonomy is the product - it
 
 ---
 
-## What broke
+## What broke (the useful ones)
 
-The honest list:
+The bugs worth telling about - not the typos, the ones that taught me something:
 
-- **Zendesk 404s on every request** because my first subdomain was `helloboxhelp.zendesk` instead of `helloboxhelp`. Half an hour lost before catching it.
-- **WhatsApp regex broken on colons in names** like "~ Jean 3:16". My first split on `:` captured the Bible reference as the message. Fix: split on the first `": "` pattern instead.
-- **Haiku appending text after the JSON object** caused `json.loads` to fail with "Extra data". Fix: regex-extract the first JSON object instead of parsing the whole response.
-- **Hit the monthly Anthropic API limit at record 650/1,703** mid-classification. Bumped the limit, the script resumed from the checkpoint - exactly what the resumable design was for.
+- **WhatsApp regex broken on colons in names** like "~ Jean 3:16". The first split on `:` captured the Bible reference as the message body. Fix: split on the first `": "` pattern instead. Real lesson on domain edge cases in raw text parsing.
+- **Haiku appending text after the JSON object** caused `json.loads` to fail with "Extra data". Fix: regex-extract the first JSON object instead of parsing the whole response. Real lesson on LLM output validation.
+- **Hit the monthly Anthropic API limit at record 650/1,703** mid-classification. Bumped the limit, the script resumed from the checkpoint - exactly what the resumable design was built for. Validation of the architecture.
 - **Partial stats + 51 duplicates after resume** because the stats dict reset on each run. Caught it because Claude Opus flagged that my numbers didn't add up arithmetically. Regenerated a clean deduplicated CSV.
 
-That last one is the most useful lesson: **you need a second LLM to audit your first LLM's outputs**. I had Claude Opus check Haiku's classifications for arithmetic consistency, and it flagged real errors I would have missed. That's how you build trust in an automated AI system - keep a smarter model in the audit loop.
+That last one is the most useful lesson: **you need a second LLM to audit your first LLM's outputs**. I had Claude Opus check Haiku's classifications for consistency, and it flagged real errors I would have missed. That's how you build trust in an automated AI system - keep a smarter model in the audit loop.
 
 ---
 
