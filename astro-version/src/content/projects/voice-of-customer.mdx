@@ -25,7 +25,7 @@ The business problem: HelloBible was making roadmap decisions on intuition. Whic
 
 The pipeline I built ends that. 2,020 verbatims classified across 27 business-specific themes, every month, for ~$1 in API costs. The team now has certainty about what bothers users and what they want - which means the roadmap goes in the right direction and the backlog gets fed by what's actually said, not what's loudest in the last standup.
 
-The point isn't that AI can classify customer feedback. The point is that one Product Ops with a budget mindset can replace a function most companies pay six figures for.
+The point isn't that AI can classify customer feedback. HelloBible now has something it didn't before: a shared vocabulary for talking about users, refreshed every month, for $1.
 
 ---
 
@@ -65,7 +65,7 @@ The reflex most teams have when they hear "let's use AI to classify customer fee
 
 The reflex I have instead: deterministic pre-filter first, cheap model second, cache the parts that repeat, checkpoint everything, and only call the expensive model when you need to audit. ~$1 a month, end to end.
 
-The technical details are in the accordion below. The point is the discipline.
+The technical details are in the accordion below.
 
 ---
 
@@ -135,7 +135,7 @@ The bugs worth telling about - not the typos, the ones that taught me something:
 - **Hit the monthly Anthropic API limit at record 650/1,703** mid-classification. Bumped the limit, the script resumed from the checkpoint - exactly what the resumable design was built for. Validation of the architecture.
 - **Partial stats + 51 duplicates after resume** because the stats dict reset on each run. Caught it because Claude Opus flagged that my numbers didn't add up arithmetically. Regenerated a clean deduplicated CSV.
 
-That last one is the most useful lesson: **you need a second LLM to audit your first LLM's outputs**. I had Claude Opus check Haiku's classifications for consistency, and it flagged real errors I would have missed. That's how you build trust in an automated AI system - keep a smarter model in the audit loop.
+That last one is the most useful lesson: **you need a second LLM to audit your first LLM's outputs**. I had Claude Opus check Haiku's classifications for consistency, and it flagged real errors I would have missed.
 
 ---
 

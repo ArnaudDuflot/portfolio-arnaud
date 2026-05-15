@@ -1,56 +1,193 @@
 ---
-title: "Instant Premium User Identification in Support"
+title: "I Built HelloBible's Premium Triage Queue for $0"
 tag: "SUPPORT OPS"
-pitch: "I built a Zendesk + RevenueCat integration that flags premium subscribers in real-time - what the official connectors couldn't do. Result: 3,200+ tickets resolved, 80% macro coverage."
-context: "Support agents (me, solo) couldn't quickly identify premium users when triaging tickets, causing slower response on high-priority cases."
-result: "3,200+ tickets resolved. 80% macro coverage. Premium users identified in real-time. Foundation for future support scaling."
-heroVideo: "/assets/n8n-premium-automation.mp4"
-videos:
-  - "/assets/n8n-premium-automation.mp4"
-stack: ["Zendesk", "RevenueCat", "n8n", "Macros"]
+pitch: "HelloBible was migrating support from a tired Gmail inbox to a properly configured Zendesk. Zendesk's native RevenueCat integration showed who paid, but didn't let us prioritise their tickets in the queue. I built an n8n workflow that scans every ticket, cross-references an exported RevenueCat sheet, and auto-tags premium ones. Result: a dedicated 'Premium Clients' Zendesk view, 323 paying customers triagable at a glance, $0 in costs."
+context: "For years HelloBible's support ran on Gmail. As we scaled past 100k downloads, we migrated to Zendesk to centralise and professionalise. The migration revealed a gap: paying subscribers were invisible in the new queue. I was solo support at the time, and I needed every premium ticket flagged before I opened it."
+result: "Operational since 29 April 2026. 2,687 tickets scanned in the initial run, 383 premium identified (~14%). 323 of them visible right now in a dedicated 'Premium Clients' Zendesk view, refreshed every 12 hours by a delta workflow. Self-hosted on my Mac, $0 in costs. The view is now part of the support team's daily triage."
+hero: "/assets/zendesk-2.jpg"
+stack: ["n8n", "Zendesk API", "RevenueCat API", "Google Sheets", "JavaScript"]
 metrics:
-  - label: "Tickets resolved"
-    value: "3,200+"
-  - label: "Macro coverage"
-    value: "80%"
-    sublabel: "Reusable across tickets"
-  - label: "Premium identification"
-    value: "Real-time"
-publishedAt: 2026-02-15
+  - label: "Tickets scanned"
+    value: "2,687"
+    sublabel: "Full backlog, initial run"
+  - label: "Premium identified"
+    value: "383 (~14%)"
+    sublabel: "Auto-tagged priorite_payant"
+  - label: "Cost"
+    value: "$0/mo"
+    sublabel: "Self-hosted on my Mac"
+publishedAt: 2026-04-29
 order: 5
 ---
 
-## The friction
+## What this project actually proves
 
-I was running support solo for HelloBible - 100% of incoming tickets crossed my desk. The problem: I couldn't tell at a glance whether a ticket came from a free user or a premium subscriber (someone who actually pays us). That meant a premium user with an urgent issue could wait the same amount of time as a free user with a question I could answer with a macro.
+A small system that does one strategic thing: turn HelloBible's paying subscribers into a visible cohort inside Zendesk. Before the workflow, premium tickets were diluted in a queue of 1.3K. After it, they're a dedicated view (323 tickets right now), one click away in the sidebar.
 
-This violated the most basic rule of support: **serve your paying customers first**.
+For a business that lives on subscriptions, that visibility is the difference between premium customers waiting like everyone else and premium customers getting served first.
 
-The expected fix is "use the official Zendesk + RevenueCat connector." Except - and I confirmed this with both teams' docs - there is no native connector that exposes subscription status on the ticket view. The official integrations stop at "user has account," not "user has paid."
+Two underlying skills made the workflow possible: pragmatic pivot when an API doesn't do what you expected (RevenueCat API v2 can't filter by email), and scope discipline (manual sheet refresh once a month, not a complex auto-sync pipeline).
 
-## My approach
+---
 
-I needed to **enrich every incoming ticket with subscription data** before it landed in my queue. I had two requirements:
+## The friction I found
 
-1. Real-time (or near-real-time) - I shouldn't have to look up the user manually
-2. Reliable - false negatives mean a premium user gets deprioritized; not acceptable
+Two layers of friction stacked on top of each other.
 
-I built the flow in **n8n**:
+**Layer 1 - the migration.** For years HelloBible's support ran on Gmail. Tickets, replies, attachments, all in a personal inbox. As we scaled past 100k downloads it stopped working. We migrated to Zendesk to centralise the team, get proper macros, build a queue we could actually triage. I led that migration on the ops side.
 
-1. New Zendesk ticket triggers a webhook
-2. n8n queries the **RevenueCat API** with the user's email
-3. RevenueCat returns subscription status, plan, and renewal date
-4. n8n writes this back to the Zendesk ticket as a custom field, visible at the top of the ticket view
-5. If the user is premium, an internal note auto-flags it: "🟢 PREMIUM - respond first"
+**Layer 2 - the gap inside Zendesk.** Once migrated, I was running support solo. 100% of tickets crossed my desk. The numbers:
 
-I paired this with **80% macro coverage** for the most common ticket types (which I identified by tagging 200 historical tickets and clustering). So now: premium users get flagged automatically, common issues get resolved with one click.
+- ~18,000 free users on the app
+- 1,860 active RevenueCat subscribers
+- 2,687 tickets in the cumulative backlog
+- 75% via email, 25% via in-app widget or web form
 
-## The result
+Zendesk's native RevenueCat integration exists. It shows `total_spent` on the user profile, after I've clicked into the ticket. There's no native way to filter the queue by "paid users first" or to spot a premium ticket in the list before opening it. A premium subscriber whose audio playback breaks waits the same amount of time as a free user asking how to unsubscribe.
 
-3,200+ tickets resolved through this system. Average first-response time on premium tickets dropped meaningfully (I'm holding back the exact number for the interview). And critically: I'm no longer the single point of failure for support - the macros and the auto-flagging mean any future hire can pick up where I left off, immediately.
+I needed every premium ticket flagged with a visible marker, in the queue, automatically.
 
-## The lesson
+---
 
-The official connectors were inadequate. The "right" fix would have been to lobby for a feature request from Zendesk or RevenueCat - which would take 6 months and might never ship. Instead, I built the integration myself with n8n in two evenings.
+## The pivot that mattered
 
-This is the bias I bring to operations: **ship the thing today, even if it's duct tape, because duct tape that works beats elegant solutions that don't exist yet**.
+First instinct: call the RevenueCat API per ticket with the requester's email, get subscription status back, tag accordingly.
+
+The blocker: RevenueCat API v2 doesn't filter customers by email. To check whether a single email is premium, I'd have to paginate ~18,000 customer records. Per ticket. Not viable.
+
+I tested it to confirm. The HTTP Request returned 20 random customers with no email filter applicable. One ticket from a real $29 paying customer came back unmatched. That's what forced the pivot.
+
+The Google Sheet approach:
+
+1. Export the full customer list manually from RevenueCat once a month (with `total_spent` per email)
+2. n8n downloads the CSV on the first ticket of each run, builds an in-memory map of email to total_spent, caches it for 24 hours via `getWorkflowStaticData`
+3. Every subsequent lookup hits the in-memory map, not RevenueCat
+
+Manual refresh ~once a month is the trade-off I made consciously. If someone subscribes today and writes in tomorrow, they might not be tagged on the spot. The cost of missing one ticket is much smaller than the cost of building an auto-refresh pipeline that becomes another thing to monitor.
+
+---
+
+## What this changes operationally
+
+This is the part that matters strategically. The workflow runs in the background. What changes is the support team's daily workflow.
+
+**Before:** I open Zendesk. I see 1.3K tickets. I scan them top-to-bottom. I might miss a paying customer's urgent ticket because nothing tells me they pay until I open it.
+
+**After:** I open Zendesk. The left sidebar has a dedicated view called "🌟 Clients Premium" with 323 tickets. I treat that view first. Every paying customer gets served before any free user, every day, without me thinking about it.
+
+The downstream effects:
+
+- **Premium SLA, structurally.** Paying customers get faster responses than non-paying ones. That's the implicit promise of a paid subscription, and it's now enforced by the queue itself rather than by my memory.
+- **Better retention signal.** When a premium subscriber writes in, their complaint gets resolved fast. That reduces the "I cancelled because nobody responded" class of churn.
+- **Better product input.** Premium tickets become a higher-signal cohort to listen to: these are the people who put money down, their friction is more likely to be product-shaped than usage-shaped. The dedicated view doubles as a focused listening channel for the product team.
+
+The workflow itself is a small piece of code. The operational change is that we now treat paying customers as a queue, not as individuals scattered through the noise.
+
+---
+
+## What I'm actually selling
+
+The reflex when you hit an API limitation in 2026: build a more complicated pipeline that works around it. Auto-refreshing CSV exports, background sync jobs, real-time webhooks, all of which become their own maintenance problem.
+
+The reflex I have instead: find the simplest layer that decouples the two systems, accept the trade-offs of that layer explicitly, ship.
+
+Scope choices I made and defended:
+
+- Manual sheet refresh, not auto-sync (less fragile, lower maintenance overhead)
+- Tag premium only, not free users (I don't need to know who's free, I need to know who pays)
+- Acceptable delay of 12h on new premium tickets (workflow runs twice daily, no webhook needed)
+- Tag never gets removed even if a user cancels (a paying customer with an open ticket stays priority)
+
+<img src="/assets/zendesk-1.jpg" alt="Zendesk ticket with priorite_payant tag and the auto internal note showing client total spent" />
+
+---
+
+<details>
+<summary><strong>The technical architecture</strong></summary>
+
+### Stack
+
+- **n8n v2.17.7** self-hosted on my Mac at `~/Documents/Dev/n8n-local/n8n_data`
+- **Zendesk API** with cursor-based pagination
+- **Google Sheets** as the intermediate lookup layer (manual CSV export from RevenueCat)
+- **RevenueCat** (project_id `proj01861a64`) used for the export, not the runtime lookup
+- **JavaScript** in n8n Code nodes via `this.helpers.httpRequest` for authenticated calls
+
+### Two workflows
+
+**Workflow 1 - Full backlog scan (manual trigger)**
+
+```
+Manual Trigger
+  → Get seed ticket (limit=1, to extract subdomain)
+  → Fetch All Tickets (HTTP Request, cursor pagination)
+  → Split Out on "tickets"
+  → Loop Over Items
+       → Get user (resolve requester email)
+       → Code: lookup against in-memory email map
+       → If matched && total_spent > 0:
+            → Edit Fields → Update ticket (add tag + internal note)
+       → Loop back
+```
+
+**Workflow 2 - Delta scan (cron, 2x daily at 08:00 and 20:00)**
+
+Same structure, but the initial fetch uses `/api/v2/search.json?query=type:ticket+created>{date-24h}` with Split Out on `results`. Max delay before a new premium ticket gets tagged: 12 hours.
+
+### The applied state per ticket
+
+- Tag: `priorite_payant`
+- Internal note: `✅ Client détecté : {total_spent}$ dépensés.`
+- A Zendesk view filtered by this tag gives me the triage queue I needed.
+
+### Why a Google Sheet, not RevenueCat direct
+
+RevenueCat API v2 doesn't filter customers by email. The list endpoint paginates ~18,000 records with no email filter parameter. Per-ticket lookups would mean paginating 18k records per ticket. The intermediate sheet solves this by being a static snapshot n8n loads once per run, in memory.
+
+### Caching
+
+The CSV gets downloaded once on the first ticket of each run, stored via `$getWorkflowStaticData('global')` with a 24h TTL. Every subsequent ticket in the same run hits the in-memory map. Zero re-downloads.
+
+### Safety and idempotence
+
+- `continueOnFail: true` on Update ticket (closed/archived tickets don't break the run)
+- `retryOnFail: true, waitBetweenTries: 5000` on Update ticket
+- `maxRequests: 50` on the HTTP Request pagination
+- 24h cache on the CSV minimises Google Sheets calls
+- Tag is never removed (a paying customer with an open ticket stays priority even if they cancel)
+
+### The workflow running
+
+<video src="/assets/n8n-premium-automation.mp4" autoplay muted loop playsinline></video>
+
+</details>
+
+---
+
+## What broke
+
+The bugs worth telling about, the ones that shaped the architecture:
+
+- **n8n Code node sandbox restrictions.** Four consecutive errors before finding the right HTTP method: `fetch is not defined`, `$http is not defined`, `Module 'https' is disallowed`, `$helpers is not defined`. Solution: `this.helpers.httpRequest()`, not in the docs as the recommended method. The sandbox is more restricted than what most n8n tutorials show.
+
+- **Zendesk node `returnAll=true` broken.** The native n8n Zendesk node failed systematically with "Your request is invalid" when asked for the full ticket list. Worked around it: seed ticket to extract the subdomain, then HTTP Request with manual cursor pagination.
+
+- **The `matched: !!match` bug.** First version flagged any email present in the sheet as premium. The sheet contained all users (60-70k rows), not just paying ones. Fix: check `total_spent > 0` explicitly. `matched: !!(match && match.total_spent > 0)`. Caught it by reasoning about what's actually in the sheet, not by testing.
+
+- **Premature `Update ticket` failures on closed/archived tickets.** Run failed silently. Added `continueOnFail: true` and `retryOnFail` to make it resumable end-to-end.
+
+- **Initial run with `returnAll=true` crashed immediately.** This is what forced the seed-ticket + HTTP Request architecture in the first place.
+
+- **n8n folder confusion after a Mac restart.** n8n launched on `~/.n8n` instead of `~/Documents/Dev/n8n-local/n8n_data`, showing an empty account. Fix: explicit env vars at launch, `N8N_USER_FOLDER=... N8N_SECURE_COOKIE=false n8n`.
+
+---
+
+## Where this lives now
+
+Workflow active since 29 April 2026. Full backlog tagged. Delta workflow runs every 12 hours.
+
+Quality check: I manually verified 15 tagged accounts. All 15 had actually spent money. Zero false positives detected.
+
+The discrepancy I observed: 383 tickets tagged by the workflow, 323 visible in the Zendesk view right now (~84%). Cause: Zendesk drops closed tickets from standard views after ~28 days, plus a small number of silent `Update` failures absorbed by `continueOnFail`. Acceptable for the use case.
+
+Maintenance: refresh the Google Sheet from RevenueCat about once a month. n8n needs to stay running on my Mac, which is the architecture's main weakness. The day support volume justifies moving to a VPS or n8n.cloud, that risk goes away. For now, the trade-off is fine: $0 in costs, runs without my attention, hands premium subscribers the response time they're paying for.
