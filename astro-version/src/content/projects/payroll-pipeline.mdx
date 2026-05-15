@@ -1,31 +1,27 @@
 ---
-title: "I Built an Audit-Ready Payroll Pipeline from WhatsApp Photos"
+title: "I'm Building an Auditable Payroll Pipeline from WhatsApp Photos"
 tag: "PAYROLL AUTOMATION"
-pitch: "I'm building a pipeline that turns WhatsApp photos of handwritten timesheets into audit-ready payroll for a 30-store retail chain in South Africa. The admin who runs payroll used to spend 20-30 hours a month on it. Phase 1 (Custom GPT + Excel Engine, semi-manual) operational since May 2026. Phase 2 (full API automation) in build. Side project, volunteer."
-context: "A 30-store retail operation in South Africa, ~200 employees, pay day on the 20th of every month. One admin processes ~240 timesheet photos a month, all handwritten, all sent via WhatsApp. A wrong number in a cell becomes a real dispute with a real employee. I'm helping her build the pipeline."
-result: "Phase 1 operational since May 2026: vision LLM extracts the handwritten timesheets, Python applies the break rules, the audit tab catches residual errors. Time saved on her side: 20-30 hours a month down to a few minutes per weekly batch. API cost: $15-30/month. Phase 2 (full API pipeline) in build."
+pitch: "I'm building a pipeline that turns WhatsApp photos of handwritten timesheets into auditable payroll for a 30-store retail chain in South Africa. The admin who runs payroll spends several hours each week on manual entry. Phase 1 (Custom GPT + Excel Engine, semi-manual) is in pilot. Phase 2 (full API automation) planned. Side project, volunteer."
+context: "A 30-store retail operation in South Africa, pay day on the 20th of every month. One admin processes ~240 timesheet photos a month (30 stores × weekly cadence, plus multi-department locations), all handwritten, all sent via WhatsApp. A wrong number in a cell becomes a real dispute with a real employee. I'm helping her build the pipeline."
+result: "Phase 1 architecture is functional and tested on real photos. Vision LLM extracts handwritten timesheets, Python applies the break rules, the audit tab catches residual errors (including the 140h bug and the Manager error documented below). The pipeline replaces the manual entry step with a review of the LLM extraction. Currently running on Custom GPT (~$22/mo ChatGPT Plus subscription). Phase 2 (full API pipeline) planned. Exact time savings to be measured during pilot."
 stack: ["Python (Code Interpreter)", "GPT-4o Vision", "Custom GPT", "pandas", "openpyxl", "Excel", "WhatsApp"]
 metrics:
-  - label: "Manual time per month"
-    value: "20-30h → minutes"
-    sublabel: "Phase 1 already"
-  - label: "Volume processed"
+  - label: "Volume to process"
     value: "~240 photos/mo"
-    sublabel: "30 stores, ~200 employees"
-  - label: "API cost"
-    value: "$15-30/mo"
-    sublabel: "For the full pipeline"
+    sublabel: "30 stores, weekly cadence"
+  - label: "Current cost"
+    value: "~$22/mo"
+    sublabel: "ChatGPT Plus (Phase 1)"
+  - label: "Status"
+    value: "Pilot"
+    sublabel: "Phase 1 in test, Phase 2 planned"
 publishedAt: 2026-05-14
 order: 4
 ---
 
-## What this project actually proves
+This is a project in active development, not yet running live payroll. The Phase 1 architecture is built and tested on real photos. The audit layer catches real bugs (documented below). The workflow is now being piloted with the admin who runs payroll for a 30-store retail chain in South Africa.
 
-This is the only case study in the portfolio that isn't a HelloBible project. It's also the only one that isn't fully in production.
-
-I'm helping someone who runs payroll for a 30-store retail chain in South Africa. She spends 20-30 hours every month typing handwritten timesheets from WhatsApp photos into Excel. Pay day is the 20th. Errors become disputes.
-
-Phase 1 is operational since May 2026. Phase 2 (full automation) is in build.
+She spends several hours each week typing handwritten timesheets from WhatsApp photos into Excel. Pay day is the 20th. Errors become disputes.
 
 ---
 
@@ -40,7 +36,7 @@ The admin who runs payroll for this chain has a hard deadline. The 20th of every
 - Cross-match employees who work across multiple stores
 - Produce a final payable list, per store, per week, with totals
 
-Estimated time: 20-30 hours every month. Mental load: high.
+Estimated time: several hours each week. Exact number to be measured during pilot.
 
 She doesn't want a new app. The store managers definitely don't want a new app. The paper-and-WhatsApp loop has worked for years and the team is comfortable with it. The only thing that can change is what happens between the photo landing in her phone and the number landing in the Excel.
 
@@ -59,15 +55,13 @@ A Custom GPT plus an Excel Engine that:
 
 Phase 1 is semi-manual on purpose. The admin reviews the extraction before validating each batch. I'm not putting an LLM-only step into a financial file without a human review layer until the error rate has held flat across enough months.
 
-Phase 2 is what's in build now: full API automation with a stricter audit layer, so the human review moves from "every batch" to "audit-by-sample". Same accuracy, less of her time.
+Phase 2 is planned next: full API automation with a stricter audit layer, with the goal of moving human review from "every batch" to "audit-by-sample".
 
 ---
 
-## What I'm actually selling
+## Why I didn't touch the input
 
-The reflex most teams have when they tackle this kind of problem: force the store managers onto a structured form, force the admin onto a new SaaS, change the input so it's machine-readable. Then half the stores stop sending data because the new tool feels harder than the paper they've always used, and the project dies six months in.
-
-The opposite reflex: don't touch the human input. The store managers keep their paper. The admin keeps her WhatsApp. What I automate is what happens between the photo and the Excel cell.
+The workflow intentionally preserves the existing paper + WhatsApp process. The store managers keep their paper. The admin keeps her WhatsApp. What I automate is what happens between the photo and the Excel cell.
 
 ---
 
@@ -86,7 +80,7 @@ The opposite reflex: don't touch the human input. The store managers keep their 
 
 The lunch rule is "if worked more than 7h that day, deduct 1h". A pure LLM might predict the right answer most of the time and predict it wrong on edge cases I can't anticipate. Code Interpreter runs deterministic Python on the extracted data. The math is auditable, not probabilistic.
 
-For an audit-ready payroll file, that distinction is the whole point.
+For an auditable payroll file, that distinction is the whole point.
 
 ### Multi-step prompt architecture
 
@@ -127,6 +121,6 @@ The pattern across both: every bug got caught because there's a verification lay
 
 ## Where this lives now
 
-Phase 1 operational since May 2026. The admin runs the Custom GPT on her weekly batch, reviews the extraction, validates into the Excel master. Time saved on her side: 20-30 hours a month down to a few minutes per weekly batch.
+Phase 1 architecture is functional and tested on real photos. The admin is piloting the pipeline on her weekly batches: she submits the photos, reviews the LLM extraction, validates into the Excel master. The hours of manual entry are replaced by a review step. Exact time savings to be measured during pilot.
 
-Phase 2 (full API, sample-audit instead of batch-by-batch review) in build. Volunteer for now. May turn into consulting if she wants to extend it across more stores or roll it out to similar businesses she knows. That's her call, not mine.
+Phase 2 (full API, sample-audit instead of batch-by-batch review) is planned next. Volunteer side project.

@@ -1,16 +1,17 @@
 ---
-title: "I Built HelloBible's Voice of Customer Pipeline for $1 a Month."
+title: "I Built HelloBible's Voice of Customer Pipeline for ~$2 a Month."
 tag: "USER INSIGHT SYSTEM"
-pitch: "4 scattered feedback channels (Zendesk, WhatsApp, Play Store, App Store) - 2,020 customer verbatims classified across 27 business-specific themes - for $1 in API calls. Built with Python and Claude Haiku. Runs monthly from a single command, with checkpoints so an interruption doesn't cost a re-run."
+pitch: "4 scattered feedback channels (Zendesk, WhatsApp, Play Store, App Store) - 2,020 customer verbatims classified across 27 business-specific themes - for ~$2 in API calls. Built with Python and Claude Haiku. Runs monthly from a single command, with checkpoints so an interruption doesn't cost a re-run."
 context: "Customer feedback at HelloBible was scattered across four channels with no consolidation, no taxonomy, no shared language for the team to talk about users. Decisions on bugs, features, and churn risk were getting made on vibes. I built the pipeline that fixes it."
-result: "2,020 verbatims classified for 2026. One CSV for the team to explore, one Markdown synthesis for the CEO. ~$1 in API costs. Pipeline runs monthly from a single Python command, resumable, with checkpoints every 100 records."
+result: "2,020 verbatims classified for 2026. One CSV for the team to explore, one Markdown synthesis for the CEO. ~$2 in API costs. Pipeline runs monthly from a single Python command, resumable, with checkpoints every 100 records."
+hero: "/assets/voc-api-cost.jpg"
 stack: ["Python", "Anthropic SDK", "Claude Haiku 4.5", "Zendesk API", "JSONL", "CSV", "Markdown"]
 metrics:
   - label: "Verbatims classified"
     value: "2,020"
     sublabel: "From 4 sources, unified"
   - label: "API cost"
-    value: "~$1"
+    value: "~$2"
     sublabel: "For 1,703 LLM classifications"
   - label: "Custom taxonomy"
     value: "27 themes"
@@ -19,13 +20,9 @@ publishedAt: 2026-04-01
 order: 3
 ---
 
-## What this project actually proves
+HelloBible was making roadmap decisions without consolidated user data. Which bugs are recurring? What do users actually want next? Who's threatening to churn? Nobody could tell you without spending half a day in raw text - so people stopped checking.
 
-The business problem: HelloBible was making roadmap decisions on intuition. Which bugs are recurring? What do users actually want next? Who's threatening to churn? Nobody could tell you without spending half a day in raw text - so people stopped checking.
-
-The pipeline I built ends that. 2,020 verbatims classified across 27 business-specific themes, every month, for ~$1 in API costs. The team now has certainty about what bothers users and what they want - which means the roadmap goes in the right direction and the backlog gets fed by what's actually said, not what's loudest in the last standup.
-
-The point isn't that AI can classify customer feedback. HelloBible now has something it didn't before: a shared vocabulary for talking about users, refreshed every month, for $1.
+The pipeline centralises and classifies feedback from the 4 channels monthly. 2,020 verbatims classified across 27 business-specific themes, for ~$2 in API costs. The team now has a clearer view of recurring issues and requests, fed by what users actually say rather than what's top-of-mind in the last meeting.
 
 ---
 
@@ -59,13 +56,16 @@ The whole thing runs from a single command. State is checkpointed every 100 reco
 
 ---
 
-## What I'm actually selling
+## How it costs ~$2 a month
 
-The reflex most teams have when they hear "let's use AI to classify customer feedback": reach for the biggest model on every record. Then get a four-figure monthly bill and quietly stop using it.
+Pipeline design choices that keep the cost down:
 
-The reflex I have instead: deterministic pre-filter first, cheap model second, cache the parts that repeat, checkpoint everything, and only call the expensive model when you need to audit. ~$1 a month, end to end.
+- Deterministic pre-filter on message length and content type (saves ~14% of LLM calls)
+- Claude Haiku 4.5 for bulk classification, not a larger model
+- Ephemeral cache on the taxonomy system prompt (amortized across all calls)
+- Checkpointing every 100 records (a crash doesn't re-run already-classified records)
 
-The technical details are in the accordion below.
+Total cost for 1,703 classifications: ~$2 in API calls. The technical details are in the accordion below.
 
 ---
 
@@ -111,7 +111,7 @@ I didn't let the LLM "discover" the categories. The taxonomy is the product - it
 - Deterministic pre-filter saves ~14% of LLM calls for free
 - Haiku at ~$0.80/M input + $4/M output tokens
 - Ephemeral cache amortizes the ~1.5kb taxonomy system prompt across all calls
-- Total cost: ~$1 for 1,703 classified records
+- Total cost: ~$2 for 1,703 classified records
 
 ### Safety and idempotence
 
@@ -130,23 +130,21 @@ I didn't let the LLM "discover" the categories. The taxonomy is the product - it
 
 The bugs worth telling about - not the typos, the ones that taught me something:
 
-- **WhatsApp regex broken on colons in names** like "~ Jean 3:16". The first split on `:` captured the Bible reference as the message body. Fix: split on the first `": "` pattern instead. Real lesson on domain edge cases in raw text parsing.
-- **Haiku appending text after the JSON object** caused `json.loads` to fail with "Extra data". Fix: regex-extract the first JSON object instead of parsing the whole response. Real lesson on LLM output validation.
-- **Hit the monthly Anthropic API limit at record 650/1,703** mid-classification. Bumped the limit, the script resumed from the checkpoint - exactly what the resumable design was built for. Validation of the architecture.
-- **Partial stats + 51 duplicates after resume** because the stats dict reset on each run. Caught it because Claude Opus flagged that my numbers didn't add up arithmetically. Regenerated a clean deduplicated CSV.
-
-That last one is the most useful lesson: **you need a second LLM to audit your first LLM's outputs**. I had Claude Opus check Haiku's classifications for consistency, and it flagged real errors I would have missed.
+- **WhatsApp regex broken on colons in names** like "~ Jean 3:16". The first split on `:` captured the Bible reference as the message body. Fix: split on the first `": "` pattern instead.
+- **Haiku appending text after the JSON object** caused `json.loads` to fail with "Extra data". Fix: regex-extract the first JSON object instead of parsing the whole response.
+- **Hit the monthly Anthropic API limit at record 650/1,703** mid-classification. Bumped the limit, the script resumed from the checkpoint. The resumable design worked as intended.
+- **Partial stats + 51 duplicates after resume** because the stats dict reset on each run. Claude Opus was used to audit classification consistency and flagged that my numbers didn't add up arithmetically. Regenerated a clean deduplicated CSV.
 
 ---
 
 ## What this changes operationally
 
-Before the pipeline, deciding what to build next at HelloBible meant trusting whoever shouted loudest in the standup. Now the team has the data to answer three concrete questions every month:
+Before the pipeline, deciding what to build next at HelloBible relied on individual memory and whatever feedback was freshest. Now the team has the data to answer three concrete questions every month:
 
 - **What's bothering users right now?** (filter the CSV by `sentiment: negative` and recurring themes)
 - **What do users actually want next?** (filter by `signal: feature_request` and roll up by theme)
 - **Who's about to leave?** (filter by `signal: churn_risk` and surface in support)
 
-The exec gets a 1-page Markdown synthesis. The product team gets the full CSV to dig into. Same data, two artifacts, $1 a month to keep both fresh.
+The exec gets a 1-page Markdown synthesis. The product team gets the full CSV to dig into. Same data, two artifacts, ~$2 a month to keep both fresh.
 
-The taxonomy itself is now an asset - the shared vocabulary the team uses to talk about users. The pipeline keeps feeding it every month from a single Python command.
+The taxonomy standardised how recurring issues and requests are categorized internally. The pipeline refreshes it every month from a single Python command.

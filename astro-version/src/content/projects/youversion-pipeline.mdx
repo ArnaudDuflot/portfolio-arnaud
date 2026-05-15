@@ -1,7 +1,7 @@
 ---
-title: "From 50 Minutes to 1 Second. 220 Times."
+title: "From 50 Minutes to One Command. 220 Times."
 tag: "AI WORKFLOW AUTOMATION"
-pitch: "I built a pipeline that ships Bible reading plans on YouVersion in 1 second instead of 50 minutes - and turned those plans into a top-of-funnel acquisition channel that feeds HelloBible. 220 plans shipped, an undocumented API reverse-engineered, an entire publishing-to-acquisition loop automated."
+pitch: "I built a pipeline that translates, assembles, and publishes Bible reading plans on YouVersion. What used to take 50 minutes of manual work per plan now takes about a minute of review and one click to publish. 220 plans shipped, an undocumented API reverse-engineered, an entire publishing-to-acquisition loop automated."
 context: "HelloBible's founder, Eric Célérier, originally wrote 110 reading plans in French and published them on YouVersion by hand. To take HelloBible from a French-speaking African audience to a global one, those 110 plans needed to ship in English, Dutch, and eventually dozens more languages. Doing it manually would have been months of work."
 result: "220 plans live on YouVersion (110 English + 110 Dutch). 110 French source plans audited and cleaned via the same pipeline. Cost: ~40€/month in DeepL Pro API. My time per new plan: roughly zero. The pipeline scales to any language by swapping a Bible version ID."
 hero: "/assets/youversion-plan-2.jpg"
@@ -10,9 +10,9 @@ images:
   - "/assets/youversion-plan-2.jpg"
 stack: ["Node.js", "DeepL Pro API", "Bible.com API", "YouVersion API", "Canvas/Cairo", "Pexels API", "Claude Code"]
 metrics:
-  - label: "Time per plan"
-    value: "50min → 1sec"
-    sublabel: "3000× faster"
+  - label: "My time per plan"
+    value: "50min → ~1min"
+    sublabel: "Run command + review + publish"
   - label: "Plans shipped"
     value: "220"
     sublabel: "110 English + 110 Dutch"
@@ -24,13 +24,9 @@ featured: true
 order: 2
 ---
 
-## What this project actually proves
+Every published plan on YouVersion ends with a bit.ly link that redirects readers to HelloBible. The pipeline doesn't just save time on publishing - it turns reading plans into a top-of-funnel acquisition channel. YouVersion has over 600 million installs. We're systematically publishing into that audience in every language we expand to.
 
-This is the cleanest example of my method at HelloBible. Spot the friction, decompose the problem, design the AI workflow, pilot Claude to write the code, validate every output by hand, ship, iterate, hand it off to itself.
-
-The site you're on demonstrates I can pilot AI to build something outside my skill set. This pipeline demonstrates the same thing applied to a real ops problem with real business stakes - because the output isn't just plans, it's a top-of-funnel acquisition channel. Every published plan ends with a bit.ly link that redirects readers to HelloBible. YouVersion has hundreds of millions of users. We're systematically converting that audience into ours.
-
-If you're a founder or CPO and your team has a manual loop blocking a growth lever, this is the kind of system I show up to build.
+The technical challenge that made this non-trivial: YouVersion's Partner Portal API is undocumented. No public reference, no SDK, no examples. Building the pipeline required reverse-engineering every endpoint before writing any automation code.
 
 ---
 
@@ -52,38 +48,21 @@ There was one more friction nobody told me about until I started building: **the
 
 ---
 
-## The pivot that mattered
+## Why I abandoned N8N
 
 My first instinct was N8N. Visual workflow, easy debugging, what every "AI automation" tutorial recommends in 2026.
 
 I built the workflow. It worked for two test plans. Then it broke because I couldn't get Claude through MCP working reliably - the Safari cookie auth flow needed a tunnel I couldn't stabilize. I spent half a day trying.
 
-I killed it. Switched to terminal-based Node.js scripts running on my Mac. Less observable, less impressive on a slide. But it worked end-to-end in twenty minutes after the pivot.
-
-This is one of the most useful operational reflexes I've built: pick the boring tool that ships over the impressive tool that almost works. Especially when the impressive tool keeps eating your time.
+I stopped the N8N approach and switched to terminal-based Node.js scripts running on my Mac. The Node.js version worked end-to-end about 20 minutes after the pivot.
 
 ---
 
-## What I'm actually selling
+## How the pipeline replicates
 
-When you hire a Product Ops who pilots AI in 2026, what you're buying isn't the artifact - it's the loop:
-
-1. Spot the friction with real numbers attached (40-50 min × 110 plans × 2 languages, then dozens more)
-2. Decompose the work into a deterministic pipeline
-3. Pick the right tool per step (DeepL for translation, Bible.com for verses, Pexels for images, YouVersion API for publishing)
-4. Pilot Claude Code to write the actual code - read every diff, validate every decision
-5. Run the pipeline, validate visually, find every bug, patch, resume
-6. Stop touching it once it works
-
-I don't write code. I make every decision. I see every output. The result is a system that runs without me - which is the whole point.
-
-The replication play is what makes this strategic, not just clever:
-
-- **New language**: swap a Bible version ID, set a Polly voice ID, run the pipeline. HelloBible's ambition is dozens of languages worldwide - the pipeline scales to all of them with the same architecture.
-- **Audit and clean French source plans**: I ran the 110 originals through the same tooling to enforce consistency (Bible verses italicised, founder name bolded everywhere, all images regenerated to a new visual standard).
-- **New partner**: the same pattern works for any creator publishing to YouVersion. One-week port whenever we want to onboard the next one.
-
-That's the actual asset. Not the 220 plans live today - the system that ships every plan after this one.
+- **New language**: update translation settings and Bible version mappings (NIV for English, HSV for Dutch), set a Polly voice ID for audio, run the pipeline. The architecture doesn't change per language.
+- **Audit and clean source plans**: I ran the 110 French originals through the same tooling to enforce consistency (Bible verses italicised, founder name bolded, all images regenerated to a new visual standard).
+- **New partner**: the same pipeline pattern could work for any creator publishing to YouVersion. Estimated port: about a week of adaptation, not yet tested.
 
 ---
 
@@ -174,7 +153,6 @@ Every interesting pipeline has a list of bugs that nearly killed it. The honest 
 - **Long Dutch titles overflowing 320×320 thumbnails** - words like "Ondoorgrondelijke" (19 characters) needed 3 levels of adaptive font sizing.
 - **DeepL "Quota exceeded" with quota actually remaining** - turns out you have to set the spending cap explicitly in DeepL Pro settings. Nowhere obvious in the docs.
 
-I'm listing these because the loop *"ship → spot the bug → patch → resume"* is the whole skill. Every system I've shipped has a list like this.
 
 ---
 
@@ -182,4 +160,4 @@ I'm listing these because the loop *"ship → spot the bug → patch → resume"
 
 Pipeline operational. 220 translated plans live, plus the 110 French source plans audited and cleaned. Code on GitHub. Maintenance is minimal - mostly running the pipeline for new plans and new languages as they come in.
 
-The next language is one Bible version ID away. The next partner is a one-week port. That's the part that matters strategically.
+Adding a new language requires updating translation settings and Bible version mappings. No structural changes to the pipeline.
