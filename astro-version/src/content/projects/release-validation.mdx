@@ -1,17 +1,17 @@
 ---
-title: "Validating 20+ Releases on HelloBible's 20+ Services"
+title: "Validating Weekly Releases Across HelloBible's 20+ Services"
 tag: "RELEASE OPS"
-pitch: "HelloBible is a complex app with 20+ services shipped by an offshore dev team. Throughout 2025 I handled release validation across all services: I wrote the specs, tested every release, and drove the release validation process before each production deployment. The system that made that possible: AI-assisted specs to reduce clarification back-and-forth with offshore devs, a structured Google Sheet test plan covering every service, and three explicit test layers (staging, release candidate, production)."
-context: "HelloBible is a complex app with 20+ services. The dev team was offshore, around 5 devs. Releases were frequent. A regression in one service could silently break another."
-result: "20+ releases shipped through this system in 2025. AI-assisted ticket writing reduced clarification back-and-forth with the offshore team. The Google Sheet test plan structured the cross-service testing routine before every release. Three test layers gave the team a clear escalation path proportional to release risk."
+pitch: "HelloBible's home screen alone gives access to 20+ services - independent user paths with their own logic and edge cases - shipped by an offshore dev team on a weekly release cadence. Throughout 2025 I handled release validation across all services: I wrote the specs, tested every release, and drove the release validation process before each production deployment. The system that made that possible: AI-assisted specs to reduce clarification back-and-forth with offshore devs, a structured Google Sheet test plan covering every service, and three explicit test layers (staging, release candidate, production)."
+context: "HelloBible is a complex app with 20+ services accessible from the home screen alone. The dev team was offshore, around 5 devs. Releases shipped on a weekly cadence. A regression in one service could silently break another."
+result: "Weekly releases shipped through this system throughout 2025. AI-assisted ticket writing reduced clarification back-and-forth with the offshore team. The Google Sheet test plan structured the cross-service testing routine before every release. Three test layers gave the team a clear escalation path proportional to release risk."
 stack: ["Monday", "Google Sheets", "ChatGPT/Claude", "TestFlight", "Android testing"]
 metrics:
-  - label: "Releases shipped"
-    value: "20+"
-    sublabel: "In 2025"
+  - label: "Release cadence"
+    value: "Weekly"
+    sublabel: "Throughout 2025"
   - label: "Services in scope"
     value: "20+"
-    sublabel: "Cross-service test plan"
+    sublabel: "User paths from home screen"
   - label: "Test layers"
     value: "3"
     sublabel: "Staging, RC, production"
@@ -19,21 +19,19 @@ publishedAt: 2026-05-15
 order: 6
 ---
 
-Throughout 2025, I handled release validation across HelloBible's services. I wrote the specs, tested every release across 20+ services, and drove the release validation process before each production deployment. The work itself isn't a build. It's a function. The case study is about the system I built to do that function with offshore devs and frequent releases without missing things.
+Throughout 2025, I handled release validation across HelloBible's services. I wrote the specs, tested every release across 20+ services, and drove the release validation process before each production deployment. The work itself isn't a build. It's a function. This case study focuses on the release validation system I built to support weekly releases across multiple services.
 
 ---
 
 ## The friction I found
 
-HelloBible is a complex app. 20+ services, each with its own user paths and edge cases. The dev team was offshore, around 5 devs. Releases were frequent.
+HelloBible is a complex app. From the home screen alone, users can tap into 20+ services - each one an independent user path with its own logic, screens, and edge cases. The dev team was offshore, around 5 devs. Releases shipped on a weekly cadence.
 
 Three risks stacked on top of each other:
 
 1. A regression in one service could silently break another. Without a written test plan, you forget a service and ship a bug.
 2. A vague ticket could ship the wrong feature. The offshore team builds what's written, not what you meant.
 3. Cumulative review time. Test everything for every release and you bottleneck the dev cycle. Test too little and you ship regressions.
-
-I needed a system that solved all three at once.
 
 ---
 
@@ -46,7 +44,7 @@ I built a chat specifically prompted to write tickets when I dictated the key fa
 1. I dictate the bug or feature request in a few keywords
 2. The chat generates the ticket structure: context, jobs to be done, affected devices, affected versions
 3. I fill in the specifics
-4. The output is in clean English, ready for the offshore team
+4. The output is standardized English documentation ready for the offshore team
 
 The output structure is consistent every time. No more "wait, what device version did you say?" coming back from the devs three days later. The ticket structure reduced clarification back-and-forth with the offshore team.
 
@@ -70,18 +68,18 @@ This stratification kept the time investment proportional to the risk. A bug fix
 
 ## Why these three, not a SaaS tool
 
-Monday was already the team's ticket tracking system when I arrived. Rather than replace it with a dedicated QA platform (TestRail, Xray, etc.), I built the test validation system around it - keeping tool overhead at zero. The strategic additions were the Google Sheet test plan and the AI-assisted spec system for offshore dev clarity.
+Monday was already the team's ticket tracking system when I arrived. Rather than replace it with a dedicated QA platform (TestRail, Xray, etc.), I built the test validation system around it - keeping tool overhead at zero. The additions were the Google Sheet test plan and the AI-assisted spec system for offshore dev clarity.
 
 - **Monday** for ticket tracking: already used by the team, no new tool to maintain
 - **Google Sheet** for the test plan: everyone can edit, no permission setup, easy to evolve
 - **A prompted chat** for ticket writing: no integration, no API, immediate value
 
-Time-to-value matters more than tool sophistication in a fast-moving startup. The Google Sheet still works at 20+ services.
+The Google Sheet still works at 20+ services.
 
 ---
 
 ## Where this lives now
 
-20+ releases shipped through this system in 2025.
+Weekly releases shipped through this system throughout 2025.
 
-In 2026, HelloBible moved from a 5-dev offshore team to a smaller in-house team of 2 expert devs. The testing surface area shrank significantly. The system, the prompted chat, the Google Sheet test plan, the three-layer stratification, remains the structure release validation uses when needed.
+In 2026, HelloBible moved from a 5-dev offshore team to a smaller in-house team of 2 senior devs. With more experienced developers on board, what ships works better and faster from the start - which lowers the validation overhead. Parts of the system, especially the test plan and validation structure, are still used when releases require broader regression coverage.
