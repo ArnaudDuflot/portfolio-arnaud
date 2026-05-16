@@ -53,11 +53,11 @@ const data = project.data;
       <!-- Hero media -->
       {data.heroVideo ? (
         <div class="project__hero reveal">
-          <video src={data.heroVideo} autoplay muted loop playsinline></video>
+          <video src={data.heroVideo} autoplay muted loop playsinline preload="metadata"></video>
         </div>
       ) : data.hero ? (
         <div class="project__hero reveal">
-          <img src={data.hero} alt={data.title} />
+          <img src={data.hero} alt={`Hero visual for ${data.title}`} loading="eager" decoding="async" />
         </div>
       ) : null}
 

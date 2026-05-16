@@ -20,10 +20,11 @@ const { slug, title, tag, pitch, hero, heroVideo, stack } = Astro.props;
       muted
       loop
       playsinline
+      preload="metadata"
       class="card__media"
     />
   ) : hero ? (
-    <img src={hero} alt={title} class="card__media" />
+    <img src={hero} alt={`Preview of ${title}`} loading="lazy" decoding="async" class="card__media" />
   ) : (
     <div class="card__media card__media--empty"></div>
   )}

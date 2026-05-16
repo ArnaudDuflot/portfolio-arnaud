@@ -33,16 +33,20 @@ const isHome = pathname === '/';
   const burger = document.getElementById('navBurger');
   const links = document.getElementById('navLinks');
 
+  const canvas = document.getElementById('forest-canvas');
+
   const close = () => {
     links?.classList.remove('is-open');
     burger?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    if (canvas) canvas.style.visibility = 'visible';
   };
 
   burger?.addEventListener('click', () => {
     const isOpen = links?.classList.toggle('is-open');
     burger.setAttribute('aria-expanded', String(Boolean(isOpen)));
     document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (canvas) canvas.style.visibility = isOpen ? 'hidden' : 'visible';
   });
 
   links?.querySelectorAll('a').forEach((a) => {
