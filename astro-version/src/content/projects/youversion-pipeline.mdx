@@ -21,10 +21,19 @@ metrics:
     sublabel: "Across both translated languages"
 publishedAt: 2026-05-14
 featured: true
-order: 2
+order: 4
 ---
 
-Every published plan on YouVersion ends with a bit.ly link that redirects readers to HelloBible. The pipeline doesn't just save time on publishing - it turns reading plans into a top-of-funnel acquisition channel. YouVersion has over 600 million installs. We're systematically publishing into that audience in every language we expand to.
+HelloBible's founder had spent years writing 110 devotional reading plans in French and publishing them on YouVersion by hand. When the goal became global expansion - English, Dutch, and eventually dozens more languages - doing this manually would have taken months.
+
+I built a pipeline that handles the full loop: translation, Bible verse matching per locale, image generation, and publication to YouVersion. Every published plan ends with a bit.ly link routing readers back to HelloBible. YouVersion has over 600 million installs. The pipeline turns a publishing workflow into a systematic acquisition channel at scale.
+
+**Key results:**
+- 220 plans live on YouVersion (110 English + 110 Dutch)
+- ~180 hours of manual work eliminated
+- ~40€/month in DeepL Pro API - everything else free
+- New language: a few days of configuration, no structural changes
+- Every plan routes readers to HelloBible via bit.ly
 
 The technical challenge that made this non-trivial: YouVersion's Partner Portal API is undocumented. No public reference, no SDK, no examples. Building the pipeline required reverse-engineering every endpoint before writing any automation code.
 
@@ -60,7 +69,7 @@ I stopped the N8N approach and switched to terminal-based Node.js scripts runnin
 
 ## How the pipeline replicates
 
-- **New language**: update translation settings and Bible version mappings (NIV for English, HSV for Dutch), set a Polly voice ID for audio, run the pipeline. The architecture doesn't change per language.
+- **New language**: update translation settings and Bible version mappings (NIV for English, HSV for Dutch), run the pipeline. A few days of configuration - the architecture doesn't change per language.
 - **Audit and clean source plans**: I ran the 110 French originals through the same tooling to enforce consistency (Bible verses italicised, founder name bolded, all images regenerated to a new visual standard).
 - **New partner**: the same pipeline pattern could work for any creator publishing to YouVersion. Estimated port: about a week of adaptation, not yet tested.
 

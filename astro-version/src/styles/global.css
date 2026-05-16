@@ -6,8 +6,8 @@
   /* Core palette */
   --bg: #0A1410;
   --bg-deep: #060A08;
-  --surface: #0F1A14;
-  --surface-elevated: #152018;
+  --surface: #121812;
+  --surface-elevated: #171D14;
   --border: #1F2A24;
   --border-strong: #2A3830;
 
@@ -17,19 +17,19 @@
   --text-faint: #6B7566;
 
   /* Accent  -  Forest green */
-  --accent: #5A9975;
-  --accent-bright: #73B392;
-  --accent-deep: #2D5F3F;
-  --accent-soft: rgba(115, 179, 146, 0.12);
-  --accent-border: rgba(115, 179, 146, 0.25);
+  --accent: #3FA876;
+  --accent-bright: #82E3B6;
+  --accent-deep: #1F6B4A;
+  --accent-soft: rgba(130, 227, 182, 0.12);
+  --accent-border: rgba(130, 227, 182, 0.25);
 
   /* Secondary  -  Gold/ochre (chaleur) */
   --gold: #D4AF37;
-  --gold-soft: rgba(212, 175, 55, 0.15);
+  --gold-soft: rgba(212, 175, 55, 0.22);
 
   /* Status */
-  --success: #5A9975;
-  --status-dot: #73B392;
+  --success: #3FA876;
+  --status-dot: #82E3B6;
 
   /* Fonts */
   --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
@@ -56,7 +56,7 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 40px rgba(115, 179, 146, 0.15);
+  --shadow-glow: 0 0 40px rgba(130, 227, 182, 0.22);
 
   /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -159,7 +159,7 @@ button {
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.45;
+  opacity: 0.52;
   animation: atmosphereDrift 24s ease-in-out infinite;
 }
 
@@ -168,7 +168,7 @@ button {
   right: -10%;
   width: 60vw;
   height: 60vw;
-  background: radial-gradient(circle, rgba(115, 179, 146, 0.4) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 80%);
+  background: radial-gradient(circle, rgba(130, 227, 182, 0.4) 0%, rgba(212, 175, 55, 0.22) 50%, transparent 80%);
 }
 
 .atmosphere::after {
@@ -176,7 +176,7 @@ button {
   left: -15%;
   width: 70vw;
   height: 70vw;
-  background: radial-gradient(circle, rgba(45, 95, 63, 0.5) 0%, rgba(90, 153, 117, 0.2) 50%, transparent 80%);
+  background: radial-gradient(circle, rgba(31, 107, 74, 0.5) 0%, rgba(63, 168, 118, 0.2) 50%, transparent 80%);
   animation-delay: -12s;
 }
 
@@ -225,17 +225,17 @@ button {
   animation: drawFG 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.fg.f1 { stroke: rgba(115,179,146,0.13); stroke-width: 1.2; animation-delay: 0.2s; }
-.fg.f2 { stroke: rgba(90,153,117,0.09); stroke-width: 0.8; animation-delay: 0.5s; }
+.fg.f1 { stroke: rgba(130,227,182,0.13); stroke-width: 1.2; animation-delay: 0.2s; }
+.fg.f2 { stroke: rgba(63,168,118,0.09); stroke-width: 0.8; animation-delay: 0.5s; }
 .fg.f3 { stroke: rgba(212,175,55,0.08); stroke-width: 0.9; animation-delay: 0.7s; }
-.fg.f4 { stroke: rgba(115,179,146,0.08); stroke-width: 0.7; animation-delay: 0.9s; }
-.fg.f5 { stroke: rgba(45,95,63,0.12); stroke-width: 1; animation-delay: 0.35s; }
+.fg.f4 { stroke: rgba(130,227,182,0.08); stroke-width: 0.7; animation-delay: 0.9s; }
+.fg.f5 { stroke: rgba(31,107,74,0.12); stroke-width: 1; animation-delay: 0.35s; }
 
 .fn {
-  fill: rgba(115,179,146,0.45);
+  fill: rgba(130,227,182,0.45);
   opacity: 0;
   animation: fadeFN 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
-  filter: drop-shadow(0 0 4px rgba(115,179,146,0.7));
+  filter: drop-shadow(0 0 4px rgba(130,227,182,0.7));
 }
 .fn:nth-child(6)  { animation-delay: 1.1s; }
 .fn:nth-child(7)  { animation-delay: 1.3s; }
@@ -254,6 +254,11 @@ button {
 @keyframes fadeFN {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* Hide filaments on mobile - position:fixed lags during touch scroll on Android/Chrome */
+@media (max-width: 767px) {
+  .filaments-global { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -284,12 +289,12 @@ main {
 .btn--primary {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
   color: var(--text);
-  box-shadow: 0 4px 20px rgba(45, 95, 63, 0.35);
+  box-shadow: 0 4px 20px rgba(31, 107, 74, 0.35);
 }
 
 .btn--primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 28px rgba(45, 95, 63, 0.5);
+  box-shadow: 0 8px 28px rgba(31, 107, 74, 0.5);
   background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent) 100%);
 }
 

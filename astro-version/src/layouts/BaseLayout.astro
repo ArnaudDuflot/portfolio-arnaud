@@ -128,10 +128,10 @@ const ogImage = new URL(image, Astro.site).toString();
     var particles = [];
 
     var COLORS = [
-      'rgba(115,179,146,',
-      'rgba(90,153,117,',
+      'rgba(130,227,182,',
+      'rgba(63,168,118,',
       'rgba(212,175,55,',
-      'rgba(45,95,63,',
+      'rgba(31,107,74,',
     ];
 
     function resize() {
@@ -149,7 +149,7 @@ const ogImage = new URL(image, Astro.site).toString();
       this.color   = COLORS[Math.floor(Math.random() * COLORS.length)];
       this.alpha   = 0;
       this.targetAlpha = this.fromMouse ? Math.random() * 0.75 + 0.35
-                                        : Math.random() * 0.4  + 0.1;
+                                        : Math.random() * 0.32 + 0.08;
       this.vx      = (Math.random() - 0.5) * (this.fromMouse ? 1.4 : 0.3);
       this.vy      = this.fromMouse ? -(Math.random() * 1.8 + 0.4)
                                     : (Math.random() - 0.5) * 0.3;
@@ -210,7 +210,7 @@ const ogImage = new URL(image, Astro.site).toString();
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = 'rgba(115,179,146,' + lineAlpha + ')';
+            ctx.strokeStyle = 'rgba(130,227,182,' + lineAlpha + ')';
             ctx.lineWidth = (1 - dist / CONNECT_DIST) * 0.8;
             ctx.stroke();
           }
@@ -342,10 +342,10 @@ const ogImage = new URL(image, Astro.site).toString();
     // ── Particle pool ──────────────────────────────────────────────────────
     var MAX = 500;
     var PALETTES = [
-      [0.45, 0.70, 0.57],  // #73B392 green
-      [0.35, 0.60, 0.46],  // #5A9975 deep green
+      [0.51, 0.89, 0.71],  // #82E3B6 green
+      [0.25, 0.66, 0.46],  // #3FA876 deep green
       [0.83, 0.69, 0.21],  // #D4AF37 gold
-      [0.18, 0.37, 0.25],  // #2D5F3F forest
+      [0.12, 0.42, 0.29],  // #1F6B4A forest
     ];
 
     function Particle(mx, my) {
@@ -358,7 +358,7 @@ const ogImage = new URL(image, Astro.site).toString();
       // z: 0 = far/small/dim, 1 = close/large/bright
       this.z    = this.fromMouse ? 0.85 + Math.random()*0.15 : 0.3 + Math.random()*0.7;
       this.size = this.fromMouse ? Math.random()*28+12 : Math.random()*22+6;
-      this.tAlpha = this.fromMouse ? Math.random()*.8+.3 : Math.random()*.45+.08;
+      this.tAlpha = this.fromMouse ? Math.random()*.8+.3 : Math.random()*.35+.07;
       this.alpha  = 0;
       this.vx   = (Math.random()-.5)*(this.fromMouse ? 2.2 : .4);
       this.vy   = this.fromMouse ? -(Math.random()*2.6+.6) : (Math.random()-.5)*.4;
