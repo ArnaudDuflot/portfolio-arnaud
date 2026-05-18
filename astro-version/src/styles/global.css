@@ -16,10 +16,11 @@
   --text-muted: #B5C0B5;
   --text-faint: #6B7566;
 
-  /* Accent  -  Forest green */
-  --accent: #3FA876;
-  --accent-bright: #82E3B6;
-  --accent-deep: #1F6B4A;
+  /* Accent  -  Forest green (3-level hierarchy) */
+  --accent-bright: #82E3B6;  /* HERO: CTAs primaires, signature elements only */
+  --accent: #3FA876;          /* STANDARD: links, eyebrows, important labels */
+  --accent-muted: #5A9270;    /* SECONDARY: pills, tags, decorative dots */
+  --accent-deep: #1F6B4A;     /* Used in gradients */
   --accent-soft: rgba(130, 227, 182, 0.12);
   --accent-border: rgba(130, 227, 182, 0.25);
 
@@ -68,6 +69,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -123,7 +125,7 @@ button {
 /* Selection */
 ::selection {
   background: var(--accent-soft);
-  color: var(--accent-bright);
+  color: var(--accent-muted);
 }
 
 /* Focus */
@@ -319,7 +321,7 @@ main {
   gap: 0.4rem;
   padding: 0.4rem 0.9rem;
   background: var(--accent-soft);
-  color: var(--accent-bright);
+  color: var(--accent-muted);
   border: 1px solid var(--accent-border);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
@@ -334,7 +336,7 @@ main {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-bright);
+  background: var(--accent-muted);
 }
 
 /* Accent text (gradient) */

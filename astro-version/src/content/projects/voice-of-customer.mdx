@@ -20,9 +20,9 @@ publishedAt: 2026-04-01
 order: 1
 ---
 
-HelloBible was making roadmap decisions without consolidated user data. Which bugs are recurring? What do users actually want next? Who's threatening to churn? Nobody could tell you without spending half a day in raw text - so people stopped checking.
+HelloBible had no reliable way to compare recurring bugs, feature requests, and churn-risk signals across channels. Which bugs are recurring? What do users actually want next? Who's threatening to churn? Nobody could tell you without spending half a day in raw text - so people stopped checking.
 
-The pipeline centralises and classifies feedback from the 4 channels monthly. 2,020 verbatims classified across 27 business-specific themes, for ~$2 in API costs. The team now has a clearer view of recurring issues and requests, fed by what users actually say rather than what's top-of-mind in the last meeting.
+The pipeline centralises and classifies feedback from the 4 channels monthly. 2,020 verbatims classified across 27 business-specific themes, for ~$2 in API costs. I deliver one monthly CSV and one CEO readout, both fed by what users actually say rather than what's top-of-mind in the last meeting.
 
 ---
 
@@ -52,7 +52,7 @@ A 6-step Python pipeline that runs monthly:
 5. **Classify** every verbatim via Claude Haiku 4.5 against a 27-theme taxonomy I designed and iterated
 6. **Output** two artifacts: a CSV for the team to explore and filter, a Markdown executive synthesis for the CEO
 
-The whole thing runs from a single command. State is checkpointed every 100 records. If it crashes mid-classification, it resumes from where it stopped.
+The whole thing runs from a single command. State is checkpointed every 100 records, so a failed run resumes from where it stopped instead of forcing a full reclassification.
 
 ---
 

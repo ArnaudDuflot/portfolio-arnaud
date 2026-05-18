@@ -20,7 +20,7 @@ publishedAt: 2026-04-29
 order: 2
 ---
 
-A small system that does one strategic thing: turn HelloBible's paying subscribers into a visible cohort inside Zendesk. Before the workflow, premium tickets were diluted in a queue of 1.3K. After it, they're a dedicated view (323 tickets right now), one click away in the sidebar.
+A small system, one outcome: turn HelloBible's paying subscribers into a visible cohort inside Zendesk. Before the workflow, premium tickets were diluted in a queue of 1.3K. After it, they're a dedicated view (323 tickets right now), one click away in the sidebar.
 
 The workflow made premium tickets visible directly in the Zendesk queue instead of only inside the user profile.
 
@@ -53,7 +53,7 @@ First instinct: call the RevenueCat API per ticket with the requester's email, g
 
 The blocker: RevenueCat API v2 doesn't filter customers by email. To check whether a single email is premium, I'd have to paginate ~18,000 customer records. Per ticket. Not viable.
 
-I tested it to confirm. The HTTP Request returned 20 random customers with no email filter applicable. One ticket from a real $29 paying customer came back unmatched. That's what forced the pivot.
+I tested the direct API path, proved it would not work per ticket (the HTTP Request returned 20 random customers with no email filter, and one ticket from a real $29 paying customer came back unmatched), and switched to a sheet-backed lookup loaded once per run.
 
 The Google Sheet approach:
 
@@ -71,7 +71,7 @@ The workflow runs in the background. What changes is the support team's daily wo
 
 **Before:** I open Zendesk. I see 1.3K tickets. I scan them top-to-bottom. I might miss a paying customer's urgent ticket because nothing tells me they pay until I open it.
 
-**After:** I open Zendesk. The left sidebar has a dedicated view called "🌟 Clients Premium" with 323 tickets. I treat that view first. Every paying customer gets served before any free user, every day, without me thinking about it.
+**After:** I open Zendesk. The left sidebar has a dedicated view called "🌟 Clients Premium" with 323 tickets. Premium tickets move into the first queue I check instead of being mixed into the general backlog.
 
 The downstream effects:
 
@@ -79,7 +79,7 @@ The downstream effects:
 - **Expected retention benefit.** When a premium subscriber writes in and their complaint gets resolved fast, that should reduce the "I cancelled because nobody responded" class of churn. Effect to be measured over time.
 - **A focused listening channel for product.** Premium tickets become a high-signal cohort to listen to: these are the people who put money down. The dedicated view doubles as a focused input source for the product team.
 
-Operationally, the workflow turned premium users into a dedicated support queue.
+The workflow turned paying users from hidden profile data into a queue I could act on before opening any ticket.
 
 ---
 
@@ -180,7 +180,7 @@ The bugs worth telling about, the ones that shaped the architecture:
 
 Workflow active in production. Full backlog tagged. Delta workflow runs every 12 hours.
 
-Quality check: I manually verified 15 tagged accounts. All 15 had actually spent money. On the 15 manual checks performed, zero false positives detected.
+Quality check: I manually verified 15 tagged accounts (all 15 had actually spent money - zero false positives) and spot-checked known paying users in the queue for missed tags - none found in that spot-check.
 
 The discrepancy I observed: 383 tickets tagged by the workflow, 323 visible in the Zendesk view right now (~84%). Cause: Zendesk drops closed tickets from standard views after ~28 days, plus a small number of silent `Update` failures absorbed by `continueOnFail`. The trade-off was acceptable given the support volume and queue usage.
 

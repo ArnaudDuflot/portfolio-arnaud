@@ -117,6 +117,58 @@ const data = project.data;
         console.error('Copy failed', e);
       }
     });
+
+    // Count-up animation on metric values
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function animateCountUp(el) {
+      const original = el.textContent?.trim() || '';
+      const match = original.match(/^([^\d-]*)(-?[\d,]+(?:\.\d+)?)(.*)$/);
+      if (!match) return;
+      const [, prefix, numStr, suffix] = match;
+      if (/\d/.test(suffix)) return; // multiple numbers, skip
+      const target = parseFloat(numStr.replace(/,/g, ''));
+      if (isNaN(target) || target === 0) return;
+
+      const duration = 1400;
+      const start = performance.now();
+      const hasComma = numStr.includes(',');
+      const decimals = (numStr.split('.')[1] || '').length;
+
+      function format(n: number) {
+        let intPart = decimals > 0 ? n.toFixed(decimals) : Math.floor(n).toString();
+        if (hasComma) {
+          const parts = intPart.split('.');
+          parts[0] = parseInt(parts[0]).toLocaleString('en-US');
+          intPart = parts.join('.');
+        }
+        return intPart;
+      }
+
+      function update(now: number) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * target;
+        el.textContent = prefix + format(current) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+
+      el.textContent = prefix + format(0) + suffix;
+      requestAnimationFrame(update);
+    }
+
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      const metricObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCountUp(entry.target as HTMLElement);
+            metricObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.metric__value').forEach((el) => metricObserver.observe(el));
+    }
   </script>
 </BaseLayout>
 
@@ -189,7 +241,7 @@ const data = project.data;
   }
 
   .project__back:hover {
-    color: var(--accent-bright);
+    color: var(--accent);
   }
 
   .project__header {
@@ -325,12 +377,12 @@ const data = project.data;
   }
 
   .project__content :global(em) {
-    color: var(--accent-bright);
+    color: var(--accent-muted);
     font-style: italic;
   }
 
   .project__content :global(a) {
-    color: var(--accent-bright);
+    color: var(--accent);
     text-decoration: underline;
     text-decoration-color: rgba(130, 227, 182, 0.4);
     text-underline-offset: 3px;
@@ -338,7 +390,7 @@ const data = project.data;
   }
 
   .project__content :global(a:hover) {
-    text-decoration-color: var(--accent-bright);
+    text-decoration-color: var(--accent);
   }
 
   .project__content :global(ul),
@@ -354,7 +406,7 @@ const data = project.data;
   }
 
   .project__content :global(blockquote) {
-    border-left: 3px solid var(--accent-bright);
+    border-left: 3px solid var(--accent);
     padding-left: 1.5rem;
     margin: 2rem 0;
     color: var(--text);
@@ -369,7 +421,7 @@ const data = project.data;
     border-radius: 4px;
     font-family: var(--font-mono);
     font-size: 0.875em;
-    color: var(--accent-bright);
+    color: var(--accent-muted);
   }
 
   .project__content :global(pre) {

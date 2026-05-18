@@ -8,9 +8,12 @@ import ProjectCard from '../components/ProjectCard.astro';
 const allProjects = await getCollection('projects');
 const projects = allProjects
   .sort((a, b) => a.data.order - b.data.order);
+
+const heroSubtitle = "I'm Arnaud - Product Ops & AI Automation Engineer. Currently right hand to the founder at HelloBible, scaling from 15k to 140k downloads in 14 months. I find the friction. I ship the system that removes it.";
+const heroWords = heroSubtitle.split(' ');
 ---
 
-<BaseLayout title="Arnaud Duflot · Product Operations Specialist">
+<BaseLayout title="Arnaud Duflot · Product Ops & AI Automation Engineer">
   <Nav slot="nav" />
 
   <!-- Hero -->
@@ -19,8 +22,10 @@ const projects = allProjects
 <h1 class="hero__title reveal">
         I take <span class="text-accent">50-minute manual processes</span> and turn them into one-command pipelines.
       </h1>
-      <p class="hero__subtitle reveal">
-        I'm Arnaud - Product Operations, builder-side. Currently right hand to the founder at HelloBible, scaling from 15k to 140k downloads in 14 months. I find the friction. I ship the system that removes it.
+      <p class="hero__subtitle">
+        {heroWords.map((word, i) => (
+          <span class="hero__word" style={`animation-delay: ${0.2 + i * 0.025}s`}>{word}{' '}</span>
+        ))}
       </p>
       <div class="hero__actions reveal">
         <a href="#work" class="btn btn--primary">See what I've built →</a>
@@ -28,7 +33,7 @@ const projects = allProjects
       </div>
       <p class="hero__status reveal">
         <span class="hero__status-dot"></span>
-        <span>Open to your next ops hire - coffee on me if you're in Paris</span>
+        <span>Open to Product Ops & AI Automation roles - coffee on me if you're in Paris</span>
       </p>
     </div>
   </section>
@@ -71,7 +76,7 @@ const projects = allProjects
           <span class="principle__number">01</span>
           <h3 class="principle__title">Start with the friction, not with the tool.</h3>
           <p class="principle__body">
-            The shiniest stack means nothing if it solves the wrong problem. I watch how people actually work, write down where they curse, then pick the simplest thing that makes the cursing stop.
+            The shiniest stack means nothing if it solves the wrong problem. I watch how people actually work, write down where they get stuck, then ship the simplest thing that unblocks them.
           </p>
         </article>
         <article class="principle reveal">
@@ -127,7 +132,7 @@ const projects = allProjects
         <h2 class="section-title">Open to your next ops hire.</h2>
       </div>
       <p class="contact__lede reveal">
-        Product Ops, AI Automation Engineer, Chief of Staff, and adjacent operations roles - at startups and scale-ups where one person can still see the whole picture and ship across the stack. Paris-based, remote-friendly.
+        Product Ops, AI Automation Engineer, Chief of Staff - at startups and scale-ups where one person can still see the whole picture and ship across the stack. Paris-based, remote-friendly.
       </p>
       <div class="contact__links reveal">
         <button class="btn btn--primary" id="copyEmailBtn" type="button" aria-label="Copy email">
@@ -190,6 +195,28 @@ const projects = allProjects
     max-width: 720px;
   }
 
+  .hero__word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: heroWordIn 0.5s var(--ease-out) forwards;
+  }
+
+  @keyframes heroWordIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__word {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+
   .hero__actions {
     display: flex;
     gap: 1rem;
@@ -239,7 +266,7 @@ const projects = allProjects
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent-bright);
+    color: var(--accent);
     margin-bottom: 1rem;
   }
 
@@ -283,7 +310,7 @@ const projects = allProjects
     font-family: var(--font-serif);
     font-size: 1.5rem;
     font-weight: 500;
-    color: var(--accent-bright);
+    color: var(--accent);
     font-style: italic;
     letter-spacing: -0.02em;
   }

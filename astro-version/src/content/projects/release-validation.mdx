@@ -46,13 +46,15 @@ I built a chat specifically prompted to write tickets when I dictated the key fa
 3. I fill in the specifics
 4. The output is standardized English documentation ready for the offshore team
 
-The output structure is consistent every time. No more "wait, what device version did you say?" coming back from the devs three days later. The ticket structure reduced clarification back-and-forth with the offshore team.
+The output structure stayed consistent enough to reduce repeated clarification with the offshore team. No more "wait, what device version did you say?" coming back from the devs three days later.
 
 ### 2. The Google Sheet test plan
 
 20+ services means 20+ test areas before every release. Without a written plan, you forget one and ship a regression.
 
-I built a Google Sheet that lists every service, every critical user path through that service, and the expected behavior. Before every release, I work through the sheet systematically. The sheet evolved over the year as we added services and found edge cases.
+I built the test plan as a Google Sheet listing what had to be checked before each release: service, critical user path, expected behavior, and known edge cases. About 30 paths across the 20+ services. Before every release, I work through the sheet systematically. The sheet evolved over the year as we added services and found edge cases.
+
+One example of what it caught: on the Verse of the Day service, the "Read the full chapter" button stopped working after a release. The sheet caught it before production because that path was in the systematic checklist - the kind of regression that slips through smoke tests when nobody happens to click that exact button.
 
 ### 3. Three test layers
 
@@ -80,6 +82,6 @@ The Google Sheet still works at 20+ services.
 
 ## Where this lives now
 
-Weekly releases shipped through this system throughout 2025.
+Weekly releases in 2025 used this system as the validation frame.
 
 In 2026, HelloBible moved from a 5-dev offshore team to a smaller in-house team of 2 senior devs. With more experienced developers on board, what ships works better and faster from the start - which lowers the validation overhead. Parts of the system, especially the test plan and validation structure, are still used when releases require broader regression coverage.

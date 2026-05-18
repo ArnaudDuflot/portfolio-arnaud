@@ -3,7 +3,7 @@ title: "From 50 Minutes to One Command. 220 Times."
 tag: "AI WORKFLOW AUTOMATION"
 pitch: "I built a pipeline that translates, assembles, and publishes Bible reading plans on YouVersion. What used to take 50 minutes of manual work per plan now takes about a minute of review and one click to publish. 220 plans shipped, an undocumented API reverse-engineered, an entire publishing-to-acquisition loop automated."
 context: "HelloBible's founder, Eric Célérier, originally wrote 110 reading plans in French and published them on YouVersion by hand. To take HelloBible from a French-speaking African audience to a global one, those 110 plans needed to ship in English, Dutch, and eventually dozens more languages. Doing it manually would have been months of work."
-result: "220 plans live on YouVersion (110 English + 110 Dutch). 110 French source plans audited and cleaned via the same pipeline. Cost: ~40€/month in DeepL Pro API. My time per new plan: roughly zero. The pipeline scales to any language by swapping a Bible version ID."
+result: "220 plans live on YouVersion (110 English + 110 Dutch). 110 French source plans audited and cleaned via the same pipeline. Cost: ~40€/month in DeepL Pro API. My time per new plan: about a minute of review and publish after the run. The pipeline scales to any language by swapping a Bible version ID."
 hero: "/assets/youversion-plan-2.jpg"
 images:
   - "/assets/youversion-plan-1.jpg"
@@ -26,7 +26,7 @@ order: 4
 
 HelloBible's founder had spent years writing 110 devotional reading plans in French and publishing them on YouVersion by hand. When the goal became global expansion - English, Dutch, and eventually dozens more languages - doing this manually would have taken months.
 
-I built a pipeline that handles the full loop: translation, Bible verse matching per locale, image generation, and publication to YouVersion. Every published plan ends with a bit.ly link routing readers back to HelloBible. YouVersion has over 600 million installs. The pipeline turns a publishing workflow into a systematic acquisition channel at scale.
+I built a pipeline that handles the full loop: translation, Bible verse matching per locale, image generation, and publication to YouVersion. Every published plan ends with a bit.ly link routing readers back to HelloBible. YouVersion has over 600 million installs. The pipeline turns publishing into a repeatable way to place HelloBible links inside each translated plan, at scale.
 
 **Key results:**
 - 220 plans live on YouVersion (110 English + 110 Dutch)
@@ -63,7 +63,7 @@ My first instinct was N8N. Visual workflow, easy debugging, what every "AI autom
 
 I built the workflow. It worked for two test plans. Then it broke because I couldn't get Claude through MCP working reliably - the Safari cookie auth flow needed a tunnel I couldn't stabilize. I spent half a day trying.
 
-I stopped the N8N approach and switched to terminal-based Node.js scripts running on my Mac. The Node.js version worked end-to-end about 20 minutes after the pivot.
+After losing half a day to the wrong stack, I stopped the N8N approach and switched to terminal-based Node.js scripts running on my Mac. The first end-to-end path worked about 20 minutes later.
 
 ---
 
@@ -167,6 +167,6 @@ Every interesting pipeline has a list of bugs that nearly killed it. The honest 
 
 ## Where this lives now
 
-Pipeline operational. 220 translated plans live, plus the 110 French source plans audited and cleaned. Code on GitHub. Maintenance is minimal - mostly running the pipeline for new plans and new languages as they come in.
+Pipeline operational. 220 translated plans live, plus the 110 French source plans audited and cleaned. Code on GitHub. Each bug from the section above became a guard in the pipeline, so new plans now run end-to-end with the known failure modes guarded. Maintenance is minimal - mostly running the pipeline for new plans and new languages as they come in.
 
 Adding a new language requires updating translation settings and Bible version mappings. No structural changes to the pipeline.

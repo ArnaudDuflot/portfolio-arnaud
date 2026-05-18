@@ -11,7 +11,7 @@ metrics:
     value: "~0"
     sublabel: "All code by Claude, piloted by me"
   - label: "Decisions I made"
-    value: "Every one"
+    value: "Core decisions"
     sublabel: "Stack, design, trade-offs, voice"
   - label: "Time invested"
     value: "~2 days"
@@ -48,7 +48,7 @@ The method is the same as every operations system I build at HelloBible: decompo
 
 **Decide:** For each dimension, I had a real conversation with Claude about trade-offs. Astro vs Next.js vs vanilla. Static vs server-rendered. Dark mode vs light. Fraunces vs Söhne. I rejected Claude's suggestions when they didn't fit (he wanted to add a sitemap integration that was incompatible with our Astro version - I caught it, we removed it).
 
-**Ship:** Claude wrote the code. I read every diff before validating. When something looked off, I asked why. When I didn't understand a decision, I made him explain it.
+**Ship:** Claude wrote the code; I reviewed diffs, challenged unclear choices, and tested the visual result before accepting changes. When something looked off, I asked why. When I didn't understand a decision, I made him explain it.
 
 **Iterate:** When the WebGL particles felt too sparse, I said so. When the mouse trail felt redundant after we added hover morphing, I asked Claude what he thought - and we removed it. When the LinkedIn banner he generated wasn't wow enough, I made him explain why, and we redid it three times.
 
@@ -58,7 +58,7 @@ The method is the same as every operations system I build at HelloBible: decompo
 
 ## What this cost to build
 
-The site was designed, developed, and deployed in ~2 days of evening sessions without an agency or a dedicated developer. The normal cost for this kind of custom portfolio: 5-10k€ and 4-6 weeks.
+The site was designed, developed, and deployed in ~2 days of evening sessions without an agency or a dedicated developer. A custom portfolio like this could easily cost 5-10k€ and take 4-6 weeks the traditional way.
 
 What made that possible: I know how to decompose a problem into decisions, brief an AI agent on each decision, review its output, and iterate until the result holds up. The same method runs the four other case studies in this portfolio - different domains, same loop.
 
