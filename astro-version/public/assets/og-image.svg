@@ -21,7 +21,7 @@
   <rect width="1200" height="630" fill="url(#bg2)"/>
 
   <!-- Eyebrow -->
-  <text x="80" y="135" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="500" fill="#73B392" letter-spacing="3">PRODUCT OPERATIONS  ·  BUILDER</text>
+  <text x="80" y="135" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="500" fill="#73B392" letter-spacing="3">PRODUCT OPS  ·  AI AUTOMATION</text>
 
   <!-- Wordmark -->
   <g>
@@ -30,11 +30,11 @@
   </g>
 
   <!-- Tagline -->
-  <text x="80" y="365" font-family="Fraunces, Georgia, serif" font-size="48" font-weight="500" fill="#F2EFE8" letter-spacing="-1.5">I take <tspan font-style="italic" fill="url(#accent)">110-hour processes</tspan></text>
-  <text x="80" y="425" font-family="Fraunces, Georgia, serif" font-size="48" font-weight="500" fill="#F2EFE8" letter-spacing="-1.5">and turn them into 10-minute ones.</text>
+  <text x="80" y="365" font-family="Fraunces, Georgia, serif" font-size="48" font-weight="500" fill="#F2EFE8" letter-spacing="-1.5">I take <tspan font-style="italic" fill="url(#accent)">50-minute manual processes</tspan></text>
+  <text x="80" y="425" font-family="Fraunces, Georgia, serif" font-size="48" font-weight="500" fill="#F2EFE8" letter-spacing="-1.5">and turn them into one-command pipelines.</text>
 
   <!-- Footer line -->
   <line x1="80" y1="510" x2="180" y2="510" stroke="#73B392" stroke-width="2"/>
-  <text x="80" y="555" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#B5C0B5">Currently scaling HelloBible · 15k → 140k users in 14 months</text>
-  <text x="80" y="582" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#6B7566">arnaudduflot.com</text>
+  <text x="80" y="555" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#B5C0B5">Currently scaling HelloBible · 15k to 140k downloads in 14 months</text>
+  <text x="80" y="582" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#6B7566">portfolio-arnaud.pages.dev</text>
 </svg>
