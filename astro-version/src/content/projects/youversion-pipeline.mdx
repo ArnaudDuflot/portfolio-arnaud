@@ -61,7 +61,7 @@ There was one more friction nobody told me about until I started building: **the
 
 My first step was a POC on N8N - a quick way to validate the logic before committing to a full build.
 
-After that POC, I chose to move the entire pipeline to a standalone Node.js script driven by direct API calls. Three reasons drove that decision: eliminating the dependency on third-party infrastructure, getting sub-second latency per operation, and having granular control over raw data processing that a visual workflow tool couldn't give me.
+After that POC, I chose to move the entire pipeline to a standalone Node.js script driven by direct API calls. Three reasons drove that decision: eliminating the dependency on third-party infrastructure, running the full pipeline locally without external orchestration overhead, and having granular control over raw data processing that a visual workflow tool couldn't give me.
 
 ---
 
