@@ -57,13 +57,11 @@ There was one more friction nobody told me about until I started building: **the
 
 ---
 
-## Why I abandoned N8N
+## From POC to production stack
 
-My first instinct was N8N. Visual workflow, easy debugging, what every "AI automation" tutorial recommends in 2026.
+My first step was a POC on N8N - a quick way to validate the logic before committing to a full build.
 
-I built the workflow. It worked for two test plans. Then it broke because I couldn't get Claude through MCP working reliably - the Safari cookie auth flow needed a tunnel I couldn't stabilize. I spent half a day trying.
-
-After losing half a day to the wrong stack, I stopped the N8N approach and switched to terminal-based Node.js scripts running on my Mac. The first end-to-end path worked about 20 minutes later.
+After that POC, I chose to move the entire pipeline to a standalone Node.js script driven by direct API calls. Three reasons drove that decision: eliminating the dependency on third-party infrastructure, getting sub-second latency per operation, and having granular control over raw data processing that a visual workflow tool couldn't give me.
 
 ---
 
