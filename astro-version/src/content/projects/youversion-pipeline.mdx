@@ -2,7 +2,7 @@
 title: "From 50 Minutes to One Command. 220 Times."
 tag: "AI WORKFLOW AUTOMATION"
 pitch: "I built a pipeline that translates, assembles, and publishes Bible reading plans on YouVersion. What used to take 50 minutes of manual work per plan now takes about a minute of review and one click to publish. 220 plans shipped, an undocumented API reverse-engineered, an entire publishing-to-acquisition loop automated."
-context: "HelloBible's founder, Eric Célérier, wrote 110 reading plans in French and published them on YouVersion by hand. To expand HelloBible globally, those plans had to ship in English, Dutch, and eventually dozens more languages. Doing it manually would have been months of work."
+context: "HelloBible's global expansion had one bottleneck: 110 French reading plans that had to ship in every new language before acquisition could start on YouVersion. At 40-50 minutes per plan manually, that was months of blocked growth."
 result: "220 plans live on YouVersion (110 English + 110 Dutch). 110 French source plans audited and cleaned via the same pipeline. Cost: ~40€/month in DeepL Pro API. My time per new plan: about a minute of review and publish after the run. The pipeline scales to any language by swapping a Bible version ID."
 hero: "/assets/youversion-plan-2.jpg"
 images:
@@ -24,26 +24,22 @@ featured: true
 order: 1
 ---
 
-HelloBible's founder had spent years writing 110 devotional reading plans in French and publishing them on YouVersion by hand. When the goal became global expansion - English, Dutch, and eventually dozens more languages - doing this manually would have taken months.
+YouVersion has over 600 million installs. For HelloBible, every published reading plan ends with a bit.ly link routing readers back to the app - it's one of the most direct acquisition channels available to a Bible app. The problem: all 110 plans were in French only. No English, no Dutch - the channel existed but couldn't be used at scale.
 
-I built a pipeline that handles the full loop: translation, Bible verse matching per locale, image generation, and publication to YouVersion. Every published plan ends with a bit.ly link routing readers back to HelloBible. YouVersion has over 600 million installs. The pipeline turns publishing into a repeatable way to place HelloBible links inside each translated plan, at scale.
+I built the pipeline that unblocked it: translation, Bible verse matching per locale, image generation, and publication to YouVersion in one command.
 
 **Key results:**
 - 220 plans live on YouVersion (110 English + 110 Dutch)
 - ~180 hours of manual work eliminated
 - ~40€/month in DeepL Pro API - everything else free
 - New language: a few days of configuration, no structural changes
-- Every plan routes readers to HelloBible via bit.ly
-
-The technical challenge that made this non-trivial: YouVersion's Partner Portal API is undocumented. No public reference, no SDK, no examples. Building the pipeline required reverse-engineering every endpoint before writing any automation code.
+- Every plan routes readers back to HelloBible via bit.ly
 
 ---
 
 ## The friction I found
 
-Eric Célérier - HelloBible's founder - had written 110 reading plans in French over the years and published them on YouVersion himself, by hand. Each plan is 3-7 days of devotional content, cited Bible verses in context, two branded images per plan.
-
-To take HelloBible global, those 110 plans had to ship in every language we expand into. English and Dutch first, then dozens more. The catch is that each language requires:
+Each reading plan is 3-7 days of devotional content, cited Bible verses in context, two branded images per plan. Publishing one plan in a new language isn't just running text through a translator. Each language requires:
 
 - Translating the devotional text
 - Finding the **official** Bible version for every cited verse (NIV for English, HSV for Dutch - you can't translate the Bible itself, only the surrounding content)
