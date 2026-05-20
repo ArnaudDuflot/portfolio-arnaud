@@ -46,8 +46,26 @@ const prefix = isHome ? '' : '/';
     }
 
     .mobile-nav__link:hover,
-    .mobile-nav__link:focus-visible {
+    .mobile-nav__link:focus-visible,
+    .mobile-nav__link.is-active {
       color: var(--accent-bright);
+    }
+
+    .mobile-nav__link.is-active {
+      position: relative;
+    }
+
+    .mobile-nav__link.is-active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background: var(--accent-bright);
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(130, 227, 182, 0.5);
     }
   }
 </style>

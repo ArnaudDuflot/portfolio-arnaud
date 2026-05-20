@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import MobileNav from '../components/MobileNav.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -48,6 +49,7 @@ const ogImage = new URL(image, Astro.site).toString();
     rel="stylesheet"
   />
 
+  <ViewTransitions />
   <slot name="head" />
 </head>
 <body>
@@ -76,7 +78,7 @@ const ogImage = new URL(image, Astro.site).toString();
     <slot name="default-nav" />
   </slot>
 
-  <main id="main-content">
+  <main id="main-content" transition:animate="fade">
     <slot />
   </main>
 
@@ -85,6 +87,8 @@ const ogImage = new URL(image, Astro.site).toString();
 
   <script is:inline src="/scripts/scroll-reveal.js"></script>
   <script is:inline src="/scripts/copy-email.js"></script>
+  <script is:inline src="/scripts/video-player.js"></script>
+  <script is:inline src="/scripts/mobile-nav.js"></script>
 
   <script is:inline src="/scripts/forest-tier.js"></script>
   <script is:inline src="/scripts/forest-canvas.js"></script>

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import VideoPlayer from '../../components/VideoPlayer.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -57,7 +58,7 @@ const data = project.data;
       <!-- Hero media -->
       {data.heroVideo ? (
         <div class="project__hero reveal">
-          <video src={data.heroVideo} autoplay muted loop playsinline preload="metadata"></video>
+          <VideoPlayer src={data.heroVideo} poster={data.hero} />
         </div>
       ) : data.hero ? (
         <div class="project__hero reveal">
@@ -293,7 +294,8 @@ const data = project.data;
   }
 
   .project__hero img,
-  .project__hero video {
+  .project__hero video,
+  .project__hero :global(.video-player) {
     width: 100%;
     height: auto;
     display: block;

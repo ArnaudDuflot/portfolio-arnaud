@@ -1,0 +1,85 @@
+---
+interface Props {
+  src: string;
+  poster?: string;
+  class?: string;
+  loop?: boolean;
+}
+
+const { src, poster, class: className, loop = true } = Astro.props;
+---
+
+<div class:list={['video-player', className]} data-video-player>
+  <video
+    class="video-player__media"
+    muted
+    playsinline
+    loop={loop}
+    preload="none"
+    data-src={src}
+    poster={poster}
+  ></video>
+  <button type="button" class="video-player__play" aria-label="Play video">
+    <span class="video-player__play-icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<style>
+  .video-player {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+
+  .video-player__media {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .video-player__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 10, 8, 0.35);
+    transition: background 0.25s var(--ease-out), opacity 0.25s var(--ease-out);
+  }
+
+  .video-player__play:hover {
+    background: rgba(6, 10, 8, 0.5);
+  }
+
+  .video-player__play-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(10, 20, 16, 0.85);
+    border: 1px solid var(--accent-border);
+    box-shadow: var(--shadow-md), 0 0 24px rgba(130, 227, 182, 0.2);
+    position: relative;
+  }
+
+  .video-player__play-icon::after {
+    content: '';
+    position: absolute;
+    left: 54%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-width: 10px 0 10px 16px;
+    border-color: transparent transparent transparent var(--accent-bright);
+    margin-left: 2px;
+  }
+
+  .video-player.is-playing .video-player__play {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .video-player.is-playing .video-player__media {
+    cursor: pointer;
+  }
+</style>

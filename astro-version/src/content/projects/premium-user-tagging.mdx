@@ -20,6 +20,8 @@ publishedAt: 2026-04-29
 order: 3
 ---
 
+import VideoPlayer from '../../components/VideoPlayer.astro';
+
 A small system, one outcome: turn HelloBible's paying subscribers into a visible cohort inside Zendesk. Before the workflow, premium tickets were diluted in a queue of 1.3K. After it, they're a dedicated view (323 tickets right now), one click away in the sidebar.
 
 The workflow made premium tickets visible directly in the Zendesk queue instead of only inside the user profile.
@@ -152,7 +154,7 @@ The CSV gets downloaded once on the first ticket of each run, stored via `$getWo
 
 ### The workflow running
 
-<video src="/assets/n8n-premium-automation.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<VideoPlayer src="/assets/n8n-premium-automation.mp4" />
 
 </details>
 

@@ -1,4 +1,6 @@
 ---
+import VideoPlayer from './VideoPlayer.astro';
+
 interface Props {
   slug: string;
   title: string;
@@ -15,15 +17,7 @@ const { slug, title, tag, pitch, hero, heroVideo, stack, featured } = Astro.prop
 
 <a href={`/projects/${slug}`} class="card reveal">
   {heroVideo ? (
-    <video
-      src={heroVideo}
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      class="card__media"
-    />
+    <VideoPlayer src={heroVideo} poster={hero} class="card__media" />
   ) : hero ? (
     <img src={hero} alt={`Preview of ${title}`} loading="lazy" decoding="async" class="card__media" />
   ) : (
@@ -76,6 +70,10 @@ const { slug, title, tag, pitch, hero, heroVideo, stack, featured } = Astro.prop
 
   .card:hover::before {
     opacity: 1;
+  }
+
+  .card__media:global(.video-player) {
+    aspect-ratio: 16 / 10;
   }
 
   .card__media {
