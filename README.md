@@ -2,7 +2,7 @@
 
 Personal portfolio for Arnaud Duflot, Product Ops & AI Automation Engineer.
 
-**Production site:** [arnaudduflot.com](https://arnaudduflot.com)
+**Production site:** [portfolio-arnaud.pages.dev](https://portfolio-arnaud.pages.dev)
 
 ## Stack
 
