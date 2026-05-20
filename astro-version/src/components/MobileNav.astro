@@ -1,0 +1,53 @@
+---
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/';
+const prefix = isHome ? '' : '/';
+---
+
+<nav class="mobile-nav" aria-label="Section navigation">
+  <a href={`${prefix}#work`} class="mobile-nav__link">Work</a>
+  <a href={`${prefix}#approach`} class="mobile-nav__link">Approach</a>
+  <a href={`${prefix}#about`} class="mobile-nav__link">About</a>
+  <a href={`${prefix}#contact`} class="mobile-nav__link">Contact</a>
+</nav>
+
+<style>
+  .mobile-nav {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .mobile-nav {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      justify-content: space-around;
+      align-items: center;
+      height: 56px;
+      padding: 0 0.5rem;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+      background: rgba(10, 20, 16, 0.92);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-top: 1px solid rgba(31, 42, 36, 0.6);
+    }
+
+    .mobile-nav__link {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0.5rem 0.25rem;
+      transition: color 0.2s var(--ease-out);
+    }
+
+    .mobile-nav__link:hover,
+    .mobile-nav__link:focus-visible {
+      color: var(--accent-bright);
+    }
+  }
+</style>

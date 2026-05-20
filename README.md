@@ -1,61 +1,50 @@
 # Arnaud Duflot · Portfolio
 
-Personal portfolio website for Arnaud Duflot, Product Operations Specialist. Minimalist, responsive, light/dark mode adaptive.
+Personal portfolio for Arnaud Duflot, Product Ops & AI Automation Engineer.
 
-## Run Locally
+**Production site:** [arnaudduflot.com](https://arnaudduflot.com)
 
-Just open `index.html` in your browser, or serve via Python:
+## Stack
+
+- [Astro 4](https://astro.build) (SSG)
+- MDX content collections with Zod validation
+- Canvas 2D / WebGL particle system
+- Deployed via Netlify or Cloudflare Pages
+
+## Development
 
 ```bash
-python3 -m http.server 8000
-# Open http://localhost:8000
+cd astro-version
+npm install
+npm run dev
 ```
 
-## Deploy to Netlify
+Open [http://localhost:4321](http://localhost:4321).
 
-### Option 1: Drag & Drop (fastest)
+## Build
 
-1. Go to [netlify.com/drop](https://netlify.com/drop)
-2. Drag the entire project folder onto the page
-3. Netlify deploys instantly — you'll get a `*.netlify.app` URL
+```bash
+cd astro-version
+npm run build
+npm run preview
+```
 
-### Option 2: Connect Git Repository
+Output is written to `astro-version/dist/`.
 
-1. Push this folder to a GitHub repo
-2. Log in to [Netlify](https://netlify.com)
-3. Click **Add new site > Import an existing project**
-4. Connect your GitHub account and select the repo
-5. Netlify auto-detects it's a static site (no build command needed)
-6. Click **Deploy**
+## Deploy (Netlify)
 
-## Connect Custom Domain (arnaudduflot.com)
+The `astro-version/netlify.toml` config runs `npm run build` and publishes `dist/`.
 
-1. Buy the domain from a registrar (Namecheap, OVH, Gandi, etc.)
+Set the site root to `astro-version/` in your Netlify project settings, or connect the repo with:
 
-2. In Netlify, go to your site → **Domain settings** → **Add custom domain**
+- **Base directory:** `astro-version`
+- **Build command:** `npm run build`
+- **Publish directory:** `dist`
 
-3. Enter `arnaudduflot.com`
+## Content
 
-4. Configure DNS (two options):
+Case studies live in `astro-version/src/content/projects/*.mdx`. Edit frontmatter and MDX body, then rebuild.
 
-   **Option A — Netlify DNS (recommended):**
-   - In your domain registrar, set nameservers to:
-     - `dns1.p01.nsone.net`
-     - `dns2.p01.nsone.net`
-     - `dns3.p01.nsone.net`
-     - `dns4.p01.nsone.net`
-   - Netlify handles the rest, including SSL
+## Legacy
 
-   **Option B — CNAME record:**
-   - In your registrar's DNS settings, add a CNAME record:
-     - Host: `@` (or `www`)
-     - Value: `[your-site-name].netlify.app`
-
-5. Wait for DNS propagation (can take up to 48h, usually ~30 min)
-
-6. Netlify auto-provisions a free SSL certificate via Let's Encrypt
-
-## Update Content
-
-1. Edit `index.html` to change text, add/remove case studies, etc.
-2. Re-deploy: push to Git (Netlify auto-deploys on push) or drag & drop again on netlify.com/drop
+The old static HTML site is archived in `legacy-static/` (not deployed).

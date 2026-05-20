@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Arnaud Duflot · Product Operations Specialist</title>
+  <meta name="description" content="Product Operations Specialist building AI-powered workflows. Currently scaling HelloBible from 15k to 140k users.">
+
+  <meta property="og:title" content="Arnaud Duflot · Product Operations">
+  <meta property="og:description" content="Product Operations Specialist building AI-powered workflows.">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#2D5F3F">
+  <link rel="canonical" href="https://arnaudduflot.com">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="nav" role="banner">
+    <div class="nav__inner container">
+      <a href="#home" class="nav__logo">Arnaud Duflot</a>
+      <nav class="nav__links" aria-label="Main navigation">
+        <a href="#home" data-i18n="nav-home">Home</a>
+        <a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a>
+        <a href="#about" data-i18n="nav-about">About</a>
+      </nav>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+      <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--primary nav__cta" download aria-label="Download Arnaud Duflot's resume as PDF" data-i18n="nav-download">
+        Download Resume
+      </a>
+      <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div class="container hero__grid">
+        <div class="hero__media">
+          <img
+            src="/assets/photo.jpg"
+            alt="Arnaud Duflot, Product Operations Specialist"
+            class="hero__photo"
+            width="400"
+            height="400"
+          >
+        </div>
+        <div class="hero__content">
+          <h1 class="hero__title" data-i18n="hero-title">
+            I take <span class="text--accent">110-hour processes</span> and turn them into 10-minute ones.
+          </h1>
+
+          <p class="hero__status">
+            <span class="hero__status-label" data-i18n="hero-status-label">STATUS</span>
+            <span class="hero__status-value" data-i18n="hero-status-value">Open to your next ops hire — coffee on me if you're in Paris</span>
+          </p>
+
+          <p class="hero__subtitle" data-i18n="hero-subtitle">
+            I'm Arnaud — Product Operations, builder-side. Currently right hand to the founder at HelloBible, scaling from 15k to 140k users in 14 months. I find the friction. I ship the system that removes it.
+          </p>
+
+          <div class="hero__actions">
+            <div class="hero__actions-row">
+              <a href="#portfolio" class="btn btn--primary" data-i18n="hero-see-work">
+                See what I've built
+              </a>
+              <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--outline" download aria-label="Download Arnaud Duflot's resume as PDF" data-i18n="hero-download">
+                Download Resume
+              </a>
+            </div>
+          <button class="btn btn--copy" id="copyEmailBtn" aria-label="Copy email address to clipboard" data-i18n="hero-copy-email">
+              Copy Email
+            </button>
+            <div class="copy-toast" id="copyToast" role="status" aria-live="polite" data-i18n="hero-copied">Copied!</div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="section portfolio">
+      <div class="container">
+        <h2 class="section__title" data-i18n="portfolio-title">Portfolio</h2>
+        <p class="section__subtitle" data-i18n="portfolio-subtitle">Selected work - operations systems I've built</p>
+
+        <div class="portfolio__grid">
+
+          <!-- Case Study 1 -->
+          <article class="card reveal">
+            <img src="/assets/youversion-plan-2.jpg" alt="YouVersion reading plan screenshot" class="card__image" style="object-fit: contain; background: var(--surface);">
+            <span class="card__tag" data-i18n="cs1-tag">AI WORKFLOW AUTOMATION</span>
+            <h3 class="card__title" data-i18n="cs1-title">YouVersion Reading Plans Translation Pipeline</h3>
+            <p class="card__context" data-i18n="cs1-context">
+              HelloBible needed to localize YouVersion reading plans across 50+ languages - a process taking ~110 hours per language manually.
+            </p>
+            <p class="card__result" data-i18n="cs1-result">
+              <strong>110 hours → 10 minutes per language.</strong> Scalable to 50+ languages. Now production-ready infrastructure.
+            </p>
+            <div class="card__stack">
+              <span class="pill">Claude API</span>
+              <span class="pill">OpenRouter</span>
+              <span class="pill">Python</span>
+              <span class="pill">Custom prompts</span>
+            </div>
+          </article>
+
+          <!-- Case Study 2 -->
+          <article class="card reveal">
+            <span class="card__tag" data-i18n="cs2-tag">USER INSIGHT SYSTEM</span>
+            <h3 class="card__title" data-i18n="cs2-title">Cross-Channel Voice of Customer Pipeline</h3>
+            <p class="card__context" data-i18n="cs2-context">
+              Bug reports and feature requests scattered across 5 channels (email, Zendesk, WhatsApp beta, App Store, Play Store) with no unified view for the product team.
+            </p>
+            <p class="card__result" data-i18n="cs2-result">
+              <strong>Single source of truth</strong> for user feedback. Directly informs sprint priorities. Reduced backlog grooming time significantly.
+            </p>
+            <div class="card__stack">
+              <span class="pill">Zendesk</span>
+              <span class="pill">Claude API</span>
+              <span class="pill">n8n</span>
+              <span class="pill">Google Sheets</span>
+            </div>
+          </article>
+
+          <!-- Case Study 3 -->
+          <article class="card reveal">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+              <img src="/assets/telegram-bot-memory.jpg" alt="Telegram memory bot / second brain" class="card__image" style="margin-bottom: 0; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1px solid var(--border);">
+              <video src="/assets/video-bot.mp4" autoplay muted loop playsinline style="margin-bottom: 0; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); background: var(--bg);"></video>
+            </div>
+            <span class="card__tag" data-i18n="cs3-tag">PERSONAL TOOLING</span>
+            <h3 class="card__title" data-i18n="cs3-title">Two Telegram Bots Used Daily on the Job</h3>
+            <p class="card__context" data-i18n="cs3-context">
+              Needed instant recall of work context and a low-friction way to stay ahead on AI/tech trends without doom-scrolling.
+            </p>
+            <p class="card__result" data-i18n="cs3-result">
+              <strong>Daily-driver tools</strong> I actively use on the job. Demonstrates ability to identify a personal friction and ship a working solution end-to-end.
+            </p>
+            <div class="card__stack">
+              <span class="pill">Telegram API</span>
+              <span class="pill">Whisper</span>
+              <span class="pill">Claude API</span>
+              <span class="pill">Deepseek API</span>
+              <span class="pill">Python</span>
+            </div>
+          </article>
+
+          <!-- Case Study 4 -->
+          <article class="card reveal">
+            <video src="/assets/n8n-premium-automation.mp4" autoplay muted loop playsinline style="width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 1.25rem; background: var(--bg);"></video>
+            <span class="card__tag" data-i18n="cs4-tag">SUPPORT OPS</span>
+            <h3 class="card__title" data-i18n="cs4-title">Instant Premium User Identification in Support</h3>
+            <p class="card__context" data-i18n="cs4-context">
+              Support agents (myself, solo) couldn't quickly identify premium users when triaging tickets, causing slower response on high-priority cases.
+            </p>
+            <p class="card__result" data-i18n="cs4-result">
+              <strong>3,200+ tickets resolved.</strong> 80% macro coverage. Premium users identified in real-time. Foundation for future support scaling.
+            </p>
+            <div class="card__stack">
+              <span class="pill">Zendesk</span>
+              <span class="pill">RevenueCat</span>
+              <span class="pill">n8n</span>
+              <span class="pill">Macros</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Principles -->
+    <section id="principles" class="section principles">
+      <div class="container">
+        <h2 class="section__title" data-i18n="principles-title">How I work</h2>
+        <p class="section__subtitle" data-i18n="principles-subtitle">Three principles that shape every system I build.</p>
+
+        <div class="principles__grid">
+          <div class="principle reveal">
+            <span class="principle__number">01</span>
+            <h3 class="principle__title" data-i18n="principle-1-title">Start with the friction, not with the tool.</h3>
+            <p class="principle__body" data-i18n="principle-1-body">The shiniest stack means nothing if it solves the wrong problem. I watch how people actually work, write down where they curse, then pick the simplest thing that makes the cursing stop.</p>
+          </div>
+
+          <div class="principle reveal">
+            <span class="principle__number">02</span>
+            <h3 class="principle__title" data-i18n="principle-2-title">If I can't explain it in 90 seconds, it's not done.</h3>
+            <p class="principle__body" data-i18n="principle-2-body">Clarity is a deliverable. Every system I ship comes with a short Loom, a one-pager, or a back-of-envelope diagram — because a tool nobody understands won't be maintained, and won't be trusted.</p>
+          </div>
+
+          <div class="principle reveal">
+            <span class="principle__number">03</span>
+            <h3 class="principle__title" data-i18n="principle-3-title">Boring systems that run beat clever systems that don't.</h3>
+            <p class="principle__body" data-i18n="principle-3-body">I'll pick n8n over custom code when it gets the job done. Google Sheets over a "real" database when the team is three people. Compounding reliability beats showing off — every time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section skills">
+      <div class="container">
+        <h2 class="section__title" data-i18n="skills-title">Skills &amp; Tools</h2>
+
+        <div class="skills__grid">
+          <div class="skills__group">
+            <h3 class="skills__label" data-i18n="skills-ai">AI &amp; Automation</h3>
+            <ul class="skills__list">
+              <li>Claude Code</li>
+              <li>OpenRouter</li>
+              <li>Whisper</li>
+              <li>n8n</li>
+              <li>API integrations</li>
+            </ul>
+          </div>
+
+          <div class="skills__group">
+            <h3 class="skills__label" data-i18n="skills-product-ops">Product Operations</h3>
+            <ul class="skills__list">
+              <li>QA frameworks</li>
+              <li>Release management</li>
+              <li>Backlog</li>
+              <li>User interviews</li>
+              <li>Agile</li>
+              <li>Figma</li>
+            </ul>
+          </div>
+
+          <div class="skills__group">
+            <h3 class="skills__label" data-i18n="skills-data">Data &amp; Analytics</h3>
+            <ul class="skills__list">
+              <li>SQL</li>
+              <li>BigQuery</li>
+              <li>GA4</li>
+              <li>Python</li>
+              <li>Power BI</li>
+            </ul>
+          </div>
+
+          <div class="skills__group">
+            <h3 class="skills__label" data-i18n="skills-support">Support &amp; CRM</h3>
+            <ul class="skills__list">
+              <li>Zendesk</li>
+              <li>RevenueCat</li>
+              <li>Macro automation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section about">
+      <div class="container">
+        <h2 class="section__title" data-i18n="about-title">About</h2>
+
+        <div class="about__content">
+          <p data-i18n="about-p1">
+            I'm a Product Operations Specialist who came up the builder way — from machine learning at <strong>Gozem</strong> (an African superapp) to Chief of Staff at <strong>Broke And Abroad</strong> (travel-tech), to now scaling product ops at <strong>HelloBible</strong> from 15k to 140k users.
+          </p>
+
+          <p data-i18n="about-p2">
+            What I actually do day-to-day: I sit next to a founder, I watch what breaks, and I build the system that keeps it from breaking again. Sometimes that's a Claude pipeline. Sometimes it's a Zendesk macro. Sometimes it's a 90-minute conversation that prevents the wrong feature from getting built.
+          </p>
+
+          <p data-i18n="about-p3">
+            Background in Financial Data Intelligence (Rennes School of Business, MSc + Grande École). Based in Paris, fluent in English. Working on Bible-reading software is also a quiet mission I care about — I like building things that help people pause.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section__title" data-i18n="contact-title">Let's talk</h2>
+        <p class="contact__text" data-i18n="contact-text">
+          I'm open to Product Ops, Chief of Staff, and adjacent operations roles — especially at startups between Series A and E where one person can still see the whole picture. Paris-based, remote-friendly.
+        </p>
+
+        <div class="contact__links">
+          <button class="btn btn--primary btn--copy-contact" id="copyEmailContact" aria-label="Copy email address to clipboard">
+            duflot.arnaud@gmail.com
+          </button>
+          <a href="https://www.linkedin.com/in/arnaud-duflot-383192119/" class="btn btn--outline" target="_blank" rel="noopener noreferrer" aria-label="Visit Arnaud Duflot's LinkedIn profile" data-i18n="contact-linkedin">
+            LinkedIn
+          </a>
+          <a href="/assets/cv-arnaud-duflot.pdf" class="btn btn--outline" download aria-label="Download Arnaud Duflot's resume as PDF" data-i18n="contact-download">
+            Download Resume
+          </a>
+          <div class="copy-toast" id="copyToastContact" role="status" aria-live="polite" data-i18n="contact-copied">Copied!</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
