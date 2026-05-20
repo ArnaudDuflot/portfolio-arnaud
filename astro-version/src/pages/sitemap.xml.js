@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 
 export async function GET({ site }) {
   const projects = await getCollection('projects');
-  const baseUrl = site?.toString().replace(/\/$/, '') || 'https://arnaudduflot.com';
+  const baseUrl = site?.toString().replace(/\/$/, '') || 'https://portfolio-arnaud.pages.dev';
 
   const urls = [
     { loc: `${baseUrl}/`, changefreq: 'monthly', priority: '1.0' },

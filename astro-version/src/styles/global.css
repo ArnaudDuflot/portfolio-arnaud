@@ -135,6 +135,31 @@ button {
   border-radius: 4px;
 }
 
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--surface-elevated);
+  color: var(--accent-bright);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0));
+  }
+}
+
 /* Container */
 .container {
   max-width: 1200px;
