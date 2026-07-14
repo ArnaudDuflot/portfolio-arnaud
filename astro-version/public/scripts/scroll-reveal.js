@@ -1,6 +1,8 @@
-(function () {
+function initScrollReveal() {
+  var reveals = document.querySelectorAll('.reveal');
+
   if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('.reveal').forEach(function (el) {
+    reveals.forEach(function (el) {
       el.classList.add('is-visible');
     });
     return;
@@ -18,7 +20,9 @@
     { threshold: 0.08, rootMargin: '0px 0px 60px 0px' }
   );
 
-  document.querySelectorAll('.reveal').forEach(function (el) {
+  reveals.forEach(function (el) {
     observer.observe(el);
   });
-})();
+}
+
+document.addEventListener('astro:page-load', initScrollReveal);
